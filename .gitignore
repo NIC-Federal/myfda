@@ -1,3 +1,4 @@
 target
 src/main/resources/static/lib/
 node_modules/
+node/

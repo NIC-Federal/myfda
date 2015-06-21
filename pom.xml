@@ -70,8 +70,7 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
-						<!-- Serves *only* to filter the wro.xml so it can get an absolute 
-							path for the project -->
+						<!-- Serves *only* to filter the wro.xml so it can get an absolute path for the project -->
 						<id>copy-resources</id>
 						<phase>validate</phase>
 						<goals>
@@ -88,6 +87,25 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.2.11</version>
+				<configuration>
+					<imageName>nicfederal/unikitty</imageName>
+					<baseImage>java</baseImage>
+					<!-- >entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint -->
+					<dockerDirectory>docker</dockerDirectory>
+					<!-- copy the service's jar file from target into the root directory of the image -->
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>ro.isdc.wro4j</groupId>
@@ -164,11 +182,11 @@
 		</plugins>
 	</build>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>https://ec2-54-175-42-12.compute-1.amazonaws.com/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<url>https://ec2-54-175-42-12.compute-1.amazonaws.com/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>

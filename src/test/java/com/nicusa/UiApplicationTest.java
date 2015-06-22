@@ -11,7 +11,7 @@ import com.nicusa.UiApplication;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)
 @WebAppConfiguration
-public class UiApplicationTests {
+public class UiApplicationTest {
 
 	@Test
 	public void contextLoads() {

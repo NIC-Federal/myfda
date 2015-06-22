@@ -168,8 +168,7 @@
                             <goal>bower</goal>
                         </goals>
                         <configuration>
-                            <arguments>install</arguments>
-                            <arguments>--allow-root</arguments>
+                            <arguments>install --allow-root</arguments>
                         </configuration>
                     </execution>
                     <execution>

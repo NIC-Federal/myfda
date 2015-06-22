@@ -1,4 +1,4 @@
-[![Build Status](https://drone.io/github.com/selkhateeb/unikitty/status.png)](https://drone.io/github.com/selkhateeb/unikitty/latest)
+[![Build Status](https://ec2-54-165-115-111.compute-1.amazonaws.com/buildStatus/icon?job=unikitty)
 
 ## Getting started
 ### Running the backend with the frontend

@@ -30,13 +30,13 @@ public class UiApplication {
     }
 
     @RequestMapping("/autocomplete")
-    public Map<String,Object> autocomplete(
+    public String autocomplete(
         @RequestParam(value="name", defaultValue="") String name) {
       if ( name == null ) {
         name = "";
       }
 
-      String result = name;
+      String result = "[{\"value\":\"" + name + "\"}]";
       if ( name.length() >= 3 ) {
         try {
           String charset = StandardCharsets.UTF_8.name();
@@ -62,9 +62,7 @@ public class UiApplication {
       }
 
 
-      Map<String,Object> model = new HashMap<String,Object>();
-      model.put( "result", result );
-      return model;
+      return result;
     }
     
     public static void main(String[] args) {

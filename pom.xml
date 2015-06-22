@@ -131,6 +131,8 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
+					<serverId>docker-hub</serverId>
+					<useGitCommitId>true</useGitCommitId>
                 </configuration>
             </plugin>
             <plugin>

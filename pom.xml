@@ -132,6 +132,7 @@
                         </resource>
                     </resources>
 					<serverId>docker-hub</serverId>
+					<registryUrl>https://index.docker.io/v1/</registryUrl>
 					<useGitCommitId>true</useGitCommitId>
                 </configuration>
             </plugin>

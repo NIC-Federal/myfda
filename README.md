@@ -16,3 +16,15 @@ Nodejs and NPM must be installed
 3. visit http://localhost:8000
 
 And to run karma tests just run `npm test`
+
+
+## How the code is organized
+This is a really simple typical java web application. All the `java` code is
+under `src/main/java` and all the web resources (`javascript`, `css`, `html`,
+etc) are under `src/main/resources/static/`
+
+### npm Packages
+All `npm` packages are installed in their default location under `node_modules`.
+
+### Bower Packages
+`bower` packages are installed under `src/main/resources/static/lib` directory.

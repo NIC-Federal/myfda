@@ -8,6 +8,7 @@ From the command line run
 
 This should start the application on port 8080. http://localhost:8080/
 
+
 ### Running the frontend only
 Nodejs and NPM must be installed
 
@@ -28,3 +29,21 @@ All `npm` packages are installed in their default location under `node_modules`.
 
 ### Bower Packages
 `bower` packages are installed under `src/main/resources/static/lib` directory.
+
+# Contribution
+## Codeing style guidelines
+### Java
+We are using the following style guidelines from google
+https://google-styleguide.googlecode.com/svn/trunk/javaguide.html
+
+### Javascript
+We are using the following guidelines from node.js contributers
+https://github.com/felixge/node-style-guide
+
+### HTML and CSS
+We are using the following guidelines from google
+http://google.github.io/styleguide/htmlcssguide.xml
+
+# Copyright and license
+Code and documentation copyright 2015 NIC Technologies LLC. Code released under
+the [the Apache 2.0 license](https://github.com/NIC-Federal/unikitty/blob/master/LICENSE).

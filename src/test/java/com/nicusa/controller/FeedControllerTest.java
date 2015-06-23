@@ -1,22 +1,17 @@
 package com.nicusa.controller;
 
-import static org.junit.Assert.assertEquals;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.nicusa.TestConfig;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.MvcResult;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.nicusa.TestConfig;
-import com.nicusa.controller.MockMvcTestBase;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.MvcResult;
 
 
 @ContextConfiguration(classes = TestConfig.class)
@@ -62,31 +57,14 @@ public class FeedControllerTest extends MockMvcTestBase
     @Test
     public void testGetDrugRecallsWithFromDtAndToDt() throws Exception
     {
-      MvcResult result = mockMvc.perform(get("/drug/recalls?fromDt"))
+      MvcResult result = mockMvc.perform(get("/drug/recalls?fromDt=20150101&toDt=20150301"))
         .andExpect(status().isOk()).andReturn();
       JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
       assertNotNull(node);
       assertTrue(node.get("results").isArray());
-      assertTrue(10 == node.get("results").size());
-      assertTrue(5 == node.get("meta").get("results").get("skip").intValue());
+      assertTrue(5 == node.get("results").size());
+
     }
-
-
-    String retStr =
-    "{\"responseData\":"+
-            "{\"feed\":"+
-            "{\"feedUrl\":\"http://www.fda.gov/AboutFDA/ContactFDA/StayInformed/RSSFeeds/Recalls/rss.xml\","+
-            "\"title\":\"Food and Drug Administration--Recalls/Safety Alerts\","+
-            "\"link\":\"http://www.fda.gov/AboutFDA/ContactFDA/StayInformed/RSSFeeds/Recalls/rss.xml\","+
-            "\"author\":\"\","+
-            "\"description\":\"Recall Information from FDA\","+
-            "\"type\":\"rss20\","+
-            "\"entries\":"+
-            "[{\"title\":\"Project 7 Issues Allergy Alert on Undeclared Milk/Dairy Ingredient In Sour Caramel Apple Gum\","+
-            "\"link\":\"http://www.fda.gov/Safety/Recalls/ucm452203.htm\","+
-            "\"author\":\"\","+
-            "\"publishedDate\":"+
-            "}]}}, \"responseDetails\": null, \"responseStatus\": 200}\"}";
 
 
 }

@@ -36,44 +36,6 @@ public class UiApplicationTest {
   private RestTemplate template = new TestRestTemplate();
 
   @Test
-  public void testShortAutocomplete() {
-    UiApplication uiApp = new UiApplication();
-    uiApp.slurp = mock( HttpSlurper.class );
-    String res = uiApp.autocomplete( "ab" );
-    verify( uiApp.slurp, never() ).getData( anyString() );
-  }
-
-  @Test
-  public void testRegularAutocomplete() {
-    UiApplication uiApp = new UiApplication();
-    final String res = "the result";
-    uiApp.slurp = mock( HttpSlurper.class );
-    when( uiApp.slurp.getData(anyString())).thenAnswer(
-       new Answer<String>() {
-         @Override
-         public String answer(InvocationOnMock inv) throws Throwable {
-           return res;
-         }
-       });
-    assertThat( uiApp.autocomplete( "blah" ), is( res ));
-  }
-
-  @Test
-  public void testSimpleSearch() {
-    UiApplication uiApp = new UiApplication();
-    final String res = "the result";
-    uiApp.slurp = mock( HttpSlurper.class );
-    when( uiApp.slurp.getData(anyString())).thenAnswer(
-       new Answer<String>() {
-         @Override
-         public String answer(InvocationOnMock inv) throws Throwable {
-           return res;
-         }
-       });
-    assertThat( uiApp.autocomplete( "blah" ), is( res ));
-  }
-
-  @Test
   public void homePageLoads() {
     ResponseEntity<String> response = template.getForEntity("http://localhost:"
             + port + "/", String.class);

@@ -1,3 +1,7 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<h2 id="title">MyFDA</h2>
 
-{{outlet}}
+<form action="/drug" method="get" id="searchForm">
+  Drug search: <input type="text" name="name" id="searchField" />
+  <button type="submit" value="Search">Search</button>
+  <div id="autoComplete"></div>
+</form>

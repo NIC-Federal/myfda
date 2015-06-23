@@ -186,13 +186,24 @@
                             <arguments>install --allow-root</arguments>
                         </configuration>
                     </execution>
+
                     <execution>
-                        <id>javascript tests</id>
+                        <id>npm test</id>
                         <goals>
-                            <goal>karma</goal>
+                            <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <karmaConfPath>karma.conf.ci.js</karmaConfPath>
+                            <arguments>test</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>ember build</id>
+                        <goals>
+                            <goal>ember</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>build</arguments>
                         </configuration>
                     </execution>
 

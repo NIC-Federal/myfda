@@ -10,9 +10,9 @@ export default Ember.Route.extend({
        Ember.run.schedule('afterRender', this, function () {
 
          let duration = 1500;
-
-         $(".jumbotron, #dashboard-public").velocity("transition.slideUpIn", {duration: duration});
-         $(".recall").velocity("transition.slideRightIn", {duration: duration, stagger: 250});
+         // Animations
+         $("#dashboard-search").velocity("transition.slideRightIn", {duration: duration, display: "table"});
+         $(".recall").velocity("transition.slideRightIn", {duration: duration, stagger: 150});
        });
      }
 });

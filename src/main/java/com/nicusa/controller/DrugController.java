@@ -1,11 +1,16 @@
 package com.nicusa.controller;
 
 import com.nicusa.HttpSlurper;
+import com.nicusa.util.AutocompleteFilter;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +18,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class DrugController {
     private static final Logger log = LoggerFactory.getLogger(DrugController.class);
 
     @Autowired
-    @Value("${fda.drug.label.url}")
+    @Value("${fda.drug.label.url:https://api.fda.gov/drug/label.json}")
     private String fdaDrugLabelUrl;
 
     @Autowired
-    @Value("${nlm.dailymed.autocomplete.url}")
+    @Value("${nlm.dailymed.autocomplete.url:https://dailymed.nlm.nih.gov/dailymed/autocomplete.cfm}")
     private String nlmDailymedAutocompleteUrl;
 
-    HttpSlurper slurp = new HttpSlurper();
+    RestTemplate rest = new RestTemplate();
 
     @RequestMapping("/drug")
     public String search(
@@ -37,17 +43,21 @@ public class DrugController {
         name = "";
       }
 
+      String result = null;
+
       try {
         String query = String.format(
             this.fdaDrugLabelUrl + "?search=openfda.brand_name:%s&limit=%d&skip=%d",
             URLEncoder.encode( name, StandardCharsets.UTF_8.name() ),
             limit,
             skip );
-        return slurp.getData( query );
+        result = rest.getForObject( query, String.class );
       } catch ( UnsupportedEncodingException uee ) {
         log.error( "Help, UTF 8 encoding fail!", uee );
-        throw new RuntimeException( uee );
+      } catch ( IOException ioe ) {
+        log.error( "Error accessing " + this.fdaDrugLabelUrl, ioe );
       }
+      return result;
     }
 
     @RequestMapping("/autocomplete")
@@ -60,12 +70,19 @@ public class DrugController {
       String result = "[{\"value\":\"" + name + "\"}]";
       if ( name.length() >= 3 ) {
         try {
+          ObjectMapper mapper = new ObjectMapper();
           String query = String.format(
               this.nlmDailymedAutocompleteUrl + "?key=search&returntype=json&term=%s",
               URLEncoder.encode( name, StandardCharsets.UTF_8.name() ));
-          result = slurp.getData( query );
+          JsonNode node = mapper.readTree(
+              rest.getForObject( query, String.class ));
+          AutocompleteFilter myFilter = new AutocompleteFilter();
+          List<String> values = myFilter.filter( node );
+          result = mapper.writeValueAsString( values );
         } catch ( UnsupportedEncodingException uee ) {
           log.error( "Help, UTF 8 encoding failed!", uee );
+        } catch ( IOException ioe ) {
+          log.error( "Error accessing " + this.nlmDailymedAutocompleteUrl, ioe );
         }
       }
       return result;

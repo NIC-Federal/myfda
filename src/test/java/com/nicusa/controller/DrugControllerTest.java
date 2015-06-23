@@ -1,10 +1,9 @@
 package com.nicusa.controller;
 
-import com.nicusa.HttpSlurper;
-
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.web.client.RestTemplate;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -15,38 +14,38 @@ public class DrugControllerTest {
   @Test
   public void testShortAutocomplete() {
     DrugController drug = new DrugController();
-    drug.slurp = mock( HttpSlurper.class );
+    drug.rest = mock( RestTemplate.class );
     String res = drug.autocomplete( "ab" );
-    verify( drug.slurp, never() ).getData( anyString() );
+    verify( drug.rest, never() ).getForObject( anyString(), (Class<?>)any(Class.class) );
   }
 
   @Test
   public void testRegularAutocomplete() {
     DrugController drug = new DrugController();
-    final String res = "the result";
-    drug.slurp = mock( HttpSlurper.class );
-    when( drug.slurp.getData(anyString())).thenAnswer(
+    final String res = "[{\"value\":\"the result\"}]";
+    drug.rest = mock( RestTemplate.class );
+    when( drug.rest.getForObject(anyString(), (Class<?>)any(Class.class))).thenAnswer(
        new Answer<String>() {
          @Override
          public String answer(InvocationOnMock inv) throws Throwable {
            return res;
          }
        });
-    assertThat( drug.autocomplete( "blah" ), is( res ));
+    assertThat( drug.autocomplete( "blah" ), is( "[\"the result\"]" ));
   }
 
   @Test
   public void testSimpleSearch() {
     DrugController drug = new DrugController();
-    final String res = "the result";
-    drug.slurp = mock( HttpSlurper.class );
-    when( drug.slurp.getData(anyString())).thenAnswer(
+    final String res = "[{\"value\":\"the result\"}]";
+    drug.rest = mock( RestTemplate.class );
+    when( drug.rest.getForObject(anyString(),(Class<?>)any(Class.class))).thenAnswer(
        new Answer<String>() {
          @Override
          public String answer(InvocationOnMock inv) throws Throwable {
            return res;
          }
        });
-    assertThat( drug.autocomplete( "blah" ), is( res ));
+    assertThat( drug.autocomplete( "blah" ), is( "[\"the result\"]" ));
   }  
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UiApplication {
 
     private static final Logger log = LoggerFactory.getLogger(UiApplication.class);
+    HttpSlurper slurp = new HttpSlurper();
 
     @RequestMapping("/resource")
     public Map<String,Object> home() {
@@ -44,10 +45,9 @@ public class UiApplication {
             URLEncoder.encode( name, StandardCharsets.UTF_8.name() ),
             limit,
             skip );
-        HttpSlurper slurp = new HttpSlurper();
         return slurp.getData( query );
       } catch ( UnsupportedEncodingException uee ) {
-        System.err.println( "Help, UTF 8 encoding fail: " + uee );
+        log.error( "Help, UTF 8 encoding fail!", uee );
         throw new RuntimeException( uee );
       }
     }
@@ -65,10 +65,9 @@ public class UiApplication {
           String query = String.format(
               "https://dailymed.nlm.nih.gov/dailymed/autocomplete.cfm?key=search&returntype=json&term=%s",
               URLEncoder.encode( name, StandardCharsets.UTF_8.name() ));
-          HttpSlurper slurp = new HttpSlurper();
           result = slurp.getData( query );
         } catch ( UnsupportedEncodingException uee ) {
-          System.err.println( "Help, UTF 8 encoding failed: " + uee );
+          log.error( "Help, UTF 8 encoding failed!", uee );
         }
       }
       return result;

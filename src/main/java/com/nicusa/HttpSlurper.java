@@ -8,7 +8,14 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class HttpSlurper {
+
+  private static final Logger log = LoggerFactory.getLogger(
+      HttpSlurper.class );
+
 
   public String getData ( String query ) {
     String result = "";
@@ -27,8 +34,8 @@ public class HttpSlurper {
       } 
       result = sb.toString().trim();
     } catch ( IOException ioe ) {
-      // TODO LOGME
-      System.err.println( ioe );
+      log.error( "Failed getting data for query: " +
+          query, ioe );
     }
     return result;
   }

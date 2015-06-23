@@ -1,5 +1,11 @@
 [![Build Status](http://ec2-54-165-115-111.compute-1.amazonaws.com/buildStatus/icon?job=unikitty)](https://ec2-54-165-115-111.compute-1.amazonaws.com/job/unikitty/)
 
+# Introduction
+The application is deployed to:
+http://ec2-52-7-51-233.compute-1.amazonaws.com/
+
+The credintials for the prototype are user/password
+
 ## Getting started
 ### Running the backend with the frontend
 You need Java and Maven to be installed.

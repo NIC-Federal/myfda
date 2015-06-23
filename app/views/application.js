@@ -5,6 +5,7 @@ export default Ember.View.extend({
   didInsertElement: function(){
     Ember.run.schedule('afterRender', this, function(){
 
+      Ember.$('#search').autocomplete({ appendTo: '#autoComplete' });
       Ember.$('#search').autocomplete({
 
         source: function (request, response) {

@@ -1,10 +1,6 @@
 package com.nicusa;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -33,6 +29,29 @@ public class UiApplication {
       return model;
     }
 
+    @RequestMapping("/drug")
+    public String search(
+        @RequestParam(value="name", defaultValue="") String name,
+        @RequestParam(value="limit", defaultValue="10") int limit,
+        @RequestParam(value="skip", defaultValue="0") int skip ) {
+      if ( name == null ) {
+        name = "";
+      }
+
+      try {
+        String query = String.format(
+            "https://api.fda.gov/drug/label.json?search=openfda.brand_name:%s&limit=%d&skip=%d",
+            URLEncoder.encode( name, StandardCharsets.UTF_8.name() ),
+            limit,
+            skip );
+        HttpSlurper slurp = new HttpSlurper();
+        return slurp.getData( query );
+      } catch ( UnsupportedEncodingException uee ) {
+        System.err.println( "Help, UTF 8 encoding fail: " + uee );
+        throw new RuntimeException( uee );
+      }
+    }
+
     @RequestMapping("/autocomplete")
     public String autocomplete(
         @RequestParam(value="name", defaultValue="") String name) {
@@ -43,32 +62,18 @@ public class UiApplication {
       String result = "[{\"value\":\"" + name + "\"}]";
       if ( name.length() >= 3 ) {
         try {
-          String charset = StandardCharsets.UTF_8.name();
           String query = String.format(
               "https://dailymed.nlm.nih.gov/dailymed/autocomplete.cfm?key=search&returntype=json&term=%s",
-              URLEncoder.encode( name, charset ));
-          URLConnection conn = new URL( query ).openConnection();
-          conn.setRequestProperty( "Accept-Charset", charset );
-
-          BufferedReader in = new BufferedReader(
-              new InputStreamReader(
-                conn.getInputStream(), charset ));
-
-          StringBuilder sb = new StringBuilder();
-          for ( String line; (line = in.readLine()) != null; ) {
-            sb.append( line );
-          } 
-          result = sb.toString().trim();
-        } catch ( IOException ioe ) {
-          // TODO LOGME
-          System.err.println( ioe );
+              URLEncoder.encode( name, StandardCharsets.UTF_8.name() ));
+          HttpSlurper slurp = new HttpSlurper();
+          result = slurp.getData( query );
+        } catch ( UnsupportedEncodingException uee ) {
+          System.err.println( "Help, UTF 8 encoding failed: " + uee );
         }
       }
-
-
       return result;
     }
-    
+
     public static void main(String[] args) {
         SpringApplication.run(UiApplication.class, args);
     }

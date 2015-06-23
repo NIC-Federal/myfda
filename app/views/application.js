@@ -5,13 +5,12 @@ export default Ember.View.extend({
   didInsertElement: function(){
     Ember.run.schedule('afterRender', this, function(){
 
-      Ember.$('#searchField').autocomplete({ appendTo: '#autoComplete' });
-      Ember.$('#searchField').autocomplete({
+      Ember.$('#search').autocomplete({
 
         source: function (request, response) {
           Ember.$.ajax({
             type: 'POST',
-            url: '/autocomplete?name=' + Ember.$('#searchField').val(),
+            url: '/autocomplete?name=' + Ember.$('#search').val(),
             dataType: 'json',
             data: {
               term: request.termCode
@@ -22,7 +21,7 @@ export default Ember.View.extend({
             success: function (data) {
               response(Ember.$.map(data, function (item) {
                 return {
-                  value: item.value
+                  value: item
                 };
               }));
             }

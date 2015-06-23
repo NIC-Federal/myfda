@@ -1,4 +1,10 @@
-[![Build Status](https://ec2-54-165-115-111.compute-1.amazonaws.com/buildStatus/icon?job=unikitty)](https://ec2-54-165-115-111.compute-1.amazonaws.com/job/unikitty/)
+[![Build Status](http://ec2-54-165-115-111.compute-1.amazonaws.com/buildStatus/icon?job=unikitty)](https://ec2-54-165-115-111.compute-1.amazonaws.com/job/unikitty/)
+
+# Introduction
+The application is deployed to:
+http://ec2-52-7-51-233.compute-1.amazonaws.com/
+
+The credintials for the prototype are user/password
 
 ## Getting started
 ### Running the backend with the frontend
@@ -31,7 +37,7 @@ All `npm` packages are installed in their default location under `node_modules`.
 `bower` packages are installed under `src/main/resources/static/lib` directory.
 
 # Contribution
-## Codeing style guidelines
+## Coding style guidelines
 ### Java
 We are using the following style guidelines from google
 https://google-styleguide.googlecode.com/svn/trunk/javaguide.html

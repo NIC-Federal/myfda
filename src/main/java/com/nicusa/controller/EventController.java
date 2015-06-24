@@ -68,7 +68,7 @@ public class EventController {
         String query =
           this.fdaDrugEventUrl +
           "?search=patient.drug.openfda.unii:" +
-          unii +
+          URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
           "+AND+patient.reaction.reactionmeddrapt:" +
           conv.convert( t ) +
           "&count=serious";

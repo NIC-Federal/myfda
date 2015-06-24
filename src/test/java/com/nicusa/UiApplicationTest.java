@@ -1,7 +1,12 @@
 package com.nicusa;
 
+import com.nicusa.domain.PersistenceConfiguration;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +28,7 @@ import static org.mockito.Mockito.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)
 @WebAppConfiguration
+@ActiveProfiles("local")
 @IntegrationTest("server.port:0")
 public class UiApplicationTest {
 

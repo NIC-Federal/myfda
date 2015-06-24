@@ -58,9 +58,6 @@ body {
 				}
 			}
 		}
-		&.autocomplete-search {
-			display: inline-block;
-		}
 	}
 	.navbar-toggle {
 		width: 100%;
@@ -80,6 +77,16 @@ body {
 		@media only screen and (max-width:767px) {
 			display: block;
 			width: 100%;
+		}
+	}
+	.autocomplete-search {
+		display: inline;
+		float: left;
+		@media only screen and (min-width:768px) {
+			float: left !important;
+		}
+		@media only screen and (max-width:767px) {
+			float: none;
 		}
 	}
 }

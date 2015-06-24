@@ -11,13 +11,14 @@
     "ember-resolver": "~0.1.15",
     "jquery": "^1.11.1",
     "loader.js": "ember-cli/loader.js#3.2.0",
-    "qunit": "~1.17.1",
-    "q": "~2.0.2"
+    "jquery-ui": "1.11.1",
+    "qunit": "~1.17.1"
   },
   "devDependencies": {
     "bootstrap": "~3.3.5",
     "velocity": "~1.2.2",
     "us-map": "~1.0.4",
-    "raphael": "~2.1.4"
+    "raphael": "~2.1.4",
+    "q": "~2.0.2"
   }
 }

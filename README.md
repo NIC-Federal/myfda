@@ -16,13 +16,15 @@ This should start the application on port 8080. http://localhost:8080/
 
 
 ### Running the frontend only
-Nodejs and NPM must be installed
+We use [emberjs](http://emberjs.com/) Nodejs and NPM must be installed
 
-1. Install all packages `npm install`
-2. Run the server `npm start`
-3. visit http://localhost:8000
+1. Install emberjs cli `npm install -g ember-cli`
+2. Install npm packages `npm install`
+2. Install bower packages `bower install`
+2. Run the server `ember serve`
+3. visit http://localhost:4200
 
-And to run karma tests just run `npm test`
+And to run all tests just run `ember test`
 
 
 ## How the code is organized

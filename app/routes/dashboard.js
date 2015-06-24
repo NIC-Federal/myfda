@@ -2,7 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     model: function() {
-        return $.getJSON("http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=http://www.fda.gov/AboutFDA/ContactFDA/StayInformed/RSSFeeds/Recalls/rss.xml");
+        //return this.store.find("drug/recalls");
+        return $.getJSON("https://api.fda.gov/drug/enforcement.json?search=report_date:[20150501+TO+20150630]&limit=5");
     },
     setupController: function(controller, model){
         this._super(controller, model);
@@ -11,7 +12,7 @@ export default Ember.Route.extend({
 
          let duration = 1500;
          // Animations
-         $("#dashboard-search").velocity("transition.slideRightIn", {duration: duration, display: "table"});
+         //$("#dashboard-search").velocity("transition.slideRightIn", {duration: duration, display: "table"});
          $(".recall").velocity("transition.slideRightIn", {duration: duration, stagger: 150});
        });
      }

@@ -1,10 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.View.extend({
+export default Ember.Component.extend({
 
-  didInsertElement: function(){
-    Ember.run.schedule('afterRender', this, function(){
+    classNames: ['autocomplete-search'],
+    large: false,
+    didInsertElement:
 
+    function(){
       $('.drug-search').autocomplete({
         minLength: 3,
         source: function (request, response) {
@@ -14,7 +16,7 @@ export default Ember.View.extend({
             url: '/autocomplete?name=' + $('.drug-search').val(),
             data: request.value,
             error: function (xhr) {
-              alert('Error: ' + xhr.responseText);
+              console.log('Error: ' + xhr.responseText);
             },
             success: function (data) {
               response($.map(data, function (item) {
@@ -24,7 +26,6 @@ export default Ember.View.extend({
           });
         }
       });
+    }
 
-    });
-  }
 });

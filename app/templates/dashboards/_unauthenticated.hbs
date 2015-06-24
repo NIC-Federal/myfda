@@ -1,0 +1,20 @@
+<section id="dashboard-public" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                <div class="page-header"><h2>Latest Drug Recalls</h2></div>
+
+                {{#each model.results as |recall|}}
+                    <div class="recall">
+    					<h3>Recall Number: {{recall.recall_number}} &bull; Status: {{recall.status}} &bull; Initiation Date: {{recall.recall_initiation_date}}</h3>
+    					<p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
+    					<p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
+    					<p>Report Date: {{recall.report_date}} &bull; Reporting Firm: {{recall.recalling_firm}}</p>
+    					<hr />
+    				</div>
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -5,44 +5,15 @@
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="jumbotron text-center">
                     <p class="lead">Look up drug safety recalls and adverse effects:</p>
-                    <form role="search">
-                        <div class="form-group">
-                            <label class="sr-only">Search MyFDA</label>
-                            <div id="dashboard-search" class="input-group">
-                                <input type="text" class="form-control input-lg" placeholder="Search drugs..." />
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary input-lg"><i class="glyphicon glyphicon-search"></i> Search</button>
-                                </span>
-                            </div>
-                            <p class="help-block">You will be able to save drug(s) in order to receive future safety alerts.</p>
-                        </div>
-                    </form>
+                      {{autocomplete-search large=true}}
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Public Dashboard -->
-<section id="dashboard-public" class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <div class="page-header"><h2>Latest Drug Recalls</h2></div>
-
-                {{#each model.responseData.feed.entries as |recall|}}
-                    <div class="recall">
-                        <h3><a target="_blank" href={{recall.link}}>{{recall.title}}</a></h3>
-                        <p><strong class="timestamp">{{recall.publishedDate}}</strong> {{recall.content}}</p>
-                        <p><a target="_blank" href={{recall.link}} class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
-                        <hr />
-                    </div>
-                {{/each}}
-
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- Authenticated Dashboard Goes here -->
+{{#if userIsAuthenticated}}
+    {{partial "dashboards/authenticated"}}
+{{else}}
+    {{partial "dashboards/unauthenticated"}}
+{{/if}}

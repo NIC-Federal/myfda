@@ -117,7 +117,7 @@ public class DrugControllerTest {
     uniis.add("8GTS82S83M");
     uniis.add("WK2XYI10QM");
     Map<String,Set<String>> result = drug.getBrandNamesByNameAndUniis( "blah", uniis );
-    assertTrue( result.contains("ADVIL PM") );
+    assertTrue( result.get( "8GTS82S83M" ).contains("ADVIL PM") );
   }
 
   @Test

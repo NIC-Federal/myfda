@@ -18,6 +18,7 @@ Router.map(function() {
   this.route('my-meds', function() {
     this.route('notifications');
   });
+
 });
 
 export default Router;

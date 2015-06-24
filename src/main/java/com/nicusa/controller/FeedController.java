@@ -60,17 +60,12 @@ public class FeedController {
 
   @RequestMapping("/recalls")
   @ResponseBody
-  public JsonNode getFDARecalls() {
+  public JsonNode getFDARecalls() throws IOException {
     RestTemplate rest = new RestTemplate();
     JsonNode node = null;
-    try {
-      ObjectMapper mapper = new ObjectMapper();
-      log.info(xml2JsonCnvrtrUrl + fdaRecallsRSSurl);
-      node = mapper.readTree(rest.getForObject(xml2JsonCnvrtrUrl + fdaRecallsRSSurl, String.class));
-    } catch (IOException e) {
-      log.error("Error receiving FDA recalls", e);
-      log.error(e.getStackTrace().toString());
-    }
+    ObjectMapper mapper = new ObjectMapper();
+    log.info(xml2JsonCnvrtrUrl + fdaRecallsRSSurl);
+    node = mapper.readTree(rest.getForObject(xml2JsonCnvrtrUrl + fdaRecallsRSSurl, String.class));
 
     return node;
   }
@@ -80,24 +75,19 @@ public class FeedController {
   public JsonNode getDrugRecalls(@RequestParam(value = "limit", defaultValue = "5") int limit,
                                  @RequestParam(value = "skip", defaultValue = "0") int skip,
                                  @RequestParam(value = "fromDt", defaultValue = "") String fromDt,
-                                 @RequestParam(value = "toDt", defaultValue = "") String toDt) {
+                                 @RequestParam(value = "toDt", defaultValue = "") String toDt) throws IOException {
     RestTemplate rest = new RestTemplate();
     JsonNode node = null;
-    try {
-      HttpHeaders headers = new HttpHeaders();
-      headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-      UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searchDrugEnfrcmntUrl)
-        .queryParam("search", getReportDateQuery(fromDt, toDt))
-        .queryParam("limit", limit);
-      if (skip > 0) builder.queryParam("skip", skip);
-      ObjectMapper mapper = new ObjectMapper();
-      String json = rest.getForObject(builder.build().toUri(), String.class);
-      node = mapper.readTree(json);
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searchDrugEnfrcmntUrl)
+      .queryParam("search", getReportDateQuery(fromDt, toDt))
+      .queryParam("limit", limit);
+    if (skip > 0) builder.queryParam("skip", skip);
+    ObjectMapper mapper = new ObjectMapper();
+    String json = rest.getForObject(builder.build().toUri(), String.class);
+    node = mapper.readTree(json);
 
-    } catch (IOException e) {
-      log.error("Error querying drug recalls", e);
-      log.error(e.getStackTrace().toString());
-    }
     return node;
   }
 

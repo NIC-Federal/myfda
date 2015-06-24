@@ -22,7 +22,14 @@
 
 		</div>
 		<div id="nav-collapse-main" class="navbar-collapse">
-			<button type="button" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal" data-target="#register"><i class="fa fa-facebook-square"></i> Log In with Facebook</button>
+			{{#if userIsAuthenticated}}
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+					<li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+				</ul>
+			{{else}}
+				<button type="button" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal" data-target="#register"><i class="fa fa-facebook-square"></i> Log In with Facebook</button>
+			{{/if}}
 		</div>
 	</div>
 </nav>

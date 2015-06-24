@@ -1,4 +1,4 @@
-package com.nicusa;
+package com.nicusa.util;
 
 import static org.junit.Assert.*;
 import org.junit.Test;

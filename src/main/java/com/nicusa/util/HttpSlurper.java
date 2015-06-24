@@ -1,4 +1,4 @@
-package com.nicusa;
+package com.nicusa.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

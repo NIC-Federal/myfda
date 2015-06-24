@@ -1,16 +1,18 @@
 package com.nicusa.controller;
 
-import com.nicusa.HttpSlurper;
 import com.nicusa.util.AutocompleteFilter;
+import com.nicusa.util.FieldFinder;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,8 @@ public class DrugController {
             limit,
             skip );
         result = rest.getForObject( query, String.class );
+        FieldFinder finder = new FieldFinder( "unii" );
+        Set<String> uniis = finder.find( result );
       } catch ( UnsupportedEncodingException uee ) {
         log.error( "Help, UTF 8 encoding fail!", uee );
       } catch ( IOException ioe ) {

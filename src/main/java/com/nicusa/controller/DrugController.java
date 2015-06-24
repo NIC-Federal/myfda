@@ -1,11 +1,21 @@
 package com.nicusa.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nicusa.assembler.DrugAssembler;
 import com.nicusa.domain.Drug;
 import com.nicusa.resource.DrugResource;
 import com.nicusa.util.AutocompleteFilter;
+import com.nicusa.util.FieldFinder;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,50 +63,44 @@ public class DrugController {
   public String search(
     @RequestParam(value = "name", defaultValue = "") String name,
     @RequestParam(value = "limit", defaultValue = "10") int limit,
-    @RequestParam(value = "skip", defaultValue = "0") int skip) {
+    @RequestParam(value = "skip", defaultValue = "0") int skip) throws IOException {
     if (name == null) {
       name = "";
     }
 
-    String result = null;
-
-    try {
-      String query = String.format(
+    String query = String.format(
         this.fdaDrugLabelUrl + "?search=openfda.brand_name:%s&limit=%d&skip=%d",
-        URLEncoder.encode(name, StandardCharsets.UTF_8.name()),
+        URLEncoder.encode( name, StandardCharsets.UTF_8.name() ),
         limit,
-        skip);
-      result = rest.getForObject(query, String.class);
-    } catch (UnsupportedEncodingException uee) {
-      log.error("Help, UTF 8 encoding fail!", uee);
-    }
+        skip );
+    String result = rest.getForObject( query, String.class );
+
+    // TODO link uniis to result
+    FieldFinder finder = new FieldFinder( "unii" );
+    Set<String> uniis = finder.find( result );
+
     return result;
   }
 
   @RequestMapping("/autocomplete")
   public String autocomplete(
-    @RequestParam(value = "name", defaultValue = "") String name) {
+    @RequestParam(value = "name", defaultValue = "") String name) throws IOException {
     if (name == null) {
       name = "";
     }
 
     String result = "[{\"value\":\"" + name + "\"}]";
     if (name.length() >= 3) {
-      try {
-        ObjectMapper mapper = new ObjectMapper();
-        String query = String.format(
+      ObjectMapper mapper = new ObjectMapper();
+      String query = String.format(
           this.nlmDailymedAutocompleteUrl + "?key=search&returntype=json&term=%s",
           URLEncoder.encode(name, StandardCharsets.UTF_8.name()));
-        JsonNode node = mapper.readTree(
+      JsonNode node = mapper.readTree(
           rest.getForObject(query, String.class));
-        AutocompleteFilter myFilter = new AutocompleteFilter();
-        List<String> values = myFilter.filter(node);
-        result = mapper.writeValueAsString(values);
-      } catch (UnsupportedEncodingException uee) {
-        log.error("Help, UTF 8 encoding failed!", uee);
-      } catch (IOException ioe) {
-        log.error("Error accessing " + this.nlmDailymedAutocompleteUrl, ioe);
-      }
+      AutocompleteFilter myFilter = new AutocompleteFilter();
+      List<String> values = myFilter.filter(node);
+      result = mapper.writeValueAsString(values);
+
     }
     return result;
   }

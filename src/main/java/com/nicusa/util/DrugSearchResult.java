@@ -7,7 +7,7 @@ public class DrugSearchResult {
   private String brandName;
   private String genericName;
   private Long rxcui;
-  private Set<String> activeIngrediants;
+  private Set<String> activeIngredients;
 
   public String getUnii () {
     return this.unii;
@@ -36,11 +36,11 @@ public class DrugSearchResult {
   public void setRxcui ( Long r ) {
     this.rxcui = r;
   }
-  public Set<String> getActiveIngrediants () {
-    return this.activeIngrediants;
+  public Set<String> getActiveIngredients () {
+    return this.activeIngredients;
   }
-  public void setActiveIngrediants ( Set<String> a ) {
-    this.activeIngrediants = a;
+  public void setActiveIngredients ( Set<String> a ) {
+    this.activeIngredients = a;
   }
 
 }

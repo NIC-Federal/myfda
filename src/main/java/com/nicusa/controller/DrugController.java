@@ -142,7 +142,7 @@ public class DrugController {
     return null;
   }
 
-  public Set<String> getActiveIngrediantsByRxcui ( Long rxcui ) throws IOException {
+  public Set<String> getActiveIngredientsByRxcui ( Long rxcui ) throws IOException {
     if ( rxcui == null ) {
       return Collections.emptySet();
     }
@@ -186,12 +186,12 @@ public class DrugController {
           res.setBrandName( brandName );
           res.setGenericName( this.getGenericNameByUnii( unii ));
           res.setRxcui( this.getRxcuiByBrandName( brandName ));
-          res.setActiveIngrediants( this.getActiveIngrediantsByRxcui(
+          res.setActiveIngredients( this.getActiveIngredientsByRxcui(
                 res.getRxcui() ));
           // workaround for beta rxcui source
-          if ( res.getActiveIngrediants().isEmpty() &&
+          if ( res.getActiveIngredients().isEmpty() &&
               res.getGenericName() != null ) {
-            res.setActiveIngrediants(
+            res.setActiveIngredients(
               new TreeSet<String>( Arrays.asList(
                 res.getGenericName().split( ", " ))));
           }

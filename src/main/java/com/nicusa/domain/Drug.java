@@ -28,4 +28,5 @@ public class Drug {
     public void setName(String name) {
         this.name = name;
     }
+
 }

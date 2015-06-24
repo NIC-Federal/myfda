@@ -1,6 +1,5 @@
 package com.nicusa.converter;
 
-import com.nicusa.controller.PortfolioController;
 import com.nicusa.controller.UserProfileController;
 import com.nicusa.domain.NotificationSetting;
 import com.nicusa.domain.NotificationSubject;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -29,7 +29,7 @@ public class UserProfileResourceToDomainConverter extends ResourceToDomainConver
     @Override
     public UserProfile convert(UserProfileResource userProfileResource) {
         UserProfile userProfile = entityManager.find(UserProfile.class, extractIdFromLink(UserProfileController.class,
-                userProfileResource, "getUserProfile", Long.class));
+                userProfileResource, "getUserProfile", Principal.class, Long.class));
         if(userProfile == null) {
             userProfile = new UserProfile();
         }
@@ -43,14 +43,16 @@ public class UserProfileResourceToDomainConverter extends ResourceToDomainConver
         userProfile.setUserId(userProfileResource.getUserId());
 
         Collection<NotificationSetting> notificationSettings = new ArrayList<>();
-        for(NotificationSettingResource notificationSettingResource :
-                userProfileResource.getNotificationSettingResources()) {
-            NotificationSetting notificationSetting = new NotificationSetting();
-            notificationSetting.setNotificationSubject(NotificationSubject.valueOf(notificationSettingResource
-                    .getNotificationSubject().name()));
-            notificationSetting.setNotificationType(NotificationType.valueOf(notificationSettingResource
-                    .getNotificationType().name()));
-            notificationSettings.add(notificationSetting);
+        if(userProfileResource.getNotificationSettingResources() != null) {
+            for (NotificationSettingResource notificationSettingResource :
+                    userProfileResource.getNotificationSettingResources()) {
+                NotificationSetting notificationSetting = new NotificationSetting();
+                notificationSetting.setNotificationSubject(NotificationSubject.valueOf(notificationSettingResource
+                        .getNotificationSubjectResource().name()));
+                notificationSetting.setNotificationType(NotificationType.valueOf(notificationSettingResource
+                        .getNotificationTypeResource().name()));
+                notificationSettings.add(notificationSetting);
+            }
         }
         userProfile.setNotificationSettings(notificationSettings);
         return userProfile;

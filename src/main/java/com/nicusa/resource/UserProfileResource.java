@@ -8,7 +8,6 @@ public class UserProfileResource extends ResourceSupport {
 
     private String userId;
     private String name;
-    private String scope;
     private String emailAddress;
     private Collection<NotificationSettingResource> notificationSettingResources;
 
@@ -26,14 +25,6 @@ public class UserProfileResource extends ResourceSupport {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getScope() {
-        return scope;
-    }
-
-    public void setScope(String scope) {
-        this.scope = scope;
     }
 
     public String getEmailAddress() {

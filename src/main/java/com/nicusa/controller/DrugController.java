@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 
 
 @RestController
-@RequestMapping("/drug")
 public class DrugController {
 
     @PersistenceContext
@@ -23,7 +22,7 @@ public class DrugController {
     private DrugAssembler drugAssembler;
 
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/hal+json")
+    @RequestMapping(value = "/drug/{id}", method = RequestMethod.GET, produces = "application/hal+json")
     public ResponseEntity<DrugResource> getDrug(@PathVariable("id") Long id) {
         Drug drug = entityManager.find(Drug.class, id);
         if(drug == null) {

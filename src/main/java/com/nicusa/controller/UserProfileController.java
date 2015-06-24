@@ -19,7 +19,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/user")
 public class UserProfileController {
 
     @PersistenceContext
@@ -32,7 +31,7 @@ public class UserProfileController {
     private UserProfileResourceToDomainConverter userProfileResourceToDomainConverter;
 
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/hal+json")
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/hal+json")
     public ResponseEntity<UserProfileResource> getUserProfile(@AuthenticationPrincipal Principal principal,
                                                               @PathVariable("id") Long id) {
         UserProfile userProfile = entityManager.find(UserProfile.class, id);
@@ -43,7 +42,7 @@ public class UserProfileController {
     }
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/hal+json")
+    @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = "application/hal+json")
     public ResponseEntity<?> createUserProfile(@AuthenticationPrincipal Principal principal,
                                                @RequestBody UserProfileResource userProfileResource) {
 

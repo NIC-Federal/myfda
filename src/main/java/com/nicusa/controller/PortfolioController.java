@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 
 
 @RestController
-@RequestMapping("/portfolio")
 public class PortfolioController {
 
     @PersistenceContext
@@ -24,7 +23,7 @@ public class PortfolioController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/hal+json")
+    @RequestMapping(value = "/portfolio/{id}", method = RequestMethod.GET, produces = "application/hal+json")
     public ResponseEntity<PortfolioResource> getPortfolio(@PathVariable("id") Long id) {
         Portfolio portfolio = entityManager.find(Portfolio.class, id);
         if(portfolio == null) {

@@ -5,14 +5,13 @@ export default Ember.View.extend({
   didInsertElement: function(){
     Ember.run.schedule('afterRender', this, function(){
 
-      $('#search').autocomplete({ appendTo: '#autoComplete' });
-      $('#search').autocomplete({
+      $('.drug-search').autocomplete({
         minLength: 3,
         source: function (request, response) {
           $.ajax({
             type: 'GET',
             dataType:'json',
-            url: '/autocomplete?name=' + $('#search').val(),
+            url: '/autocomplete?name=' + $('.drug-search').val(),
             data: request.value,
             error: function (xhr) {
               alert('Error: ' + xhr.responseText);

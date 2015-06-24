@@ -1,15 +1,14 @@
 @import 'bootstrap';
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic);
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+@import url(//fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic);
 
-@font-family-sans-serif:  "Roboto", Helvetica, Arial, sans-serif;
+@font-family-sans-serif:	"Roboto", Helvetica, Arial, sans-serif;
 
 @brand-primary:				#3366cc;
 @link-color:				@brand-primary;
 
 @modal-backdrop-bg:			#000;
 @modal-backdrop-opacity:	.9;
-
-@headings-font-weight:		300;
 
 body {
 	padding-top: 70px;
@@ -20,7 +19,10 @@ body {
 	border-bottom: 1px solid #eee;
 	background: rgba(255,255,255,0.97);
 	.container {
-		padding: 10px 30px 10px 15px;
+		padding: 10px 15px;
+		@media only screen and (max-width:767px) {
+			padding-bottom: 0;
+		}
 	}
 	.navbar-brand {
 		background: url("/images/my-fda.png") no-repeat center center;
@@ -33,6 +35,7 @@ body {
 			border: 0px none;
 			margin-top: -2px;
 			margin-bottom: 0;
+			margin-right: 0;
 		}
 		.form-control {
 			border-radius: 17px 0 0 17px;
@@ -58,26 +61,22 @@ body {
 	}
 	.navbar-toggle {
 		width: 100%;
-		margin: 0 0 0 0;
 		border-radius: 0 0 0 0;
 		border: 0px none;
 		background: @link-color;
 		color: #fff;
 		float: none;
+		margin-bottom: 0;
 		&:hover,
 		&:focus {
 			background: @link-hover-color;
 		}
 	}
-	.nav {
-		> li {
-			> a {
-				font-size: 20px;
-				font-weight: 300;
-				&:hover,
-				&:focus {
-				}
-			}
+	.navbar-btn {
+		margin-right: 0;
+		@media only screen and (max-width:767px) {
+			display: block;
+			width: 100%;
 		}
 	}
 }
@@ -144,16 +143,61 @@ hr {
 			background: #f5f5f5;
 		}
 	}
+	&.btn-link {
+		&:hover,
+		&:focus {
+			text-decoration: none;
+		}
+	}
+}
+
+a {
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
 }
 
 .page-header {
 	h2 {
-		font-weight: 700;
+		font-weight: 900;
+		text-transform: uppercase;
+		small {
+			display: block;
+		}
+	}
+}
+
+h3 {
+	small {
+		display: block;
+		line-height: 1.5;
 	}
 }
 
 .tab-pane {
 	padding: 30px 0;
+	.title-tab {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+	.form-group {
+		margin-bottom: 0;
+	}
+}
+
+.title-recall {
+	margin-top: 0;
+}
+
+small {
+	text-transform: uppercase;
+}
+
+.effect {
+	.progress {
+		margin-bottom: 0;
+	}
 }
 
 .modal-content {

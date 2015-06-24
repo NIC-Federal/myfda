@@ -16,8 +16,8 @@ app.import('bower_components/bootstrap/less/bootstrap.less');
 app.import('bower_components/bootstrap/dist/js/bootstrap.js');
 app.import("bower_components/velocity/velocity.js");
 app.import("bower_components/velocity/velocity.ui.js");
-// app.import('bower_components/us-map/lib/raphael.js');
-// app.import('bower_components/us-map/jquery.usmap.js');
+app.import('bower_components/us-map/lib/raphael.js');
+app.import('bower_components/us-map/jquery.usmap.js');
 
 // Use `app.import` to add additional libraries to the generated
 // output files.

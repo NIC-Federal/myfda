@@ -3,8 +3,7 @@
     "document",
     "window",
     "-Promise",
-    "$",
-    "jQuery"
+    "$"
   ],
   "browser": true,
   "boss": true,

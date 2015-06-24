@@ -15,6 +15,12 @@
   },
   "devDependencies": {
     "bootstrap": "~3.3.5",
-    "velocity": "~1.2.2"
+    "velocity": "~1.2.2",
+    "q": "~2.0.2"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.5",
+    "velocity": "~1.2.2",
+    "us-map": "https://github.com/NewSignature/us-map.git#~1.0.1"
   }
 }

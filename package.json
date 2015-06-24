@@ -38,8 +38,5 @@
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.2",
     "phantomjs": "^1.9.16"
-  },
-  "dependencies": {
-    "broccoli-less": "^2.0.0"
   }
 }

@@ -21,37 +21,37 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 public class UserProfileController {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+  @PersistenceContext
+  private EntityManager entityManager;
 
-    @Autowired
-    private UserProfileAssembler userProfileAssembler;
+  @Autowired
+  private UserProfileAssembler userProfileAssembler;
 
-    @Autowired
-    private UserProfileResourceToDomainConverter userProfileResourceToDomainConverter;
+  @Autowired
+  private UserProfileResourceToDomainConverter userProfileResourceToDomainConverter;
 
-    @ResponseBody
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/hal+json")
-    public ResponseEntity<UserProfileResource> getUserProfile(@AuthenticationPrincipal Principal principal,
-                                                              @PathVariable("id") Long id) {
-        UserProfile userProfile = entityManager.find(UserProfile.class, id);
-        if(userProfile == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(userProfileAssembler.toResource(userProfile), HttpStatus.OK);
+  @ResponseBody
+  @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/hal+json")
+  public ResponseEntity<UserProfileResource> getUserProfile(@AuthenticationPrincipal Principal principal,
+                                                            @PathVariable("id") Long id) {
+    UserProfile userProfile = entityManager.find(UserProfile.class, id);
+    if (userProfile == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    return new ResponseEntity<>(userProfileAssembler.toResource(userProfile), HttpStatus.OK);
+  }
 
-    @ResponseBody
-    @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = "application/hal+json")
-    public ResponseEntity<?> createUserProfile(@AuthenticationPrincipal Principal principal,
-                                               @RequestBody UserProfileResource userProfileResource) {
+  @ResponseBody
+  @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = "application/hal+json")
+  public ResponseEntity<?> createUserProfile(@AuthenticationPrincipal Principal principal,
+                                             @RequestBody UserProfileResource userProfileResource) {
 
-        UserProfile userProfile = userProfileResourceToDomainConverter.convert(userProfileResource);
-        entityManager.persist(userProfile);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setLocation(linkTo(methodOn(UserProfileController.class).getUserProfile(principal,
-                userProfile.getId())).toUri());
-        return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
-    }
+    UserProfile userProfile = userProfileResourceToDomainConverter.convert(userProfileResource);
+    entityManager.persist(userProfile);
+    HttpHeaders httpHeaders = new HttpHeaders();
+    httpHeaders.setLocation(linkTo(methodOn(UserProfileController.class).getUserProfile(principal,
+      userProfile.getId())).toUri());
+    return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
+  }
 
 }

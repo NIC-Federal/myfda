@@ -13,18 +13,18 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Component
 public class UserProfileAssembler extends ResourceAssemblerSupport<UserProfile, UserProfileResource> {
 
-    public UserProfileAssembler() {
-        super(UserProfileController.class, UserProfileResource.class);
-    }
+  public UserProfileAssembler() {
+    super(UserProfileController.class, UserProfileResource.class);
+  }
 
-    @Override
-    public UserProfileResource toResource(UserProfile userProfile) {
-        UserProfileResource userProfileResource = createResourceWithId(userProfile.getId(), userProfile);
-        userProfileResource.setName(userProfile.getName());
-        if(userProfile.getPortfolio() != null) {
-            userProfileResource.add(linkTo(methodOn(PortfolioController.class).getPortfolio(userProfile.getPortfolio()
-                    .getId())).withRel("portfolio"));
-        }
-        return userProfileResource;
+  @Override
+  public UserProfileResource toResource(UserProfile userProfile) {
+    UserProfileResource userProfileResource = createResourceWithId(userProfile.getId(), userProfile);
+    userProfileResource.setName(userProfile.getName());
+    if (userProfile.getPortfolio() != null) {
+      userProfileResource.add(linkTo(methodOn(PortfolioController.class).getPortfolio(userProfile.getPortfolio()
+        .getId())).withRel("portfolio"));
     }
+    return userProfileResource;
+  }
 }

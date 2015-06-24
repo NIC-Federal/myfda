@@ -20,42 +20,42 @@ import java.util.Collection;
 @Component
 public class UserProfileResourceToDomainConverter extends ResourceToDomainConverter<UserProfileResource, UserProfile> {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+  @PersistenceContext
+  private EntityManager entityManager;
 
-    @Autowired
-    private PortfolioResourceToDomainConverter portfolioResourceToDomainConverter;
+  @Autowired
+  private PortfolioResourceToDomainConverter portfolioResourceToDomainConverter;
 
-    @Override
-    public UserProfile convert(UserProfileResource userProfileResource) {
-        UserProfile userProfile = entityManager.find(UserProfile.class, extractIdFromLink(UserProfileController.class,
-                userProfileResource, "getUserProfile", Principal.class, Long.class));
-        if(userProfile == null) {
-            userProfile = new UserProfile();
-        }
-        userProfile.setName(userProfileResource.getName());
-
-        PortfolioResource portfolioResource = new PortfolioResource();
-        portfolioResource.add(userProfileResource.getLink("portfolio").withRel("self"));
-        userProfile.setPortfolio(portfolioResourceToDomainConverter.convert(portfolioResource));
-
-        userProfile.setEmailAddress(userProfileResource.getEmailAddress());
-        userProfile.setUserId(userProfileResource.getUserId());
-
-        Collection<NotificationSetting> notificationSettings = new ArrayList<>();
-        if(userProfileResource.getNotificationSettingResources() != null) {
-            for (NotificationSettingResource notificationSettingResource :
-                    userProfileResource.getNotificationSettingResources()) {
-                NotificationSetting notificationSetting = new NotificationSetting();
-                notificationSetting.setNotificationSubject(NotificationSubject.valueOf(notificationSettingResource
-                        .getNotificationSubjectResource().name()));
-                notificationSetting.setNotificationType(NotificationType.valueOf(notificationSettingResource
-                        .getNotificationTypeResource().name()));
-                notificationSettings.add(notificationSetting);
-            }
-        }
-        userProfile.setNotificationSettings(notificationSettings);
-        return userProfile;
-
+  @Override
+  public UserProfile convert(UserProfileResource userProfileResource) {
+    UserProfile userProfile = entityManager.find(UserProfile.class, extractIdFromLink(UserProfileController.class,
+      userProfileResource, "getUserProfile", Principal.class, Long.class));
+    if (userProfile == null) {
+      userProfile = new UserProfile();
     }
+    userProfile.setName(userProfileResource.getName());
+
+    PortfolioResource portfolioResource = new PortfolioResource();
+    portfolioResource.add(userProfileResource.getLink("portfolio").withRel("self"));
+    userProfile.setPortfolio(portfolioResourceToDomainConverter.convert(portfolioResource));
+
+    userProfile.setEmailAddress(userProfileResource.getEmailAddress());
+    userProfile.setUserId(userProfileResource.getUserId());
+
+    Collection<NotificationSetting> notificationSettings = new ArrayList<>();
+    if (userProfileResource.getNotificationSettingResources() != null) {
+      for (NotificationSettingResource notificationSettingResource :
+        userProfileResource.getNotificationSettingResources()) {
+        NotificationSetting notificationSetting = new NotificationSetting();
+        notificationSetting.setNotificationSubject(NotificationSubject.valueOf(notificationSettingResource
+          .getNotificationSubjectResource().name()));
+        notificationSetting.setNotificationType(NotificationType.valueOf(notificationSettingResource
+          .getNotificationTypeResource().name()));
+        notificationSettings.add(notificationSetting);
+      }
+    }
+    userProfile.setNotificationSettings(notificationSettings);
+    return userProfile;
+
+  }
 }

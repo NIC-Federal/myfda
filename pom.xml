@@ -88,6 +88,11 @@
             <version>2.0.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+        </dependency>
     </dependencies>
 
     <properties>
@@ -151,6 +156,9 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
+					<serverId>docker-hub</serverId>
+					<registryUrl>https://index.docker.io/v1/</registryUrl>
+					<useGitCommitId>true</useGitCommitId>
                 </configuration>
             </plugin>
             <plugin>
@@ -185,16 +193,27 @@
                             <goal>bower</goal>
                         </goals>
                         <configuration>
-                            <arguments>install</arguments>
+                            <arguments>install --allow-root</arguments>
                         </configuration>
                     </execution>
+
                     <execution>
-                        <id>javascript tests</id>
+                        <id>npm test</id>
                         <goals>
-                            <goal>karma</goal>
+                            <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <karmaConfPath>karma.conf.ci.js</karmaConfPath>
+                            <arguments>test</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>ember build</id>
+                        <goals>
+                            <goal>ember</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>build</arguments>
                         </configuration>
                     </execution>
 

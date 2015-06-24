@@ -1,26 +1,23 @@
 package com.nicusa.resource;
 
-import com.nicusa.domain.NotificationSubject;
-import com.nicusa.domain.NotificationType;
-
 public class NotificationSettingResource {
 
-    private NotificationTypeResource notificationTypeResource;
-    private NotificationSubjectResource notificationSubjectResource;
+  private NotificationTypeResource notificationTypeResource;
+  private NotificationSubjectResource notificationSubjectResource;
 
-    public NotificationTypeResource getNotificationTypeResource() {
-        return notificationTypeResource;
-    }
+  public NotificationTypeResource getNotificationTypeResource() {
+    return notificationTypeResource;
+  }
 
-    public void setNotificationTypeResource(NotificationTypeResource notificationTypeResource) {
-        this.notificationTypeResource = notificationTypeResource;
-    }
+  public void setNotificationTypeResource(NotificationTypeResource notificationTypeResource) {
+    this.notificationTypeResource = notificationTypeResource;
+  }
 
-    public NotificationSubjectResource getNotificationSubjectResource() {
-        return notificationSubjectResource;
-    }
+  public NotificationSubjectResource getNotificationSubjectResource() {
+    return notificationSubjectResource;
+  }
 
-    public void setNotificationSubjectResource(NotificationSubjectResource notificationSubjectResource) {
-        this.notificationSubjectResource = notificationSubjectResource;
-    }
+  public void setNotificationSubjectResource(NotificationSubjectResource notificationSubjectResource) {
+    this.notificationSubjectResource = notificationSubjectResource;
+  }
 }

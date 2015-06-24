@@ -15,20 +15,20 @@ import javax.persistence.PersistenceContext;
 @RestController
 public class PortfolioController {
 
-    @PersistenceContext
-    public EntityManager entityManager;
+  @PersistenceContext
+  public EntityManager entityManager;
 
-    @Autowired
-    public PortfolioAssembler portfolioAssembler;
+  @Autowired
+  public PortfolioAssembler portfolioAssembler;
 
 
-    @ResponseBody
-    @RequestMapping(value = "/portfolio/{id}", method = RequestMethod.GET, produces = "application/hal+json")
-    public ResponseEntity<PortfolioResource> getPortfolio(@PathVariable("id") Long id) {
-        Portfolio portfolio = entityManager.find(Portfolio.class, id);
-        if(portfolio == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(portfolioAssembler.toResource(portfolio), HttpStatus.OK);
+  @ResponseBody
+  @RequestMapping(value = "/portfolio/{id}", method = RequestMethod.GET, produces = "application/hal+json")
+  public ResponseEntity<PortfolioResource> getPortfolio(@PathVariable("id") Long id) {
+    Portfolio portfolio = entityManager.find(Portfolio.class, id);
+    if (portfolio == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    return new ResponseEntity<>(portfolioAssembler.toResource(portfolio), HttpStatus.OK);
+  }
 }

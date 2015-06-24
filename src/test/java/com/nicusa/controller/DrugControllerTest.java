@@ -117,7 +117,7 @@ public class DrugControllerTest {
     uniis.add("8GTS82S83M");
     uniis.add("WK2XYI10QM");
     Map<String,Set<String>> result = drug.getBrandNamesByNameAndUniis( "blah", uniis );
-    assertTrue( result != null );
+    assertTrue( result.contains("ADVIL PM") );
   }
 
   @Test
@@ -132,10 +132,6 @@ public class DrugControllerTest {
         return s;
       }
     });
-
-    // Set<String> uniis = new HashSet<String>();
-    // uniis.add("8GTS82S83M");
-    // uniis.add("WK2XYI10QM");
 
     Set<String> result = drug.getBrandNamesByNameAndUnii( "blah", "8GTS82S83M" );
     assertTrue( result.contains("ADVIL PM") );
@@ -153,8 +149,8 @@ public class DrugControllerTest {
         return s;
       }
     });
-    String resultunii = drug.getGenericNameByUnii( "blah" );
-    assertTrue( resultunii != null );
+    String result = drug.getGenericNameByUnii( "blah" );
+    assertTrue( result.contains("HYDROCHLORIDE") );
   }
 
   @Test
@@ -187,8 +183,8 @@ public class DrugControllerTest {
         return s;
       }
     });
-    Set<String> result = drug.getActiveIngrediantsByRxcui( new Long(643061) );
-    assertTrue( result != null );
+    Set<String> result = drug.getActiveIngredientsByRxcui( new Long(643061) );
+    assertTrue( result.contains( "Ibuprofen" ) );
   }
 
   @Test

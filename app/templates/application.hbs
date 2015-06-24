@@ -1,3 +1,576 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			{{#link-to 'dashboard' class="navbar-brand text-hide"}}
+				MyFDA
+			{{/link-to}}
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<label class="sr-only">Search MyFDA</label>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search drugs..." />
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="nav-collapse-main" class="navbar-collapse">
+			<button type="button" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal" data-target="#register"><i class="fa fa-facebook-square"></i> Log In with Facebook</button>
+		</div>
+	</div>
+</nav>
 
 {{outlet}}
+
+<!-- <section id="hero" class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<div class="jumbotron text-center">
+					<p class="lead">Look up drug safety recalls and adverse effects:</p>
+					<form role="search">
+						<div class="form-group">
+							<label class="sr-only">Search MyFDA</label>
+							<div class="input-group">
+								<input type="text" class="form-control input-lg" placeholder="Search drugs..." />
+								<span class="input-group-btn">
+									<button type="submit" class="btn btn-primary input-lg"><i class="glyphicon glyphicon-search"></i> Search</button>
+								</span>
+							</div>
+							<p class="help-block">You will be able to save drug(s) in order to receive future safety alerts.</p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="dashboard-public" class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="page-header"><h2>Latest Drug Recalls</h2></div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="dashboard-auth-empty-portfolio" class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-md-7">
+				<div class="page-header"><h2>Latest Drug Recalls</h2></div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-5">
+				<div class="page-header"><h2>My Portfolio</h2></div>
+				<p>There are no drugs saved to your Portfolio.</p>
+				<form role="search">
+					<div class="form-group">
+						<label class="sr-only">Search MyFDA</label>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search drugs..." />
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+							</span>
+						</div>
+						<p class="help-block">You will be able to save drug(s) in order to receive future safety alerts.</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="dashboard-auth-with-portfolio" class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-md-7">
+				<div class="page-header"><h2>Your Latest Drug Recalls</h2></div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+				<div class="recall">
+					<h3><a href="#">Latest Drug Recall RSS Title Goes Here</a></h3>
+					<p><strong class="timestamp">6/22/2015 10:00am</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
+					<hr />
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-5">
+				<div class="page-header"><h2>My Portfolio</h2></div>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th colspan="3">Drug Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="portfolio" class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-md-7">
+				<div class="page-header"><h2>My Portfolio</h2></div>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th colspan="3">Drug Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+						<tr>
+							<td><a href="#">Drug Name</a></td>
+							<td><small><a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-eye-open"></i> View</a> <a href="#" class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</a></small></td>
+							<td><span class="badge pull-right">4</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-4 col-md-5">
+				<div class="page-header"><h2>My Profile</h2></div>
+				<form>
+					<div class="form-group">
+						<label>Email Address</label>
+						<input type="text" class="form-control" value="name@address.com" />
+					</div>
+					<div class="form-group">
+						<button class="btn btn-default">Update Email Address</button>
+					</div>
+				</form>
+				<hr />
+				<p><a href="#" class="btn btn-default">Manage Notifications</a></p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="notifications" class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="page-header"><h2>Manage Notifications</h2></div>
+				<label>Receive Notifications?</label>
+				<div class="form-group">
+					<label class="radio-inline">
+						<input type="radio" name="notifications" id="1" checked="checked" value="1"> Yes
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="notifications" id="2" value="2"> No
+					</label>
+				</div>
+				<hr />
+				<label>Notification Frequency</label>
+				<div class="form-group">
+					<label class="radio-inline">
+						<input type="radio" name="frequency" id="1" checked="checked" value="1"> Immediately
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="frequency" id="2" value="2"> Daily
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="frequency" id="3" value="3"> Weekly
+					</label>
+				</div>
+				<hr />
+				<label>Notification Email</label>
+				<div class="form-group">
+					<input type="text" class="form-control" value="name@address.com" />
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Update Email</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="search-results" class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="page-header"><h2>Search Results for "Search Term" <small>32 Results</small></h2></div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<div class="drug">
+					<h3><a href="#">Brand Name <small>(Generic Name)</small></a></h3>
+					<p><strong class="prepend">Purpose</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><strong class="prepend">Active Ingredient</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Save Drug</a></p>
+					<hr />
+				</div>
+				<nav>
+					<ul class="pagination">
+						<li class="disabled">
+							<a href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li>
+							<a href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="drug-details" class="section">
+	<div class="container">
+		<div class="page-header"><h2>Drug Name</h2></div>
+		<ul class="nav nav-tabs nav-justified" role="tablist">
+			<li role="presentation" class="active"><a href="#drug-recalls" aria-controls="home" role="tab" data-toggle="tab">Recalls</a></li>
+			<li role="presentation"><a href="#drug-effects" aria-controls="profile" role="tab" data-toggle="tab">Adverse Effects</a></li>
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade in active" id="drug-recalls">
+				<h3>Drug Recalls</h3>
+				<form role="search">
+					<div class="form-group">
+						<label class="sr-only">Search Recalls</label>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search recalls..." />
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+							</span>
+						</div>
+					</div>
+				</form>
+				<div class="recall">
+					<div class="row">
+						<div class="col-sm-7 col-md-8 col-lg-9">
+							<h3>Recall Number: 123456 &bull; Status: Active &bull; Initiation Date: 6/22/2015</h3>
+							<p><strong class="prepend">Product Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p><strong class="prepend">Recall Reason:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p>Report Date: 6/22/2015 &bull; Reporting Firm: ABC Reporting CO</p>
+						</div>
+						<div class="col-sm-5 col-md-4 col-lg-3">
+							{{us-map}}
+						</div>
+					</div>
+					<hr />
+				</div>
+				<div class="recall">
+					<div class="row">
+						<div class="col-sm-7 col-md-8 col-lg-9">
+							<h3>Recall Number: 123456 &bull; Status: Active &bull; Initiation Date: 6/22/2015</h3>
+							<p><strong class="prepend">Product Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p><strong class="prepend">Recall Reason:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p>Report Date: 6/22/2015 &bull; Reporting Firm: ABC Reporting CO</p>
+						</div>
+						<div class="col-sm-5 col-md-4 col-lg-3">
+							{{us-map}}
+						</div>
+					</div>
+					<hr />
+				</div>
+				<div class="recall">
+					<div class="row">
+						<div class="col-sm-7 col-md-8 col-lg-9">
+							<h3>Recall Number: 123456 &bull; Status: Active &bull; Initiation Date: 6/22/2015</h3>
+							<p><strong class="prepend">Product Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p><strong class="prepend">Recall Reason:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p>Report Date: 6/22/2015 &bull; Reporting Firm: ABC Reporting CO</p>
+						</div>
+						<div class="col-sm-5 col-md-4 col-lg-3">
+							{{us-map}}
+						</div>
+					</div>
+					<hr />
+				</div>
+				<div class="recall">
+					<div class="row">
+						<div class="col-sm-7 col-md-8 col-lg-9">
+							<h3>Recall Number: 123456 &bull; Status: Active &bull; Initiation Date: 6/22/2015</h3>
+							<p><strong class="prepend">Product Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p><strong class="prepend">Recall Reason:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p>Report Date: 6/22/2015 &bull; Reporting Firm: ABC Reporting CO</p>
+						</div>
+						<div class="col-sm-5 col-md-4 col-lg-3">
+							{{us-map}}
+						</div>
+					</div>
+					<hr />
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="drug-effects">
+				<h3>Adverse Effects</h3>
+				<form role="search">
+					<div class="form-group">
+						<label class="sr-only">Search Effects</label>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search recalls..." />
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+							</span>
+						</div>
+					</div>
+				</form>
+				<div class="effect">
+					<h3>Effect Label</h3>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{{outlet}}
+
+<div class="modal fade" id="log-in" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Log In to MyFDA</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Username</label>
+					<input type="text" class="form-control" />
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-log-in"></i> Log In</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="register" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Register with MyFDA</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Create a Username</label>
+					<input type="text" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>Email Address</label>
+					<input type="text" class="form-control" />
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-check"></i> Register</button>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+<section id="info" class="section" role="contentinfo">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<p class="text-muted"><small>MyFDA by NIC, Inc. using OpenFDA</small></p>
+			</div>
+		</div>
+	</div>
+</section>

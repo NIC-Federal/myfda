@@ -23,26 +23,8 @@
     </div>
 </section>
 
-<!-- Public Dashboard -->
-<section id="dashboard-public" class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <div class="page-header"><h2>Latest Drug Recalls</h2></div>
-
-                {{#each model.responseData.feed.entries as |recall|}}
-                    <div class="recall">
-                        <h3><a target="_blank" href={{recall.link}}>{{recall.title}}</a></h3>
-                        <p><strong class="timestamp">{{recall.publishedDate}}</strong> {{recall.content}}</p>
-                        <p><a target="_blank" href={{recall.link}} class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a></p>
-                        <hr />
-                    </div>
-                {{/each}}
-
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- Authenticated Dashboard Goes here -->
+{{#if userIsAuthenticated}}
+    {{partial "dashboards/authenticated"}}
+{{else}}
+    {{partial "dashboards/unauthenticated"}}
+{{/if}}

@@ -46,6 +46,6 @@ public class DrugControllerTest {
            return res;
          }
        });
-    assertThat( drug.autocomplete( "blah" ), is( "[\"the result\"]" ));
+    assertThat( drug.search( "blah", 10, 0 ), is( res ));
   }  
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,21 @@ public class EventController {
     private String fdaDrugEventUrl;
     
     RestTemplate rest = new RestTemplate();
+    HttpSlurper slurp = new HttpSlurper();
+
+    public Set<String> getEventTerms ( String unii ) {
+      try {
+        String query = String.format(
+            this.fdaDrugEventUrl + "?search=patient.drug.openfda.unii:%s&count=patient.reaction.reactionmeddrapt.exact",
+            URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ));
+        String termJson = this.rest.getForObject( query, String.class );
+        FieldFinder ff = new FieldFinder( "term" );
+        return ff.find( termJson );
+      } catch ( IOException ioe ) {
+        log.error( "Error accessing " + this.fdaDrugEventUrl, ioe );
+        return Collections.emptySet();
+      }
+    }
 
     @RequestMapping("/event")
     public String search(
@@ -48,22 +64,16 @@ public class EventController {
       String result = null;
 
       try {
-        String query = String.format(
-            this.fdaDrugEventUrl + "?search=patient.drug.openfda.unii:%s&count=patient.reaction.reactionmeddrapt.exact",
-            URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ));
-        String termJson = rest.getForObject( query, String.class );
-        FieldFinder ff = new FieldFinder( "term" );
-        Set<String> tSet = ff.find( termJson );
+        Set<String> tSet = this.getEventTerms( unii );
 
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode top = mapper.createArrayNode();
         SpaceConverter conv = new SpaceConverter();
-        HttpSlurper slurp = new HttpSlurper();
 
         for ( String t : tSet ) {
           ArrayNode event = mapper.createArrayNode();
           event.add( t );
-          query = 
+          String query = 
               this.fdaDrugEventUrl +
               "?search=patient.drug.openfda.unii:" +
               unii +

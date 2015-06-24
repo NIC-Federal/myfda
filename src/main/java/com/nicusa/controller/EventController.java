@@ -38,61 +38,46 @@ public class EventController {
     RestTemplate rest = new RestTemplate();
     HttpSlurper slurp = new HttpSlurper();
 
-    public Set<String> getEventTerms ( String unii ) {
-      try {
-        String query = String.format(
-            this.fdaDrugEventUrl + "?search=patient.drug.openfda.unii:%s&count=patient.reaction.reactionmeddrapt.exact",
-            URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ));
-        String termJson = this.rest.getForObject( query, String.class );
-        FieldFinder ff = new FieldFinder( "term" );
-        return ff.find( termJson );
-      } catch ( IOException ioe ) {
-        log.error( "Error accessing " + this.fdaDrugEventUrl, ioe );
-        return Collections.emptySet();
-      }
+    public Set<String> getEventTerms ( String unii ) throws IOException {
+      String query = String.format(
+          this.fdaDrugEventUrl + "?search=patient.drug.openfda.unii:%s&count=patient.reaction.reactionmeddrapt.exact",
+          URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ));
+      String termJson = this.rest.getForObject( query, String.class );
+      FieldFinder ff = new FieldFinder( "term" );
+      return ff.find( termJson );
     }
 
     @RequestMapping("/event")
     public String search(
         @RequestParam(value="unii", defaultValue="" ) String unii,
         @RequestParam(value="limit", defaultValue="10" ) int limit,
-        @RequestParam(value="skip", defaultValue="0" ) int skip ) {
+        @RequestParam(value="skip", defaultValue="0" ) int skip ) throws IOException {
       if ( unii == null ) {
         unii = "";
       }
 
-      String result = null;
+      Set<String> tSet = this.getEventTerms( unii );
 
-      try {
-        Set<String> tSet = this.getEventTerms( unii );
+      ObjectMapper mapper = new ObjectMapper();
+      ArrayNode top = mapper.createArrayNode();
+      SpaceConverter conv = new SpaceConverter();
 
-        ObjectMapper mapper = new ObjectMapper();
-        ArrayNode top = mapper.createArrayNode();
-        SpaceConverter conv = new SpaceConverter();
-
-        for ( String t : tSet ) {
-          ArrayNode event = mapper.createArrayNode();
-          event.add( t );
-          String query = 
-              this.fdaDrugEventUrl +
-              "?search=patient.drug.openfda.unii:" +
-              unii +
-              "+AND+patient.reaction.reactionmeddrapt:" +
-              conv.convert( t ) +
-              "&count=serious";
-          JsonNode tree = mapper.readTree( slurp.getData( query ));
-          event.add( tree.get( "results" ));
-          top.add( event );
-        }
-
-        result = mapper.writeValueAsString( top );
-      } catch ( UnsupportedEncodingException uee ) {
-        log.error( "Help, UTF 8 encoding fail!", uee );
-      } catch ( IOException ioe ) {
-        log.error( "Error accessing " + this.fdaDrugEventUrl, ioe );
+      for ( String t : tSet ) {
+        ArrayNode event = mapper.createArrayNode();
+        event.add( t );
+        String query = 
+          this.fdaDrugEventUrl +
+          "?search=patient.drug.openfda.unii:" +
+          unii +
+          "+AND+patient.reaction.reactionmeddrapt:" +
+          conv.convert( t ) +
+          "&count=serious";
+        JsonNode tree = mapper.readTree( slurp.getData( query ));
+        event.add( tree.get( "results" ));
+        top.add( event );
       }
 
-      return result;
+      return mapper.writeValueAsString( top );
     }
 
 }

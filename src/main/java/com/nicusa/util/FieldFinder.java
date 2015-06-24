@@ -19,25 +19,22 @@ public class FieldFinder {
       this.field = field;
     }
 
-    public Set<String> find ( String json ) {
+    public Set<String> find ( String json ) throws IOException {
       Set<String> uniis = new TreeSet<String>();
-      try {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree( json );
-        List<JsonNode> ulist = node.findValues( this.field );
-        for ( JsonNode n : ulist ) {
-          if ( n.isArray() ) {
-            Iterator<JsonNode> iter = n.elements();
-            while ( iter.hasNext() ) {
-              uniis.add( iter.next().textValue() );
-            }
-          } else {
-            uniis.add( n.textValue() );
+      ObjectMapper mapper = new ObjectMapper();
+      JsonNode node = mapper.readTree( json );
+      List<JsonNode> ulist = node.findValues( this.field );
+      for ( JsonNode n : ulist ) {
+        if ( n.isArray() ) {
+          Iterator<JsonNode> iter = n.elements();
+          while ( iter.hasNext() ) {
+            uniis.add( iter.next().textValue() );
           }
+        } else {
+          uniis.add( n.textValue() );
         }
-      } catch ( IOException ioe ) {
-        log.error( "Exception mapping json data", ioe );
       }
+
       return uniis;
     }
 }

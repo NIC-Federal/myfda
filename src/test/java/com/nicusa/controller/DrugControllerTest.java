@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import javax.persistence.EntityManager;
 
 import static org.hamcrest.Matchers.is;
@@ -55,7 +56,7 @@ public class DrugControllerTest {
 
 
   @Test
-  public void testShortAutocomplete() {
+  public void testShortAutocomplete() throws IOException {
     DrugController drug = new DrugController();
     drug.rest = mock(RestTemplate.class);
     String res = drug.autocomplete("ab");
@@ -63,7 +64,7 @@ public class DrugControllerTest {
   }
 
   @Test
-  public void testRegularAutocomplete() {
+  public void testRegularAutocomplete() throws IOException {
     DrugController drug = new DrugController();
     final String res = "[{\"value\":\"the result\"}]";
     drug.rest = mock(RestTemplate.class);
@@ -78,7 +79,7 @@ public class DrugControllerTest {
   }
 
   @Test
-  public void testSimpleSearch() {
+  public void testSimpleSearch() throws IOException {
     DrugController drug = new DrugController();
     final String res = "[{\"value\":\"the result\"}]";
     drug.rest = mock( RestTemplate.class );

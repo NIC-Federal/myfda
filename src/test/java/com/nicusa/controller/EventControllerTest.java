@@ -11,12 +11,13 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.io.IOException;
 import java.util.Set;
 
 public class EventControllerTest {
 
   @Test
-  public void testEventByUnii () {
+  public void testEventByUnii () throws IOException {
     EventController event = new EventController();
     event.rest = mock( RestTemplate.class );
     final String r = "{\"term\":\"ANXIETY\"}";
@@ -44,7 +45,7 @@ public class EventControllerTest {
   }
 
   @Test
-  public void testEventTerms () {
+  public void testEventTerms () throws IOException {
     EventController event = new EventController();
     event.rest = mock( RestTemplate.class );
     final String res = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\": \"2015-01-21\"},\"results\":[{\"term\":\"PAIN\",\"count\": 584  },{\"term\": \"DIARRHOEA\",\"count\":543},{\"term\": \"NAUSEA\",\"count\": 481},{\"term\":\"ANXIETY\",\"count\": 417}]}";

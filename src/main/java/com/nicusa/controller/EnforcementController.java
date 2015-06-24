@@ -28,25 +28,19 @@ public class EnforcementController {
     public String search (
         @RequestParam(value="unii", defaultValue="" ) String unii,
         @RequestParam(value="limit", defaultValue="10" ) int limit,
-        @RequestParam(value="skip", defaultValue="0" ) int skip ) {
+        @RequestParam(value="skip", defaultValue="0" ) int skip ) throws IOException {
       if ( unii == null ) {
         unii = "";
       }
 
       String result = null;
 
-      try {
-        String query = String.format(
-            this.fdaDrugEnforcementUrl + "?search=openfda.unii:%s&limit=%d&skip=%d",
-            URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ),
-            limit,
-            skip );
-        result = rest.getForObject( query, String.class );
-      } catch ( UnsupportedEncodingException uee ) {
-        log.error( "Help, UTF 8 encoding fail!", uee );
-      } catch ( IOException ioe ) {
-        log.error( "Error accessing " + this.fdaDrugEnforcementUrl, ioe );
-      }
+      String query = String.format(
+          this.fdaDrugEnforcementUrl + "?search=openfda.unii:%s&limit=%d&skip=%d",
+          URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ),
+          limit,
+          skip );
+      result = rest.getForObject( query, String.class );
 
       return result;
     }

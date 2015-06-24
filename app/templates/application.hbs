@@ -4,18 +4,7 @@
 			{{#link-to 'dashboard' class="navbar-brand text-hide"}}
 				MyFDA
 			{{/link-to}}
-				<!-- {{autocomplete-search}} -->
-				<form class="navbar-form navbar-left" role="search" action="/drug" method="get" >
-				  <div class="form-group">
-				    <label class="sr-only">Search MyFDA</label>
-				    <div class="input-group">
-				        <input type="text" name="name" class="form-control" placeholder="Search drugs...">
-				      <span class="input-group-btn">
-				        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-				      </span>
-				    </div>
-				  </div>
-				</form>
+				{{autocomplete-search}}
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse-main" aria-expanded="false"><i class="glyphicon glyphicon-th-list"></i> Main Menu</button>
 		</div>
 		<div id="nav-collapse-main" class="navbar-collapse">

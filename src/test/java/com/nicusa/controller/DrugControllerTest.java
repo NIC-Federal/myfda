@@ -174,7 +174,7 @@ public class DrugControllerTest {
   }
 
   @Test
-  public void testGetActiveIngrediantsByRxcui () throws IOException {
+  public void testGetActiveIngredientsByRxcui () throws IOException {
     DrugController drug = new DrugController();
     final String s = "{\"relatedGroup\":{\"rxcui\":\"643061\",\"rela\":[\"tradename_of\",\"has_precise_ingredient\"],\"conceptGroup\":[{\"tty\":\"IN\",\"conceptProperties\":[{\"rxcui\":\"3498\",\"name\":\"Diphenhydramine\",\"synonym\":\"\",\"tty\":\"IN\",\"language\":\"ENG\",\""
     +"suppress\":\"N\",\"umlscui\":\"C0012522\"},{\"rxcui\":\"5640\",\"name\":\"Ibuprofen\",\"synonym\":\"\",\"tty\":\"IN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0020740\"}]},{\"tty\":\"PIN\",\"conceptProperties\":[{\"rxcui\":\"1362\",\"name\":\"Diphenhydramine Hydrochloride\""
@@ -187,7 +187,7 @@ public class DrugControllerTest {
         return s;
       }
     });
-    Set<String> result = drug.getActiveIngrediantsByRxcui( new Long(643061) );
+    Set<String> result = drug.getActiveIngredientsByRxcui( new Long(643061) );
     assertTrue( result != null );
   }
 

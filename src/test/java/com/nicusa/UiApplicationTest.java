@@ -45,7 +45,7 @@ public class UiApplicationTest {
   public void homePageLoads() {
     ResponseEntity<String> response = template.getForEntity("http://localhost:"
             + port + "/", String.class);
-    assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+    assertEquals(HttpStatus.OK, response.getStatusCode());
   }
 
   @Test

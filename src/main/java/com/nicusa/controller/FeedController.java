@@ -26,6 +26,10 @@ public class FeedController {
   private static final Logger log = LoggerFactory.getLogger(FeedController.class);
 
   @Autowired
+  @Value("${api.fda.key}")
+  private String fdaApiKey;
+
+  @Autowired
   @Value("${rss.fda.recalls.url:http://www.fda.gov/AboutFDA/ContactFDA/StayInformed/RSSFeeds/Recalls/rss.xml}")
   private String fdaRecallsRSSurl;
 
@@ -82,7 +86,8 @@ public class FeedController {
     headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searchDrugEnfrcmntUrl)
       .queryParam("search", getReportDateQuery(fromDt, toDt))
-      .queryParam("limit", limit);
+      .queryParam("limit", limit)
+      .queryParam("api_key", this.fdaApiKey);
     if (skip > 0) builder.queryParam("skip", skip);
     ObjectMapper mapper = new ObjectMapper();
     String json = rest.getForObject(builder.build().toUri(), String.class);
@@ -102,7 +107,8 @@ public class FeedController {
     ObjectMapper mapper = new ObjectMapper();
     headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searchDrugEnfrcmntUrl)
-              .queryParam("limit", limit);
+              .queryParam("limit", limit)
+              .queryParam("api_key", this.fdaApiKey);
     if (skip > 0) builder.queryParam("skip", skip);
     if(unii != null && unii != ""){
       builder.queryParam("search", "openfda.unii:"+unii);

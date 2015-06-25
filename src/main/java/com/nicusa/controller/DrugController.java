@@ -44,6 +44,9 @@ public class DrugController {
   RestTemplate rest = new RestTemplate();
   HttpSlurper slurp = new HttpSlurper();
   @Autowired
+  @Value("${api.fda.key}")
+  private String fdaApiKey;
+  @Autowired
   @Value("${fda.drug.label.url:https://api.fda.gov/drug/label.json}")
   private String fdaDrugLabelUrl;
   @Autowired
@@ -72,19 +75,20 @@ public class DrugController {
     String query = this.fdaDrugLabelUrl +
       "?search=openfda.brand_name:" +
       URLEncoder.encode( name, StandardCharsets.UTF_8.name() ) +
-      "&count=openfda.unii";
-      try{
-        String result = rest.getForObject( query, String.class );
-        FieldFinder finder = new FieldFinder( "term" );
-        return finder.find( result );
-      } catch ( HttpClientErrorException notFound ) {
-        if( notFound.getStatusCode() == HttpStatus.NOT_FOUND ){
-          // server reported 404, handle it by returning no results
-          log.warn( "[getUniisByName] No uniis with name " + name);
-          return Collections.emptySet();
-        }
-        throw notFound;
+      "&count=openfda.unii&api_key=" +
+      this.fdaApiKey;
+    try {
+      String result = rest.getForObject( query, String.class );
+      FieldFinder finder = new FieldFinder( "term" );
+      return finder.find( result );
+    } catch ( HttpClientErrorException notFound ) {
+      if( notFound.getStatusCode() == HttpStatus.NOT_FOUND ){
+        // server reported 404, handle it by returning no results
+        log.warn( "[getUniisByName] No uniis with name " + name);
+        return Collections.emptySet();
       }
+      throw notFound;
+    }
   }
 
   public Map<String,Set<String>> getBrandNamesByNameAndUniis (
@@ -105,7 +109,8 @@ public class DrugController {
       URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
       ")+AND+(openfda.brand_name:" +
       URLEncoder.encode( name, StandardCharsets.UTF_8.name() ) +
-      ")&count=openfda.brand_name.exact&limit=1";
+      ")&count=openfda.brand_name.exact&api_key=" +
+      this.fdaApiKey;
     try {
       String result = slurp.getData( query );
       FieldFinder finder = new FieldFinder( "term" );
@@ -122,7 +127,8 @@ public class DrugController {
     String query = this.fdaDrugLabelUrl +
       "?search=openfda.unii:" +
       URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
-      "&count=openfda.generic_name.exact&limit=1";
+      "&count=openfda.generic_name.exact&limit=1&api_key=" +
+      this.fdaApiKey;
     String result = rest.getForObject( query, String.class );
     FieldFinder finder = new FieldFinder( "term" );
     Set<String> generics = finder.find( result );
@@ -207,7 +213,13 @@ public class DrugController {
               new TreeSet<String>( Arrays.asList(
                 res.getGenericName().split( ", " ))));
           }
-          rv.add( res );
+
+          // if the brand name matches the search, display as first result
+          if ( name.equalsIgnoreCase( brandName )) {
+            rv.add( 0, res );
+          } else {
+            rv.add( res );
+          }
         }
         count++;
       }

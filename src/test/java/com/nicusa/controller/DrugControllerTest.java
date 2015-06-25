@@ -98,7 +98,7 @@ public class DrugControllerTest {
     });
     Set<String> uniis = drug.getUniisByName( "blah" );
     assertEquals( uniis.size(), 1 );
-    assertTrue( uniis.contains( "abcdefg" ));
+    assertTrue( uniis.contains( "ABCDEFG" ));
   }
 
   @Test
@@ -189,7 +189,7 @@ public class DrugControllerTest {
     });
     Set<String> result = drug.getActiveIngredientsByRxcui( new Long(643061) );
     assertNotNull( result );
-    assertTrue( result.contains( "Ibuprofen" ) );
+    assertTrue( result.contains( "IBUPROFEN" ) );
   }
 
   @Test

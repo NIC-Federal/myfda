@@ -1,8 +1,6 @@
 package com.nicusa.controller;
 
-import com.nicusa.util.FieldFinder;
-import com.nicusa.util.HttpSlurper;
-import com.nicusa.util.SpaceConverter;
+import com.nicusa.util.AdverseEffect;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -11,7 +9,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,17 +39,25 @@ public class EventController {
   private String fdaDrugEventUrl;
 
   RestTemplate rest = new RestTemplate();
-  HttpSlurper slurp = new HttpSlurper();
 
-  public Set<String> getEventTerms ( String unii ) throws IOException {
+  public Map<String,Long> getEventTerms ( String unii ) throws IOException {
     String query = String.format(
         this.fdaDrugEventUrl + "?search=patient.drug.openfda.unii:%s&count=patient.reaction.reactionmeddrapt.exact",
         URLEncoder.encode( unii, StandardCharsets.UTF_8.name() )) +
       "&api_key=" +
       this.fdaApiKey;
-    String termJson = this.rest.getForObject( query, String.class );
-    FieldFinder ff = new FieldFinder( "term" );
-    return ff.find( termJson );
+    ObjectMapper mapper = new ObjectMapper();
+    JsonNode node = mapper.readTree(
+        this.rest.getForObject( query, String.class ));
+    JsonNode results = node.get( "results" );
+    Map<String,Long> rv = new TreeMap<String,Long>();
+    Iterator<JsonNode> iter = results.iterator();
+    while ( iter.hasNext() ) {
+      JsonNode n = iter.next();
+      Iterator<JsonNode> internal = n.iterator();
+      rv.put( internal.next().textValue(), internal.next().longValue() );
+    }
+    return rv;
   }
 
   @RequestMapping("/event")
@@ -60,26 +69,37 @@ public class EventController {
       unii = "";
     }
 
-    Set<String> tSet = this.getEventTerms( unii );
+    Map<String,Long> terms = this.getEventTerms( unii );
 
     ObjectMapper mapper = new ObjectMapper();
-    ArrayNode top = mapper.createArrayNode();
-    SpaceConverter conv = new SpaceConverter();
 
-    for ( String t : tSet ) {
-      ArrayNode event = mapper.createArrayNode();
-      event.add( t );
-      String query =
-        this.fdaDrugEventUrl +
-        "?search=patient.drug.openfda.unii:" +
-        URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
-        "+AND+patient.reaction.reactionmeddrapt:" +
-        conv.convert( t ) +
-        "&count=serious&api_key=" +
-        this.fdaApiKey;
-      JsonNode tree = mapper.readTree( slurp.getData( query ));
-      event.add( tree.get( "results" ));
-      top.add( event );
+    long max = 0L;
+    for ( String k : terms.keySet() ) {
+      if ( terms.get( k ) > max ) {
+        max = terms.get( k );
+      }
+    }
+    
+    Set<AdverseEffect> effects = new TreeSet<AdverseEffect>();
+    for ( String k : terms.keySet() ) {
+      AdverseEffect ef = new AdverseEffect();
+      ef.setEffect( k );
+      ef.setCount( terms.get( k ));
+      ef.setTotal( max );
+      // TODO set description
+      effects.add( ef );
+    }
+
+    ArrayNode top = mapper.createArrayNode();
+    int count = 0;
+    for ( AdverseEffect ef : effects ) {
+      if ( count >= skip ) {
+        if ( count == limit + skip ) {
+          break;
+        }
+        top.add( mapper.valueToTree( ef ));
+      }
+      count++;
     }
 
     return mapper.writeValueAsString( top );

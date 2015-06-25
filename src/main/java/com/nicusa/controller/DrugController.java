@@ -33,6 +33,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -72,9 +73,18 @@ public class DrugController {
       "?search=openfda.brand_name:" +
       URLEncoder.encode( name, StandardCharsets.UTF_8.name() ) +
       "&count=openfda.unii";
-    String result = rest.getForObject( query, String.class );
-    FieldFinder finder = new FieldFinder( "term" );
-    return finder.find( result );
+      try{
+        String result = rest.getForObject( query, String.class );
+        FieldFinder finder = new FieldFinder( "term" );
+        return finder.find( result );
+      } catch ( HttpClientErrorException notFound ) {
+        if( notFound.getStatusCode() == HttpStatus.NOT_FOUND ){
+          // server reported 404, handle it by returning no results
+          log.warn( "[getUniisByName] No uniis with name " + name);
+          return Collections.emptySet();
+        }
+        throw notFound;
+      }
   }
 
   public Map<String,Set<String>> getBrandNamesByNameAndUniis (

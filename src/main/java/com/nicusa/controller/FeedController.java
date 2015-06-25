@@ -116,13 +116,14 @@ public class FeedController {
       //TODO: Sort Desc & map description_pattern
     } catch (HttpClientErrorException ex) {
       if (ex.getStatusCode().value() == 404) {
-        node = new ObjectMapper().readTree("{\"error\":\"404\", \"message\":\"NOT FOUND\"}");
+        node = new ObjectMapper().readTree("{\"error\":{\"code\":\"NOT_FOUND\", \"message\":\"No matches found!\"}}");
+      }else{
+        throw ex;
       }
-      throw ex;
+
     }
     return node;
   }
-
 
   private String getReportDateQuery(String fromDt, String toDt) {
     Calendar now = Calendar.getInstance();

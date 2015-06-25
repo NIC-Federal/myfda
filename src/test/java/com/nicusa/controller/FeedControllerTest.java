@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -83,7 +84,8 @@ public class FeedControllerTest extends MockMvcTestBase
                 .andExpect(status().isOk()).andReturn();
         JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
         assertNotNull(node);
-        assertTrue(node.get("error").asInt() == 404);
+        assertNotNull(node.get("error"));
+        assertTrue(node.get("error").get("code").asText().equals("NOT_FOUND"));
     }
 
 }

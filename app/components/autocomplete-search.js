@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 
     function(){
       $('.drug-search').autocomplete({
-        minLength: 3,
+        minLength: 2,
         source: function (request, response) {
           $.ajax({
             type: 'GET',

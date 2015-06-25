@@ -44,10 +44,12 @@ public class UiApplication {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       http.httpBasic().and().authorizeRequests()
-        .antMatchers("/","/drug/recalls","/recalls","/index.html").permitAll()
+        .antMatchers("/","/index.html"
+                ,"/recalls"
+                ,"/drug/recalls"
+                ,"/drug/enforcements").permitAll()
         .anyRequest().fullyAuthenticated()
-        .and()
-        .csrf().disable();
+        .and().csrf().disable();
     }
 
     @Autowired

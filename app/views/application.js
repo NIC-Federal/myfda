@@ -6,7 +6,7 @@ export default Ember.View.extend({
     Ember.run.schedule('afterRender', this, function(){
 
       $('.drug-search').autocomplete({
-        minLength: 3,
+        minLength: 2,
         source: function (request, response) {
           $.ajax({
             type: 'GET',

@@ -213,7 +213,7 @@ public class DrugController {
     }
 
     String result = "[{\"value\":\"" + name + "\"}]";
-    if (name.length() >= 3) {
+    if (name.length() >= 2) {
       ObjectMapper mapper = new ObjectMapper();
       String query = String.format(
           this.nlmDailymedAutocompleteUrl + "?key=search&returntype=json&term=%s",

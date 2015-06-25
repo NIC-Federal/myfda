@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -63,8 +64,28 @@ public class FeedControllerTest extends MockMvcTestBase
       assertNotNull(node);
       assertTrue(node.get("results").isArray());
       assertTrue(5 == node.get("results").size());
-
     }
 
+    @Test
+    public void testGetDrugRecallsForUnii() throws Exception
+    {
+        MvcResult result = mockMvc.perform(get("/drug/enforcements?unii=T2410KM04A"))
+                .andExpect(status().isOk()).andReturn();
+        JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(node);
+        assertTrue(node.get("results").isArray());
+        assertTrue(node.get("results").size() == node.get("meta").get("results").get("total").asInt());
+    }
+
+    @Test
+    public void testGetDrugRecallsForUniiNotFound() throws Exception
+    {
+        MvcResult result = mockMvc.perform(get("/drug/enforcements?unii=TEST"))
+                .andExpect(status().isOk()).andReturn();
+        JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(node);
+        assertNotNull(node.get("error"));
+        assertTrue(node.get("error").get("code").asText().equals("NOT_FOUND"));
+    }
 
 }

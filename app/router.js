@@ -8,9 +8,7 @@ var Router = Ember.Router.extend({
 Router.map(function() {
   this.route('dashboard', {path: "/"});
 
-  this.route('drugs', function() {
-    this.route('drug', {path: "/drug/:drug_id"});
-  });
+  this.route('drug', {path: "/drug/:drug_id"});
 
   this.route('search', function() {
     this.route('results', {path: ':keyword'});

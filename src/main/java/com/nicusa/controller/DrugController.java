@@ -93,7 +93,7 @@ public class DrugController {
     String query = this.fdaDrugLabelUrl +
       "?search=(openfda.unii:" +
       URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
-      "+AND+brand_name:" +
+      ")+AND+(openfda.brand_name:" +
       URLEncoder.encode( name, StandardCharsets.UTF_8.name() ) +
       ")&count=openfda.brand_name.exact&limit=1";
     try {
@@ -163,6 +163,8 @@ public class DrugController {
     if (name == null) {
       name = "";
     }
+
+    name = name.replaceAll(",", "");
 
     List<DrugSearchResult> rv = new LinkedList<DrugSearchResult>();
 

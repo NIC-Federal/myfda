@@ -27,7 +27,7 @@ export default Ember.Component.extend({
     },
     actions: {
         sendSearch: function() {
-            var keyword = this.get('keyword');
+            var keyword = encodeURIComponent(this.get('keyword'));
             console.log("sending search. keyword=" + keyword);
             this.sendAction('action', keyword);
         }

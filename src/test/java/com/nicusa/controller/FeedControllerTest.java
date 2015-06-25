@@ -1,14 +1,21 @@
 package com.nicusa.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.nicusa.TestConfig;
+import com.nicusa.util.NormalizeStateCode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.junit.Assert.assertEquals;
+import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -36,23 +43,12 @@ public class FeedControllerTest extends MockMvcTestBase
     @Test
     public void testGetDrugRecallsWithLimit() throws Exception
     {
-      MvcResult result = mockMvc.perform(get("/drug/recalls?limit=5"))
+      MvcResult result = mockMvc.perform(get("/drug/recalls?limit=10"))
               .andExpect(status().isOk()).andReturn();
       JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
       assertNotNull(node);
       assertTrue(node.get("results").isArray());
-      assertTrue(5 == node.get("results").size());
-    }
-    @Test
-    public void testGetDrugRecallsWithLimitAndSkip() throws Exception
-    {
-      MvcResult result = mockMvc.perform(get("/drug/recalls?limit=10&skip=5"))
-        .andExpect(status().isOk()).andReturn();
-      JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
-      assertNotNull(node);
-      assertTrue(node.get("results").isArray());
       assertTrue(10 == node.get("results").size());
-      assertTrue(5 == node.get("meta").get("results").get("skip").intValue());
     }
 
     @Test
@@ -69,7 +65,8 @@ public class FeedControllerTest extends MockMvcTestBase
     @Test
     public void testGetDrugRecallsForUnii() throws Exception
     {
-        MvcResult result = mockMvc.perform(get("/drug/enforcements?unii=T2410KM04A"))
+        //9 - 6M3C89ZY6R, 12-YI7VU623SF, 4 -T2410KM04A, 17- 0CD5FD6S2M
+        MvcResult result = mockMvc.perform(get("/drug/enforcements?unii=6M3C89ZY6R"))
                 .andExpect(status().isOk()).andReturn();
         JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
         assertNotNull(node);
@@ -78,9 +75,43 @@ public class FeedControllerTest extends MockMvcTestBase
     }
 
     @Test
+    public void testGetDrugRecallsForUniiWithLimit() throws Exception
+    {
+        //9 - 6M3C89ZY6R, 12-YI7VU623SF, 4 -T2410KM04A, 17- 0CD5FD6S2M
+        MvcResult result = mockMvc.perform(get("/drug/enforcements?unii=0CD5FD6S2M&limit=5"))
+                .andExpect(status().isOk()).andReturn();
+        JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(node);
+        assertTrue(node.get("results").isArray());
+        assertTrue(5 == node.get("results").size());
+    }
+
+    @Test
+    public void testGetDrugRecallsForUniiNotGiven() throws Exception
+    {
+        MvcResult result = mockMvc.perform(get("/drug/enforcements"))
+                .andExpect(status().isOk()).andReturn();
+        JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(node);
+        assertTrue(node.get("results").isArray());
+        assertTrue(10 == node.get("results").size());
+    }
+
+    @Test
+    public void testGetDrugRecallsForUniiNotGivenWithLimit() throws Exception
+    {
+        MvcResult result = mockMvc.perform(get("/drug/enforcements?limit=15"))
+                .andExpect(status().isOk()).andReturn();
+        JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(node);
+        assertTrue(node.get("results").isArray());
+        assertTrue(15 == node.get("results").size());
+    }
+
+    @Test
     public void testGetDrugRecallsForUniiNotFound() throws Exception
     {
-        MvcResult result = mockMvc.perform(get("/drug/enforcements?unii=TEST"))
+        MvcResult result = mockMvc.perform(get("/drug/enforcements?unii=12345678"))
                 .andExpect(status().isOk()).andReturn();
         JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
         assertNotNull(node);

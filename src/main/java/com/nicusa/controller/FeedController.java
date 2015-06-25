@@ -40,7 +40,7 @@ public class FeedController {
     Calendar now = Calendar.getInstance();
     StringBuilder fromDt = new StringBuilder().append(now.get(now.YEAR))
       .append((String.valueOf(now.get(now.MONTH) - 1).length() == 1) ? "0" + String.valueOf(now.get(now.MONTH) - 1) : String.valueOf(now.get(now.MONTH) - 1))
-      .append("30");
+      .append(getCurrentDay());
     return fromDt.toString();
   }
 
@@ -48,14 +48,13 @@ public class FeedController {
     Calendar now = Calendar.getInstance();
     StringBuilder toDt = new StringBuilder().append(now.get(now.YEAR))
       .append((String.valueOf(now.get(now.MONTH) + 1).length() == 1) ? "0" + String.valueOf(now.get(now.MONTH) + 1) : String.valueOf(now.get(now.MONTH) + 1))
-      .append("30");
+      .append(getCurrentDay());
     return toDt.toString();
   }
 
-  @RequestMapping("/feed")
-  @ResponseBody
-  public String feed() {
-    return "<h1>FDA Feeds</h1>";
+  private static String getCurrentDay(){
+    Calendar now = Calendar.getInstance();
+    return (String.valueOf(now.get(now.DAY_OF_MONTH)).length() == 1 ? "0"+String.valueOf(now.get(now.DAY_OF_MONTH)): String.valueOf(now.get(now.DAY_OF_MONTH)));
   }
 
   @RequestMapping("/recalls")
@@ -87,9 +86,34 @@ public class FeedController {
     ObjectMapper mapper = new ObjectMapper();
     String json = rest.getForObject(builder.build().toUri(), String.class);
     node = mapper.readTree(json);
-
     return node;
   }
+
+  @RequestMapping("/drug/enforcements")
+  @ResponseBody
+  public JsonNode getDrugRecallsForUnii(
+          @RequestParam(value = "unii", defaultValue = "") String unii,
+          @RequestParam(value = "limit", defaultValue = "99") int limit,
+          @RequestParam(value = "skip", defaultValue = "0") int skip) throws IOException {
+    JsonNode node = null;
+    RestTemplate rest = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searchDrugEnfrcmntUrl)
+              .queryParam("limit", limit);
+    if (skip > 0) builder.queryParam("skip", skip);
+    if(unii != null && unii != ""){
+      builder.queryParam("search", "openfda.unii:"+unii);
+
+    }else{
+      //Get most recent recalls
+    }
+    ObjectMapper mapper = new ObjectMapper();
+    String json = rest.getForObject(builder.build().toUri(), String.class);
+    node = mapper.readTree(json);
+    return node;
+  }
+
 
   private String getReportDateQuery(String fromDt, String toDt) {
     Calendar now = Calendar.getInstance();

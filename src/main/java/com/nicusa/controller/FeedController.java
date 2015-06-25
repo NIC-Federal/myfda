@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -94,10 +95,11 @@ public class FeedController {
   public JsonNode getDrugRecallsForUnii(
           @RequestParam(value = "unii", defaultValue = "") String unii,
           @RequestParam(value = "limit", defaultValue = "99") int limit,
-          @RequestParam(value = "skip", defaultValue = "0") int skip) throws IOException {
+          @RequestParam(value = "skip", defaultValue = "0") int skip) throws IOException{
     JsonNode node = null;
     RestTemplate rest = new RestTemplate();
     HttpHeaders headers = new HttpHeaders();
+    ObjectMapper mapper = new ObjectMapper();
     headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searchDrugEnfrcmntUrl)
               .queryParam("limit", limit);
@@ -106,11 +108,18 @@ public class FeedController {
       builder.queryParam("search", "openfda.unii:"+unii);
 
     }else{
-      //Get most recent recalls
+      //TODO:Get most recent recalls
     }
-    ObjectMapper mapper = new ObjectMapper();
-    String json = rest.getForObject(builder.build().toUri(), String.class);
-    node = mapper.readTree(json);
+    try {
+      String json = rest.getForObject(builder.build().toUri(), String.class);
+      node = mapper.readTree(json);
+      //TODO: Sort Desc & map description_pattern
+    } catch (HttpClientErrorException ex) {
+      if (ex.getStatusCode().value() == 404) {
+        node = new ObjectMapper().readTree("{\"error\":\"404\", \"message\":\"NOT FOUND\"}");
+      }
+      throw ex;
+    }
     return node;
   }
 

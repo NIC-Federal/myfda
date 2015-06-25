@@ -65,7 +65,7 @@ public class DrugControllerTest {
   public void testShortAutocomplete() throws IOException {
     DrugController drug = new DrugController();
     drug.rest = mock(RestTemplate.class);
-    String res = drug.autocomplete("ab");
+    String res = drug.autocomplete("a");
     verify(drug.rest, never()).getForObject(anyString(), (Class<?>) any(Class.class));
   }
 

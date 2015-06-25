@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     model: function(params) {
-        return $.getJSON("drug/search?text=" + params.keyword);
+        return $.getJSON("drug?name=" + encodeURIComponent(params.keyword));
     },
     setupController: function(controller, model){
         this._super(controller, model);

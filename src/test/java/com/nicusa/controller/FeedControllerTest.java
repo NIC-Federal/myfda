@@ -63,8 +63,17 @@ public class FeedControllerTest extends MockMvcTestBase
       assertNotNull(node);
       assertTrue(node.get("results").isArray());
       assertTrue(5 == node.get("results").size());
-
     }
 
+    @Test
+    public void testGetDrugRecallsForUnii() throws Exception
+    {
+        MvcResult result = mockMvc.perform(get("/drug/enforcements?unii=T2410KM04A"))
+                .andExpect(status().isOk()).andReturn();
+        JsonNode node =  objectMapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(node);
+        assertTrue(node.get("results").isArray());
+        assertTrue(node.get("results").size() == node.get("meta").get("results").get("total").asInt());
+    }
 
 }

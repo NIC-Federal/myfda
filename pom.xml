@@ -119,7 +119,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <!-- Serves *only* to filter the wro.xml so it can 
+                        <!-- Serves *only* to filter the wro.xml so it can
                             get an absolute path for the project -->
                         <id>copy-resources</id>
                         <phase>validate</phase>
@@ -147,7 +147,7 @@
                     <baseImage>java</baseImage>
                     <!-- >entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint -->
                     <dockerDirectory>docker</dockerDirectory>
-                    <!-- copy the service's jar file from target into the 
+                    <!-- copy the service's jar file from target into the
                         root directory of the image -->
                     <resources>
                         <resource>
@@ -265,7 +265,7 @@
     <distributionManagement>
         <snapshotRepository>
             <id>snapshots</id>
-            <url>https://ec2-54-175-42-12.compute-1.amazonaws.com/nexus/content/repositories/snapshots</url>
+            <url>https://52.7.67.118/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 

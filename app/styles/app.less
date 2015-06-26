@@ -300,6 +300,13 @@ small {
 	z-index: 1020;
 }
 
+.count {
+	font-weight: 300;
+	font-size: 200%;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
 .alert {
 	&.alert-success {
 		background: @brand-success;
@@ -310,4 +317,48 @@ small {
 			color: #fff;
 		}
 	}
+}
+
+.percentage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	color: #fff;
+	margin-bottom: 20px;
+	canvas {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	span {
+		position: absolute;
+	}
+}
+
+.progress {
+	height: 30px;
+	.progress-bar {
+		line-height: 30px;
+	}
+}
+
+.panel-title {
+	a {
+		color: @link-color;
+		display: block;
+		&:hover,
+		&:focus {
+			color: @link-hover-color;
+		}
+	}
+}
+
+.male {
+	color: @brand-primary;
+}
+
+.female {
+	color: @brand-warning;
 }

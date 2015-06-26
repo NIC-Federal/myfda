@@ -34,7 +34,7 @@ public class FeedController {
     private static final Logger log = LoggerFactory.getLogger(FeedController.class);
 
     @Autowired
-    @Value("${api.fda.key:opQssHVEb3CkSrJHxPAJiU1SHgoJPdmLNPUBEbdU}")
+    @Value("${api.fda.key}")
     private String fdaApiKey;
 
     @Autowired

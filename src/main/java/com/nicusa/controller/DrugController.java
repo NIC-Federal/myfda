@@ -44,7 +44,7 @@ public class DrugController {
   RestTemplate rest = new RestTemplate();
   HttpSlurper slurp = new HttpSlurper();
   @Autowired
-  @Value("${api.fda.key}")
+  @Value("${api.fda.key:opQssHVEb3CkSrJHxPAJiU1SHgoJPdmLNPUBEbdU}")
   private String fdaApiKey;
   @Autowired
   @Value("${fda.drug.label.url:https://api.fda.gov/drug/label.json}")

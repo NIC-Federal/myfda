@@ -60,7 +60,6 @@ public class FeedController {
         RestTemplate rest = new RestTemplate();
         JsonNode node = null;
         ObjectMapper mapper = new ObjectMapper();
-        log.info(xml2JsonCnvrtrUrl + fdaRecallsRSSurl);
         node = mapper.readTree(rest.getForObject(xml2JsonCnvrtrUrl + fdaRecallsRSSurl, String.class));
 
         return node;

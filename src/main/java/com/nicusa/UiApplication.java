@@ -21,6 +21,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,17 +36,17 @@ import org.springframework.web.bind.annotation.RestController;
   @PropertySource(value = "file:${sys:user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true),
   @PropertySource(value = "file:${user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true) })
 public class UiApplication {
-    
+
   private static final Logger log = LoggerFactory.getLogger(UiApplication.class);
 
   private static final String KEYSTORE_FILE = "keystoreFile";
   private static final String KEYSTORE_ALIAS = "keystoreAlias";
   private static final String KEYSTORE_PASSWORD = "keyPwd";
-  
+
   @Autowired
   Environment env;
-  
-  
+
+
   public static void main(String[] args) {
     SpringApplication.run(UiApplication.class, args);
   }
@@ -56,21 +57,21 @@ public class UiApplication {
       String absoluteKeystoreFile = null;
       String keyfileAlias = null;
       String keyfilePassword = null;
-      
+
       try {
           String absoluteKeystoreFileName = env.getProperty("absolute.file.keystore");
           keyfileAlias = env.getProperty("keyfile.alias");
           keyfilePassword = env.getProperty("keyfile.password");
-          
+
           absoluteKeystoreFile = ResourceUtils.getFile(absoluteKeystoreFileName).getAbsolutePath();
       } catch (Exception e)
       {
           log.warn("Keystore not defined ");
       }
-  
+
 
       final TomcatConnectorCustomizer customizer = new SslTomcatConnectionCustomizer(
-          absoluteKeystoreFile, keyfilePassword, "PKCS12", keyfileAlias); 
+          absoluteKeystoreFile, keyfilePassword, "PKCS12", keyfileAlias);
 
       return new EmbeddedServletContainerCustomizer() {
 
@@ -82,6 +83,13 @@ public class UiApplication {
           }
         };
       };
+  }
+
+  @Bean
+  public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+    MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+    mappingJackson2HttpMessageConverter.setPrettyPrint(true);
+    return mappingJackson2HttpMessageConverter;
   }
 
 }

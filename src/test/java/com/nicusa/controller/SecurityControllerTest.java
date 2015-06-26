@@ -10,8 +10,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.persistence.EntityManager;
@@ -22,6 +27,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,6 +38,9 @@ public class SecurityControllerTest {
 
   @Mock
   private EntityManager entityManager;
+
+  @Mock
+  private ProviderSignInUtils providerSignInUtils;
 
   @Before
   public void before() {
@@ -71,6 +80,7 @@ public class SecurityControllerTest {
 
   @Test
   public void testGetAuthenticateUserProfileIdAnonymous() {
+    RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
     assertThat(securityController.getAuthenticatedUserProfileId(), is(UserProfileResource.ANONYMOUS_USER_PROFILE_ID));
   }
 
@@ -81,7 +91,14 @@ public class SecurityControllerTest {
 
   @Test
   public void testSignupWithWebRequest() {
+    RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
     WebRequest webRequest = mock(WebRequest.class);
+    Connection connection = mock(Connection.class);
+    org.springframework.social.connect.UserProfile socialUserProfile =
+      mock(org.springframework.social.connect.UserProfile.class);
+    when(providerSignInUtils.getConnectionFromSession(webRequest)).thenReturn(connection);
+    when(connection.fetchUserProfile()).thenReturn(socialUserProfile);
+    UserProfile userProfile = new UserProfile();
     assertThat(securityController.signup(webRequest), is("redirect:/"));
   }
 }

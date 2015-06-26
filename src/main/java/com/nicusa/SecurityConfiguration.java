@@ -20,6 +20,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -96,6 +97,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Bean
   public SignInAdapter signInAdapter() {
     return new UserProfileSignInAdapter();
+  }
+
+  @Bean
+  public ProviderSignInUtils providerSignInUtils() {
+    return new ProviderSignInUtils();
   }
 
 }

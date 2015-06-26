@@ -2,11 +2,13 @@ package com.nicusa.controller;
 
 import com.nicusa.domain.UserProfile;
 import com.nicusa.resource.UserProfileResource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +34,8 @@ public class SecurityController {
   @PersistenceContext
   private EntityManager entityManager;
 
-  private ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils();
+  @Autowired
+  private ProviderSignInUtils providerSignInUtils;
 
   @RequestMapping(value = "/signin", method = RequestMethod.GET)
   public String signin() {
@@ -42,8 +45,12 @@ public class SecurityController {
   @RequestMapping(value="/signup", method= RequestMethod.GET)
   @Transactional
   public String signup(WebRequest request) {
+    Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
     UserProfile userProfile = new UserProfile();
     userProfile.setUserId(UUID.randomUUID().toString());
+    org.springframework.social.connect.UserProfile socialUserProfile = connection.fetchUserProfile();
+    userProfile.setName(socialUserProfile.getName());
+    userProfile.setEmailAddress(socialUserProfile.getEmail());
     entityManager.persist(userProfile);
 
     signin(userProfile);

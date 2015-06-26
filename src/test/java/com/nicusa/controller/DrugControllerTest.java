@@ -74,7 +74,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     final String response = "[{\"value\":\"the result\"}]";
     drug.rest = mock(RestTemplate.class);
-    when(drug.rest.getForObject(anyString(), (Class<?>) any(Class.class))).thenReturn(response);
+    when(drug.rest.getForObject(any(String.class), any(Class.class))).thenReturn(response);
     assertThat(drug.autocomplete("blah"), is("[\"the result\"]"));
   }
 
@@ -83,7 +83,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     final String response = "[{\"term\":\"abcdefg\"}]";
     drug.rest = mock( RestTemplate.class );
-    when( drug.rest.getForObject(anyString(),(Class<?>)any(Class.class))).thenReturn(response);
+    when( drug.rest.getForObject(any(String.class),any(Class.class))).thenReturn(response);
     Set<String> uniis = drug.getUniisByName( "blah" );
     assertEquals( uniis.size(), 1 );
     assertTrue( uniis.contains( "ABCDEFG" ));
@@ -119,7 +119,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"DIPHENHYDRAMINE HYDROCHLORIDE\",\"count\":245}]}";
     drug.rest = mock( RestTemplate.class );
-    when( drug.rest.getForObject(anyString(),(Class<?>)any(Class.class)) ).thenReturn( response );
+    when( drug.rest.getForObject(any(String.class),any(Class.class)) ).thenReturn( response );
     String result = drug.getGenericNameByUnii( "blah" );
     assertNotNull( result );
     assertTrue( result.contains("HYDROCHLORIDE") );
@@ -162,7 +162,7 @@ public class DrugControllerTest {
     drug.slurp = mock( HttpSlurper.class );
     drug.rest = mock( RestTemplate.class );
     when( drug.slurp.getData(anyString()) ).thenReturn(slurpResponse1,slurpResponse2,slurpResponse3);
-    when( drug.rest.getForObject(anyString(),(Class<?>)any(Class.class))).thenReturn(restResponse1,restResponse2);
+    when( drug.rest.getForObject(any(String.class),any(Class.class))).thenReturn(restResponse1,restResponse2);
     String result = drug.search( "blah", 10, 0 );
     assertNotNull( result );
     assertTrue( result.length() > 1 );

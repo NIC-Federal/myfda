@@ -1,10 +1,16 @@
-package com.nicusa;
+package com.nicusa.domain;
 
+import java.sql.SQLException;
+
+import javax.persistence.SharedCacheMode;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -13,28 +19,37 @@ import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import javax.persistence.SharedCacheMode;
-import javax.sql.DataSource;
-import java.sql.SQLException;
-
 @Configuration
-@Profile("local")
-public class PersistenceConfiguration {
+@Profile("mysql")
+public class MySqlPersistenceConfiguration {
+
+  @Autowired
+  @Value("${mysql.username}") String username;
+  
+  @Autowired
+  @Value("${mysql.password}") String password;
+
+  @Autowired
+  @Value("${mysql.jdbc.url}") String jdbcUrl;
 
   @Bean
   public DataSource dataSource() throws SQLException {
-    EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-    return builder.setType(EmbeddedDatabaseType.HSQL).build();
+    DriverManagerDataSource ds = new DriverManagerDataSource();
+    ds.setDriverClassName("com.mysql.jdbc.Driver");
+    ds.setUsername(username);
+    ds.setPassword(password);
+    ds.setUrl(jdbcUrl);
+    return ds;
   }
 
   @Bean
   public JpaVendorAdapter vendorAdapter() {
     EclipseLinkJpaVendorAdapter vendorAdapter = new EclipseLinkJpaVendorAdapter();
-    vendorAdapter.setDatabase(Database.HSQL);
+    vendorAdapter.setDatabase(Database.MYSQL);
     vendorAdapter.setGenerateDdl(true);
-    vendorAdapter.setShowSql(true);
     return vendorAdapter;
   }
+
 
   @Bean
   public PlatformTransactionManager transactionManager() {
@@ -60,6 +75,4 @@ public class PersistenceConfiguration {
     factory.setDataSource(dataSource());
     return factory;
   }
-
-
 }

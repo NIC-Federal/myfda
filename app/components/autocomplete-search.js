@@ -4,11 +4,9 @@ export default Ember.Component.extend({
 
     classNames: ['autocomplete-search'],
     large: false,
-    didInsertElement:
-
-    function(){
+    didInsertElement: function(){
       $('.drug-search').autocomplete({
-        minLength: 3,
+        minLength: 2,
         source: function (request, response) {
           $.ajax({
             type: 'GET',
@@ -26,6 +24,12 @@ export default Ember.Component.extend({
           });
         }
       });
+    },
+    actions: {
+        sendSearch: function() {
+            var keyword = encodeURIComponent(this.get('keyword'));
+            console.log("sending search. keyword=" + keyword);
+            this.sendAction('action', keyword);
+        }
     }
-
 });

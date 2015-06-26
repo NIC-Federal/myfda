@@ -274,6 +274,32 @@ small {
 	}
 }
 
+.modal-content {
+}
+
+.active-ingredients {
+
+	.active-ingredient {
+		margin-right: 5px;
+		&:after {
+			content: ",";
+		}
+		&:last-child:after {
+			content: " ";
+		}
+	}
+}
+
+.full-page-overlay {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0; left: 0;
+	padding-top: 300px;
+	z-index: 1020;
+}
+
 .alert {
 	&.alert-success {
 		background: @brand-success;

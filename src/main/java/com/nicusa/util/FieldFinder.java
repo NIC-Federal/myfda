@@ -28,10 +28,10 @@ public class FieldFinder {
         if ( n.isArray() ) {
           Iterator<JsonNode> iter = n.elements();
           while ( iter.hasNext() ) {
-            uniis.add( iter.next().textValue() );
+            uniis.add( iter.next().textValue().toUpperCase() );
           }
         } else {
-          uniis.add( n.textValue() );
+          uniis.add( n.textValue().toUpperCase() );
         }
       }
 

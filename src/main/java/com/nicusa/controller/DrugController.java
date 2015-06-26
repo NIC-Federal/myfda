@@ -3,6 +3,7 @@ package com.nicusa.controller;
 import com.nicusa.assembler.DrugAssembler;
 import com.nicusa.domain.Drug;
 import com.nicusa.resource.DrugResource;
+import com.nicusa.util.ApiKey;
 import com.nicusa.util.AutocompleteFilter;
 import com.nicusa.util.DrugSearchResult;
 import com.nicusa.util.FieldFinder;
@@ -43,9 +44,8 @@ public class DrugController {
   private static final Logger log = LoggerFactory.getLogger(DrugController.class);
   RestTemplate rest = new RestTemplate();
   HttpSlurper slurp = new HttpSlurper();
-  @Autowired
-  @Value("${api.fda.key}")
-  private String fdaApiKey;
+  ApiKey apiKey = new ApiKey();
+
   @Autowired
   @Value("${fda.drug.label.url:https://api.fda.gov/drug/label.json}")
   private String fdaDrugLabelUrl;
@@ -75,8 +75,7 @@ public class DrugController {
     String query = this.fdaDrugLabelUrl +
       "?search=openfda.brand_name:" +
       URLEncoder.encode( name, StandardCharsets.UTF_8.name() ) +
-      "&count=openfda.unii&api_key=" +
-      this.fdaApiKey;
+      "&count=openfda.unii" + this.apiKey.getFdaApiKeyQuery();
     try {
       String result = rest.getForObject( query, String.class );
       FieldFinder finder = new FieldFinder( "term" );
@@ -109,8 +108,9 @@ public class DrugController {
       URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
       ")+AND+(openfda.brand_name:" +
       URLEncoder.encode( name, StandardCharsets.UTF_8.name() ) +
-      ")&count=openfda.brand_name.exact&api_key=" +
-      this.fdaApiKey;
+      ")&count=openfda.brand_name.exact" +
+      this.apiKey.getFdaApiKeyQuery();
+
     try {
       String result = slurp.getData( query );
       FieldFinder finder = new FieldFinder( "term" );
@@ -127,8 +127,8 @@ public class DrugController {
     String query = this.fdaDrugLabelUrl +
       "?search=openfda.unii:" +
       URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
-      "&count=openfda.generic_name.exact&limit=1&api_key=" +
-      this.fdaApiKey;
+      "&count=openfda.generic_name.exact&limit=1" +
+      this.apiKey.getFdaApiKeyQuery();
     String result = rest.getForObject( query, String.class );
     FieldFinder finder = new FieldFinder( "term" );
     Set<String> generics = finder.find( result );

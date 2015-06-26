@@ -32,7 +32,7 @@ import org.springframework.web.client.RestTemplate;
 public class EventController {
     private static final Logger log = LoggerFactory.getLogger(EventController.class);
   @Autowired
-  @Value("${api.fda.key}")
+  @Value("${api.fda.key:opQssHVEb3CkSrJHxPAJiU1SHgoJPdmLNPUBEbdU}")
   private String fdaApiKey;
   @Autowired
   @Value("${fda.drug.event.url:https://api.fda.gov/drug/event.json}")

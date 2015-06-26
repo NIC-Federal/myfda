@@ -34,7 +34,7 @@ public class FeedController {
     private static final Logger log = LoggerFactory.getLogger(FeedController.class);
 
     @Autowired
-    @Value("${api.fda.key}")
+    @Value("${api.fda.key:opQssHVEb3CkSrJHxPAJiU1SHgoJPdmLNPUBEbdU}")
     private String fdaApiKey;
 
     @Autowired
@@ -64,7 +64,6 @@ public class FeedController {
         RestTemplate rest = new RestTemplate();
         JsonNode node = null;
         ObjectMapper mapper = new ObjectMapper();
-        log.info(xml2JsonCnvrtrUrl + fdaRecallsRSSurl);
         node = mapper.readTree(rest.getForObject(xml2JsonCnvrtrUrl + fdaRecallsRSSurl, String.class));
 
         return node;

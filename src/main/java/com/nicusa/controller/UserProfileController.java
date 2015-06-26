@@ -50,22 +50,23 @@ public class UserProfileController {
         UserProfile userProfile = entityManager.find(UserProfile.class, id);
         if (userProfile == null) {
           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+          return new ResponseEntity<UserProfileResource>(userProfileAssembler.toResource(userProfile), HttpStatus.OK);
         }
-          return new ResponseEntity<>(userProfileAssembler.toResource(userProfile), HttpStatus.OK);
       } else {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
       }
     }
-
   }
 
   @ResponseBody
   @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = "application/hal+json")
   public ResponseEntity<?> createUserProfile(@RequestBody UserProfileResource userProfileResource) {
-    if(securityController.getAuthenticatedUserProfileId() == UserProfileResource.ANONYMOUS_USER_PROFILE_ID) {
+    UserProfile userProfile = userProfileResourceToDomainConverter.convert(userProfileResource);
+    if(securityController.getAuthenticatedUserProfileId() != userProfile.getId() ||
+       securityController.getAuthenticatedUserProfileId() == UserProfileResource.ANONYMOUS_USER_PROFILE_ID) {
       return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     } else {
-      UserProfile userProfile = userProfileResourceToDomainConverter.convert(userProfileResource);
       entityManager.persist(userProfile);
       HttpHeaders httpHeaders = new HttpHeaders();
       httpHeaders.setLocation(linkTo(methodOn(UserProfileController.class).getUserProfile(userProfile.getId())).toUri());

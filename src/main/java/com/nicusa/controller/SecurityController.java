@@ -58,10 +58,10 @@ public class SecurityController {
 
   public Long getAuthenticatedUserProfileId() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if(authentication instanceof AnonymousAuthenticationToken) {
+    if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
       return UserProfileResource.ANONYMOUS_USER_PROFILE_ID;
     } else {
-      return (Long)authentication.getCredentials();
+      return (Long)authentication.getPrincipal();
     }
   }
 

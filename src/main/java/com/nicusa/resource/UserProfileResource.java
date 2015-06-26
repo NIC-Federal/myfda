@@ -1,8 +1,12 @@
 package com.nicusa.resource;
 
+import com.nicusa.controller.UserProfileController;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.util.Collection;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 public class UserProfileResource extends ResourceSupport {
 
@@ -13,6 +17,7 @@ public class UserProfileResource extends ResourceSupport {
     ANONYMOUS_USER_PROFILE = new UserProfileResource();
     ANONYMOUS_USER_PROFILE.setName("anonymous");
     ANONYMOUS_USER_PROFILE.setAnonymous(true);
+    ANONYMOUS_USER_PROFILE.add(linkTo(methodOn(UserProfileController.class).getUserProfile(0L)).withSelfRel());
   }
 
   private String userId;

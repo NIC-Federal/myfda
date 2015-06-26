@@ -25,9 +25,9 @@ import static org.junit.Assert.assertThat;
 @IntegrationTest("server.port:0")
 public class UiApplicationTest {
 
-	@Test
-	public void contextLoads() {
-	}
+  @Test
+  public void contextLoads() {
+  }
 
   @Value("${local.server.port}")
   private int port;

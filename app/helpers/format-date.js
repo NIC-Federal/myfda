@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export function formatDate(date) {
-  return moment(date, "YYYYDDMM").format("DD/MM/YYYY");
+  return moment(date, "YYYYMMDD").format("MM/DD/YYYY");
 }
 
 export default Ember.HTMLBars.makeBoundHelper(formatDate);

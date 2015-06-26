@@ -26,7 +26,7 @@ body {
 		}
 	}
 	.navbar-brand {
-		background: url("/images/my-fda.png") no-repeat center center;
+		background: url("images/my-fda.png") no-repeat center center;
 		background-size: 105px 50px;
 		width: 135px;
 		height: 50px;
@@ -137,6 +137,10 @@ body {
 	@media only screen and (max-width:767px) {
 		padding: 0 0 0 0;
 	}
+	p {
+		font-size: 10px;
+		color: #999;
+	}
 }
 
 .section {
@@ -238,6 +242,16 @@ h3 {
 	}
 }
 
+.nav-tabs {
+	> li {
+		&.active {
+			> a {
+				background-color: #ffffff;
+			}
+		}
+	}
+}
+
 .tab-pane {
 	padding: 30px 0;
 	.title-tab {
@@ -272,9 +286,6 @@ small {
 	.progress {
 		margin-bottom: 0;
 	}
-}
-
-.modal-content {
 }
 
 .active-ingredients {
@@ -325,7 +336,7 @@ small {
 	justify-content: center;
 	position: relative;
 	color: #fff;
-	margin-bottom: 20px;
+	content: none;
 	canvas {
 		position: absolute;
 		top: 0;

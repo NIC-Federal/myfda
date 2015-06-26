@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,43 +23,15 @@ import java.util.UUID;
 
 @SpringBootApplication
 @RestController
+@PropertySources({
+  @PropertySource(value = "file:${sys:user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true),
+  @PropertySource(value = "file:${user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true) })
 public class UiApplication {
 
   private static final Logger log = LoggerFactory.getLogger(UiApplication.class);
 
   public static void main(String[] args) {
     SpringApplication.run(UiApplication.class, args);
-  }
-
-  @RequestMapping("/resource")
-  public Map<String, Object> home() {
-    Map<String, Object> model = new HashMap<>();
-    model.put("id", UUID.randomUUID().toString());
-    model.put("content", "Hello World");
-    return model;
-  }
-
-  @Configuration
-  @EnableWebSecurity
-  @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-  protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http.httpBasic().and().authorizeRequests()
-        .antMatchers("/","/index.html"
-                ,"/recalls"
-                ,"/drug/recalls"
-                ,"/drug/enforcements").permitAll()
-        .anyRequest().fullyAuthenticated()
-        .and().csrf().disable();
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-      auth
-        .inMemoryAuthentication()
-        .withUser("user").password("password").roles("USER");
-    }
   }
 
 }

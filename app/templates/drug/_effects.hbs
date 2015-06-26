@@ -1,0 +1,32 @@
+<div role="tabpanel" class="tab-pane fade" id="drug-effects">
+    <h3 class="h2">Adverse Effects</h3>
+    <!-- <form role="search">
+        <div class="form-group">
+            <label class="sr-only">Search Effects</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search recalls..." />
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        </div>
+    </form> -->
+    {{#each model.effects as |effect|}}
+        <div class="effect">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <h3 class="title-effect">
+                        {{effect.[0]}}
+                    </h3>
+                    <p class="lead"><!-- PLACEHOLDER -->Effect description.</p>
+                </div>
+                <div class="col-xs-12 col-sm-4 text-center">
+                    {{easy-pie-chart dataPercent=62 percentText=62 barColor="#3366cc" trackColor="#eee"}}
+                    <h4 class="count">{{effect.[1].[0].count}}</h4>
+                    <p><strong>Reports</strong></p>
+                </div>
+            </div>
+            <hr />
+        </div>
+    {{/each}}
+</div>

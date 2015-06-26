@@ -6,62 +6,8 @@
 			<li role="presentation"><a href="#drug-effects" aria-controls="profile" role="tab" data-toggle="tab">Adverse Effects</a></li>
 		</ul>
 		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane fade in active" id="drug-recalls">
-				<h3 class="h2">Drug Recalls</h3>
-				<!-- <form role="search">
-					<div class="form-group">
-						<label class="sr-only">Search Recalls</label>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search recalls..." />
-							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-							</span>
-						</div>
-					</div>
-				</form> -->
-				{{#each model.recalls.results as |recall|}}
-                    <div class="recall">
-    					<h3 class="title-recall"><span class="label label-success">{{recall.status}}</span>Recall Number: {{recall.recall_number}}</h3>
-    					<p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
-    					<p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
-    					<p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
-    					<p><strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
-    					<hr />
-    				</div>
-				{{/each}}
-			</div>
-			<div role="tabpanel" class="tab-pane fade" id="drug-effects">
-				<h3 class="h2">Adverse Effects</h3>
-				<!-- <form role="search">
-					<div class="form-group">
-						<label class="sr-only">Search Effects</label>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search recalls..." />
-							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-							</span>
-						</div>
-					</div>
-				</form> -->
-				{{#each model.effects as |effect|}}
-					<div class="effect">
-						<div class="row">
-							<div class="col-xs-12 col-sm-8">
-								<h3 class="title-effect">
-									{{effect.[0]}}
-								</h3>
-								<p class="lead"><!-- PLACEHOLDER -->Effect description.</p>
-							</div>
-							<div class="col-xs-12 col-sm-4 text-center">
-								{{easy-pie-chart dataPercent=62 percentText=62 barColor="#3366cc" trackColor="#eee"}}
-								<h4 class="count">{{effect.[1].[0].count}}</h4>
-								<p><strong>Reports</strong></p>
-							</div>
-						</div>
-						<hr />
-					</div>
-				{{/each}}
-			</div>
+			{{partial "drug/recalls"}}
+			{{partial "drug/effects"}}
 		</div>
 	</div>
 </section>

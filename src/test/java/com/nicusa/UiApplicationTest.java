@@ -1,7 +1,6 @@
 package com.nicusa;
 
 import com.nicusa.domain.PersistenceConfiguration;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.Import;

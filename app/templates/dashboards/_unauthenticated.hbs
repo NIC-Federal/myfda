@@ -6,10 +6,11 @@
 
                 {{#each model.results as |recall|}}
                     <div class="recall">
-    					<h3>Recall Number: {{recall.recall_number}} &bull; Status: {{recall.status}} &bull; Initiation Date: {{recall.recall_initiation_date}}</h3>
+    					<h3 class="title-recall"><span class="label label-success">{{recall.status}}</span>Recall Number: {{recall.recall_number}}</h3>
     					<p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
     					<p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
-    					<p>Report Date: {{recall.report_date}} &bull; Reporting Firm: {{recall.recalling_firm}}</p>
+    					<p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
+    					<p><strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
     					<hr />
     				</div>
                 {{/each}}

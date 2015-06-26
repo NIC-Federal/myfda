@@ -2,40 +2,22 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-				<div class="page-header"><h2>Search Results for {{keyword}} <small>{{model.length}} Results</small></h2></div>
+				<div class="page-header"><h2>Search Results for {{searchQuery}} <small>{{model.length}} Results</small></h2></div>
 
 				<!-- Search Results -->
 				{{#each model as |result|}}
 					<div class="drug">
-						<h3><a href="#">{{result.brandName}} <small>({{result.genericName}})</small></a></h3>
+						<h3>{{#link-to 'drug' result.unii}}{{result.brandName}} <small>({{result.genericName}})</small>{{/link-to}}</h3>
 						<p class="active-ingredients"><strong class="prepend">Active Ingredient(s):</strong>
 							{{#each result.activeIngredients as |ingredient|}}
 								<span class="active-ingredient">{{ingredient}}</span>
 							{{/each}}
 						</p>
-						<p><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-info-sign"></i> Learn More</a> <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-bookmark"></i> Add to My Meds</a></p>
+						<p>{{#link-to 'drug' result.unii class="btn btn-default"}}<i class="fa fa-info-circle"></i> Learn More{{/link-to}} <a href="#" class="btn btn-default"><i class="fa fa-bookmark"></i> Add to My Meds</a></p>
 						<hr />
 					</div>
 				{{/each}}
 
-
-				<nav>
-					<ul class="pagination">
-						<li class="disabled">
-							<a href="#" aria-label="Previous">
-								<span aria-hidden="true">&laquo;</span>
-							</a>
-						</li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li>
-							<a href="#" aria-label="Next">
-								<span aria-hidden="true">&raquo;</span>
-							</a>
-						</li>
-					</ul>
-				</nav>
 			</div>
 		</div>
 	</div>

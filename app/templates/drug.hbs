@@ -42,15 +42,16 @@
 			<div role="tabpanel" class="tab-pane fade" id="drug-effects">
 				<h3 class="h2">Adverse Effects</h3>
 
-				{{#each model.genderCount.results as |result|}}
-					{{result.term}}
-					{{result.count}}
-				{{/each}}
+				male {{ model.genderCount.male.count }}
+				female {{ model.genderCount.female.count }}
+				total {{ model.genderCount.total }}
+				male pct {{ model.genderCount.male.pct}}
+				female pct {{ model.genderCount.female.pct }}
 
-				{{#each model.ages.results as |result|}}
+				<!-- {{#each model.ages.results as |result|}}
 					{{result.term}}
 					{{result.count}}
-				{{/each}}
+				{{/each}} -->
 
 				<!-- <form role="search">
 					<div class="form-group">

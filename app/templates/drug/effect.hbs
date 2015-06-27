@@ -1,0 +1,81 @@
+<!-- <h3>Gender</h3>
+{{#each model.genderCount.results as |data|}}
+    {{data.count}}
+{{/each}}
+
+<h3>handcrafted data</h3>
+{{model.genderCount.male.pct}}
+
+<h3>Age</h3>
+{{#each model.ageCount.results as |data|}}
+    {{data}}
+{{/each}}
+-->
+
+
+<div class="panel-body">
+  <p class="lead">{{description}}</p>
+  <!-- PLACEHOLDER FOR SEVERITY -->
+  <div class="row">
+    <!-- <div class="col-xs-12 col-sm-4 text-center">
+      {{easy-pie-chart dataPercent=percent percentText=percent barColor="#3366cc" trackColor="#eee" lineWidth="5" animate="1500"}}
+      {{to-json model.outcomeCount}}
+      <h4 class="count">{{model.outcomeCount.total}}</h4>
+      <label class="label-reports">Reports</label>
+    </div> -->
+    <div class="col-xs-12 col-sm-12">
+      <h4>Reported Severity</h4>
+      <div class="progress">
+        <div class="progress-bar progress-bar-info" style={{progress-bar-percentage model.outcomeCount.Outcome1.pct}} data-toggle="tooltip" data-placement="bottom" title="Fully Recovered">
+          {{model.outcomeCount.Outcome1.count}}
+        </div>
+        <div class="progress-bar progress-bar" style={{progress-bar-percentage model.outcomeCount.Outcome2.pct}} data-toggle="tooltip" data-placement="bottom" title="Improving">
+          {{model.outcomeCount.Outcome2.count}}
+        </div>
+        <div class="progress-bar progress-bar-success" style={{progress-bar-percentage model.outcomeCount.Outcome3.pct}} data-toggle="tooltip" data-placement="bottom" title="Persisting Condition">
+          {{model.outcomeCount.Outcome3.count}}
+        </div>
+        <div class="progress-bar progress-bar-warning" style={{progress-bar-percentage model.outcomeCount.Outcome4.pct}} data-toggle="tooltip" data-placement="bottom" title="Recovered with Consequences">
+          {{model.outcomeCount.Outcome4.count}}
+        </div>
+        <div class="progress-bar progress-bar-danger" style={{progress-bar-percentage model.outcomeCount.Outcome5.pct}} data-toggle="tooltip" data-placement="bottom" title="Death">
+          {{model.outcomeCount.Outcome5.count}}
+        </div>
+      </div>
+      <small>
+        <span class="label label-info">Fully Recovered</span>
+        <span class="label label-primary">Improving</span>
+        <span class="label label-success">Persisting Condition</span>
+        <span class="label label-warning">Recovered with Consequences</span>
+        <span class="label label-danger">Death</span>
+      </small>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-sm-4 text-center">
+      <!-- PLACEHOLDER FOR GENDER -->
+      <h4>Reported by Gender</h4>
+      <div class="row">
+        <div class="col-xs-6">
+          <p class="lead male">
+            <i class="fa fa-male fa-3x"></i><br />
+            {{model.genderCount.male.pct}}% <small>Male</small>
+          </p>
+        </div>
+        <div class="col-xs-6">
+          <p class="lead female">
+            <i class="fa fa-female fa-3x"></i><br />
+            {{model.genderCount.female.pct}}% <small>Female</small>
+          </p>
+        </div>
+      </div>
+      <hr class="visible-xs" />
+    </div>
+    <div class="col-sm-8">
+      <!-- PLACEHOLDER FOR AGES -->
+      <h4>Ages Effected</h4>
+      <!-- {{morris-charts type="Line" data=model.ageCount xkey="age" ykeys=["count"] labels=["count"] resize=true}} -->
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 package com.nicusa.controller;
 
+import com.nicusa.util.ApiKey;
 import com.nicusa.util.HttpSlurper;
 
 import org.junit.Test;
@@ -21,6 +22,7 @@ public class EventControllerTest {
   public void testEventTerms () throws IOException {
     EventController event = new EventController();
     event.rest = mock( RestTemplate.class );
+    event.apiKey = new ApiKey();
     final String res = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\": \"2015-01-21\"},\"results\":[{\"term\":\"PAIN\",\"count\": 584  },{\"term\": \"DIARRHOEA\",\"count\":543},{\"term\": \"NAUSEA\",\"count\": 481},{\"term\":\"ANXIETY\",\"count\": 417}]}";
     when( event.rest.getForObject(anyString(),(Class<?>)any(Class.class))).thenAnswer(
         new Answer<String>() {
@@ -41,6 +43,7 @@ public class EventControllerTest {
   public void testSearch () throws IOException {
     EventController event = new EventController();
     event.rest = mock( RestTemplate.class );
+    event.apiKey = new ApiKey();
     final String res = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\": \"2015-01-21\"},\"results\":[{\"term\":\"PAIN\",\"count\": 584  },{\"term\": \"DIARRHOEA\",\"count\":543},{\"term\": \"NAUSEA\",\"count\": 481},{\"term\":\"ANXIETY\",\"count\": 417}]}";
     when( event.rest.getForObject(anyString(),(Class<?>)any(Class.class))).thenAnswer(
         new Answer<String>() {

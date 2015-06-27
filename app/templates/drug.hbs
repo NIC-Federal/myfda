@@ -1,146 +1,21 @@
 <section id="drug-details" class="section">
 	<div class="container">
-		<div class="page-header"><h2><!-- WE NEED THE DRUG NAME! -->{{drug.name}}</h2></div>
+		<div class="page-header"><h2><!-- WE NEED THE DRUG NAME! -->{{drugName}}</h2></div>
 		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#drug-recalls" aria-controls="home" role="tab" data-toggle="tab">Recalls</a></li>
-			<li role="presentation"><a href="#drug-effects" aria-controls="profile" role="tab" data-toggle="tab">Adverse Effects</a></li>
+			{{#if model.recalls.results}}
+				<li role="presentation" class="active"><a href="#drug-recalls" aria-controls="home" role="tab" data-toggle="tab">Recalls</a></li>
+			{{/if}}
+			{{#if model.effects}}
+				<li role="presentation"><a href="#drug-effects" aria-controls="profile" role="tab" data-toggle="tab">Adverse Effects</a></li>
+			{{/if}}
 		</ul>
-
 		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane fade in active" id="drug-recalls">
-				<h3 class="h2">Drug Recalls</h3>
-				<!-- <form role="search">
-					<div class="form-group">
-						<label class="sr-only">Search Recalls</label>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search recalls..." />
-							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-							</span>
-						</div>
-					</div>
-				</form> -->
-				{{#each model.recalls.results as |recall|}}
-                    <div class="recall">
-	                    <div class="row">
-		                    <div class="col-sm-8 col-md-9">
-		    					<h3 class="title-recall"><span class="label label-success">{{recall.status}}</span>Recall Number: {{recall.recall_number}}</h3>
-		    					<p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
-		    					<p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
-		    					<p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
-		    					<p><strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
-		                    </div>
-		                    <div class="col-sm-4 col-md-3 text-center">
-			                    <h4>Recall Distribution:</h4>
-			                    {{us-maps}}
-		                    </div>
-	                    </div>
-    					<hr />
-    				</div>
-				{{/each}}
-			</div>
-			<div role="tabpanel" class="tab-pane fade" id="drug-effects">
-				<h3 class="h2">Adverse Effects</h3>
-				<!-- {{#each model.ages.results as |result|}}
-					{{result.term}}
-					{{result.count}}
-				{{/each}} -->
-
-				<!-- <form role="search">
-					<div class="form-group">
-						<label class="sr-only">Search Effects</label>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search recalls..." />
-							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-							</span>
-						</div>
-					</div>
-				</form> -->
-				<div class="panel-group" id="effects" role="tablist" aria-multiselectable="true">
-				{{#each model.effects as |effect|}}
-					<div class="effect panel panel-default">
-						<div class="panel-heading" role="tab" id="{{effect-slug effect.effect}}">
-							<h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#effects" href="#{{effect-content-slug effect.effect}}" aria-expanded="true" aria-controls="collapseOne">
-									<i class="fa fa-chevron-down fa-2x pull-right toggle-icon" data-toggle="tooltip" data-placement="left" title="Click to toggle details."></i>
-									{{effect.effect}}
-									<span class="count">{{effect.count}} Cases Reported</span>
-									<small>Stubbed effect description.{{effect.description}}</small>
-								</a>
-							</h4>
-						</div>
-						<div id="{{effect-content-slug effect.effect}}" class="panel-collapse panel-details collapse" role="tabpanel" aria-labelledby="{{effect-content-slug effect.effect}}">
-							<div class="panel-body">
-								<p class="lead">{{effect.description}}</p>
-								<!-- PLACEHOLDER FOR SEVERITY -->
-								<div class="row">
-									<div class="col-xs-12 col-sm-4 text-center">
-										{{easy-pie-chart dataPercent=effect.percent percentText=effect.percent barColor="#3366cc" trackColor="#eee" lineWidth="5" animate="1500"}}
-										<h4 class="count">{{effect.count}}</h4>
-										<label class="label-reports">Reports</label>
-									</div>
-									<div class="col-xs-12 col-sm-8">
-										<h4>Reported Severity</h4>
-										<div class="progress">
-											<div class="progress-bar progress-bar-info" style="width: 35%" data-toggle="tooltip" data-placement="bottom" title="Fully Recovered">
-												35%
-											</div>
-											<div class="progress-bar progress-bar" style="width: 20%" data-toggle="tooltip" data-placement="bottom" title="Improving">
-												20%
-											</div>
-											<div class="progress-bar progress-bar-success" style="width: 10%" data-toggle="tooltip" data-placement="bottom" title="Persisting Condition">
-												10%
-											</div>
-											<div class="progress-bar progress-bar-warning" style="width: 25%" data-toggle="tooltip" data-placement="bottom" title="Recovered with Consequences">
-												25%
-											</div>
-											<div class="progress-bar progress-bar-danger" style="width: 10%" data-toggle="tooltip" data-placement="bottom" title="Death">
-												10%
-											</div>
-										</div>
-										<small>
-											<span class="label label-info">Fully Recovered</span>
-											<span class="label label-primary">Improving</span>
-											<span class="label label-success">Persisting Condition</span>
-											<span class="label label-warning">Recovered with Consequences</span>
-											<span class="label label-danger">Death</span>
-										</small>
-									</div>
-								</div>
-								<hr />
-								<div class="row">
-									<div class="col-sm-4 text-center">
-										<!-- PLACEHOLDER FOR GENDER -->
-										<h4>Reported by Gender</h4>
-										<div class="row">
-											<div class="col-xs-6">
-												<p class="lead male">
-													<i class="fa fa-male fa-3x"></i><br />
-													{{ model.genderCount.male.pct}}% <small>Male</small>
-												</p>
-											</div>
-											<div class="col-xs-6">
-												<p class="lead female">
-													<i class="fa fa-female fa-3x"></i><br />
-													{{ model.genderCount.female.pct }}% <small>Female</small>
-												</p>
-											</div>
-										</div>
-										<hr class="visible-xs" />
-									</div>
-									<div class="col-sm-8">
-										<!-- PLACEHOLDER FOR AGES -->
-										<h4>Ages Effected</h4>
-										{{morris-charts type="Line" data=DATA xKey=age.year yKeys=age.value labels=Reports resize=true}}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				{{/each}}
-				</div>
-			</div>
+			{{#if model.recalls.results}}
+				{{partial "drug/recalls"}}
+			{{/if}}
+			{{#if model.effects}}
+				{{partial "drug/effects"}}
+			{{/if}}
 		</div>
 	</div>
 </section>

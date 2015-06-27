@@ -1,4 +1,4 @@
-package com.nicusa.domain;
+package com.nicusa;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +18,10 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
+@Profile("local")
 public class PersistenceConfiguration {
 
   @Bean
-  @Profile("local")
   public DataSource dataSource() throws SQLException {
     EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
     return builder.setType(EmbeddedDatabaseType.HSQL).build();

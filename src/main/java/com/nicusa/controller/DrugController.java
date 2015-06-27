@@ -94,8 +94,6 @@ public class DrugController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(linkTo(methodOn(DrugController.class).getPortfolioDrug(principal,
           drug.getId())).toUri());
-       /* drugResource.add(linkTo(methodOn(DrugController.class).getPortfolioDrug(principal, drug.getId())).withSelfRel());
-        drugResource.set_id(drug.getId().toString());*/
         return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
       }
     } else {
@@ -119,8 +117,6 @@ public class DrugController {
         portfolio.getDrugs().remove(drug);
         entityManager.merge(portfolio);
         entityManager.remove(drug);
-
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       }
     } else {

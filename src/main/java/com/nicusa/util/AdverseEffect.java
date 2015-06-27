@@ -1,18 +1,10 @@
 package com.nicusa.util;
 
 public class AdverseEffect implements Comparable<AdverseEffect> {
-  private String unii;
   private String effect;
   private Long count;
   private Long total;
   private String description;
-
-  public String getUnii() {
-    return this.unii;
-  }
-  public void setUnii( String u ) {
-    this.unii = u;
-  }
 
   public String getEffect() {
     return this.effect == null ? "" : this.effect;

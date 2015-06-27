@@ -19,7 +19,7 @@ public class ApiKey {
   private static int totalRequests = 0;
 
   @Autowired
-  @Value("${api.fda.keys}:")
+  @Value("${api.fda.keys:}")
   String[] fdaApiKeys;
 
   public boolean hasKeys () {

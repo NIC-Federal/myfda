@@ -5,7 +5,7 @@ export default Ember.Route.extend({
         performSearch: function(keyword) {
             var controller = this.get("controller");
             this.refresh();
-            controller.set("searchQuery", keyword.toUpperCase());
+            controller.set("searchQuery", keyword.toUpperCase().replace(/\+/g," "));
             this.transitionTo('search.results', keyword);
         },
         error: function() {

@@ -84,4 +84,29 @@ public class UiApplication {
       };
   }
 
+  @Configuration
+  @EnableWebSecurity
+  @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+  @PropertySources({
+    @PropertySource(value = "file:${sys:user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true),
+    @PropertySource(value = "file:${user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true) })
+  protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+      http.httpBasic().and().authorizeRequests()
+        .antMatchers("/","/index.html"
+        ,"/recalls"
+        ,"/drug/recalls"
+        ,"/drug/enforcements").permitAll()
+        .anyRequest().fullyAuthenticated()
+        .and().csrf().disable();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+      auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+    }
+  }
+
+
 }

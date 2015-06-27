@@ -4,7 +4,8 @@ export default Ember.Route.extend({
 
   model: function(params) {
     return Ember.RSVP.hash({
-      genderCount: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + '"8GTS82S83M"' + '+AND+patient.reaction.reactionmeddrapt:%22' + 'headache' + '%22&count=patient.patientsex').then(function(data) {
+      // Get Gender Information
+      genderCount: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + params.drug_id + '+AND+patient.reaction.reactionmeddrapt:%22' + 'headache' + '%22&count=patient.patientsex').then(function(data) {
         var maleCount = 0;
         var femaleCount = 0;
         var total = 0;
@@ -32,10 +33,12 @@ export default Ember.Route.extend({
         };
         return results;
       }),
-      // ages: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + '"8GTS82S83M"' + '+AND+patient.reaction.reactionmeddrapt:%22' + 'headache' + '%22&count=patientonsetage').then(function(data) {
-      //   return data;
-      // }),
+      ages: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + '"8GTS82S83M"' + '+AND+patient.reaction.reactionmeddrapt:%22' + 'headache' + '%22&count=patientonsetage').then(function(data) {
+        return data;
+      }),
+      // Get Effects related to drug
       effects: $.getJSON("event?unii=" + params.drug_id),
+      // Get Recalls related to drug
       recalls: $.getJSON("drug/enforcements?unii=" + params.drug_id)
     });
   },
@@ -45,19 +48,29 @@ export default Ember.Route.extend({
     Ember.run.schedule('afterRender', this, function () {
 
 		let duration = 1500;
-		
+
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function () {
 			$(".effect", this).velocity("transition.slideRightIn", {duration: duration, stagger: 150});
 		});
-         
+
 		$('.collapse').on('show.bs.collapse', function(){
 			$(this).parent().find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up");
 		}).on('hide.bs.collapse', function(){
 			$(this).parent().find(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
 		});
-		
+
 		$('[data-toggle="tooltip"]').tooltip();
 
     });
+  },
+
+  actions: {
+    loadEffectData: function(name) {
+      console.log("Route recieved: " + name);
+      $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:WK2XYI10QM+AND+patient.reaction.reactionmeddrapt:%22' + name + '%22&count=patient.patientsex').then(function(response){
+        console.log(response);
+        $("#" + name).text(response.results[0].count);
+      });
+    }
   }
 });

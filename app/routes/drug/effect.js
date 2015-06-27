@@ -7,8 +7,6 @@ export default Ember.Route.extend({
 
         // Fetch the effect model data
         return Ember.RSVP.hash({
-            // count
-            effectCount: this.modelFor('drug'),
             // Gender
             genderCount: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + drug_id + '+AND+patient.reaction.reactionmeddrapt:%22' + params.effect_name + '%22&count=patient.patientsex').then(function (data) {
                 var result = {
@@ -38,6 +36,22 @@ export default Ember.Route.extend({
                 return result;
             }),
 
+            chartStub: {
+                labels: ['1', '2', '3', '4', '5'],
+                series: [
+                  [5, 4, 8, 10, 2]
+                ]
+            },
+
+            chartOptions: {
+                showPoint: false,
+                height: 200,
+                axisX: {
+                    // We can disable the grid for this axis
+                    showGrid: false
+                }
+             },
+
             //Age
             ageCount: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + drug_id + '+AND+patient.reaction.reactionmeddrapt:%22' + params.effect_name + '%22&count=patient.patientonsetage').then(function (data) {
 
@@ -55,9 +69,18 @@ export default Ember.Route.extend({
                     }
                 });
 
-                console.log(result);
+                var chartFormat = {
+                       labels: [],
+                       series: [[]]
+                   };
 
-                return result;
+                   for (var i = 0; i < 111; i++) {
+
+                       chartFormat.labels.push(result[i].age);
+                       chartFormat.series[0].push(result[i].count);
+                   }
+                   var results = {results:chartFormat};
+                   return results;
 
               }),
 

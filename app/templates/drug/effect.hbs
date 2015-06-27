@@ -75,7 +75,7 @@
     <div class="col-sm-8">
       <!-- PLACEHOLDER FOR AGES -->
       <h4>Ages Effected</h4>
-      <!-- {{morris-charts type="Line" data=model.ageCount xkey="age" ykeys=["count"] labels=["count"] resize=true}} -->
+       {{chartist-chart type="line" options=model.chartOptions data=model.ageCount.results }}
     </div>
   </div>
 </div>

@@ -13,7 +13,7 @@
 
 // Contextual colors
 .text-muted {
-  color: @text-muted;
+  color: #999;
 }
 .text-primary {
   color: @brand-primary;
@@ -309,14 +309,13 @@ small {
 
 .effect {
 	.label-severity {
+		margin-right: 10px;
 		@media only screen and (max-width:767px) {
 			display: block;
 			text-align: center;
+			margin-right: 0;
 		}	
 	}	
-	.progress {
-		margin-bottom: 0;
-	}
 	.effect-header {
 		padding-left: 45px;
 		float: left;
@@ -399,9 +398,11 @@ h4.count {
 
 .panel-heading {
 	background: #eee;
+	padding: 0 0 0 0;
 	.panel-title {
 		font-weight: 700;
 		a {
+			padding: 10px 15px;
 			color: @link-color;
 			display: block;
 			&:hover {

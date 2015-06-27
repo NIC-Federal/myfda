@@ -4,7 +4,10 @@ export default Ember.Route.extend({
 
   model: function(params) {
     return Ember.RSVP.hash({
-      // Get Gender Information
+
+      /////////////////////////
+      // Gender
+      ////////////////////////
       genderCount: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + params.drug_id + '+AND+patient.reaction.reactionmeddrapt:%22' + 'headache' + '%22&count=patient.patientsex').then(function(data) {
         var maleCount = 0;
         var femaleCount = 0;
@@ -33,12 +36,22 @@ export default Ember.Route.extend({
         };
         return results;
       }),
-      ages: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + '"8GTS82S83M"' + '+AND+patient.reaction.reactionmeddrapt:%22' + 'headache' + '%22&count=patientonsetage').then(function(data) {
-        return data;
-      }),
-      // Get Effects related to drug
+
+      /////////////////////////
+      // Age
+      ////////////////////////
+//    ages: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + '"8GTS82S83M"' + '+AND+patient.reaction.reactionmeddrapt:%22' + 'headache' + '%22&count=patientonsetage').then(function(data) {
+//      return data;
+//    }),
+
+      /////////////////////////
+      // Effects
+      ////////////////////////
       effects: $.getJSON("event?unii=" + params.drug_id),
-      // Get Recalls related to drug
+
+      /////////////////////////
+      // Recalls
+      ////////////////////////
       recalls: $.getJSON("drug/enforcements?unii=" + params.drug_id)
     });
   },
@@ -67,10 +80,10 @@ export default Ember.Route.extend({
   actions: {
     loadEffectData: function(name) {
       console.log("Route recieved: " + name);
-      $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:WK2XYI10QM+AND+patient.reaction.reactionmeddrapt:%22' + name + '%22&count=patient.patientsex').then(function(response){
-        console.log(response);
-        $("#" + name).text(response.results[0].count);
-      });
+    //   $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:WK2XYI10QM+AND+patient.reaction.reactionmeddrapt:%22' + name + '%22&count=patient.patientsex').then(function(response){
+    //     console.log(response);
+    //     $("#" + name).text(response.results[0].count);
+    //   });
     }
   }
 });

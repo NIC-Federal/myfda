@@ -5,16 +5,18 @@ export default Ember.Component.extend({
 
 	_initializeMaps: function() {
 
-		var states = this.get('states');
-		var stateObj = {};
+		var states = this.get('states'),
+		    stateObj = {},
+		    fillStyle;
 
 		if (states.length > 0) {
 			$.each(states, function(index, value){
 				stateObj[value] = {fill: '#3366cc'};
 			});
+			fillStyle = "#eee";
 		} else {
 			// If states is blank this means highlight all states
-			stateObj["CO"] = {fill: '#3366cc'};
+			fillStyle = "#3366cc";
 		}
 
 		console.log(stateObj);
@@ -22,7 +24,7 @@ export default Ember.Component.extend({
 		this.$().usmap({
 			showLabels: false,
 			stateStyles: {
-				fill: '#eee',
+				fill: fillStyle,
 				stroke: '#fff'
 			},
 			stateHoverStyles: {fill: '#cccccc'},

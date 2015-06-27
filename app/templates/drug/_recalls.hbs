@@ -13,13 +13,20 @@
     </form> -->
     {{#each model.recalls.results as |recall|}}
         <div class="recall">
-            <h3 class="title-recall"><span class="label label-success">{{recall.status}}</span>Recall Number: {{recall.recall_number}}</h3>
-            <p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
-            <p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
-            <p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
-            <p><strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
+            <div class="row">
+                <div class="col-sm-8 col-md-9">
+                    <h3 class="title-recall"><span class="label label-success">{{recall.status}}</span>Recall Number: {{recall.recall_number}}</h3>
+                    <p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
+                    <p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
+                    <p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
+                    <p><strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
+                </div>
+                <div class="col-sm-4 col-md-3 text-center">
+                    <h4>Recall Distribution:</h4>
+                    {{us-maps states="TX"}}
+                </div>
+            </div>
             <hr />
-            {{us-map}}
         </div>
     {{/each}}
 </div>

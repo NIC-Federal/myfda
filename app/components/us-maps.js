@@ -1,8 +1,25 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	
+
+	states: {},
+
 	_initializeMaps: function() {
+
+		var states = this.get('states');
+		var stateObj = {};
+
+		if (states.length > 0) {
+			$.each(states, function(index, value){
+				stateObj[value] = {fill: '#3366cc'};
+			});
+		} else {
+			// If states is blank this means highlight all states
+			stateObj["CO"] = {fill: '#3366cc'};
+		}
+
+		console.log(stateObj);
+
 		this.$().usmap({
 			showLabels: false,
 			stateStyles: {
@@ -10,10 +27,9 @@ export default Ember.Component.extend({
 				stroke: '#fff'
 			},
 			stateHoverStyles: {fill: '#cccccc'},
-			stateSpecificStyles: {
-				'TX': {fill: '#3366cc'}
-			}
+			stateSpecificStyles: stateObj
 		});
+
 	}.on('didInsertElement')
-	
+
 });

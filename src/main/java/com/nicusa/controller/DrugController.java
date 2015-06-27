@@ -1,43 +1,39 @@
 package com.nicusa.controller;
 
-import com.nicusa.assembler.DrugAssembler;
-import com.nicusa.domain.Drug;
-import com.nicusa.resource.DrugResource;
-import com.nicusa.util.ApiKey;
-import com.nicusa.util.AutocompleteFilter;
-import com.nicusa.util.DrugSearchResult;
-import com.nicusa.util.FieldFinder;
-import com.nicusa.util.HttpSlurper;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.nicusa.assembler.DrugAssembler;
+import com.nicusa.converter.DrugResourceToDomainConverter;
+import com.nicusa.domain.Drug;
+import com.nicusa.domain.Portfolio;
+import com.nicusa.domain.UserProfile;
+import com.nicusa.resource.DrugResource;
+import com.nicusa.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.security.Principal;
+import java.util.*;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class DrugController {
@@ -63,6 +59,12 @@ public class DrugController {
   @Autowired
   private DrugAssembler drugAssembler;
 
+  @Autowired
+  private DrugResourceToDomainConverter drugResourceToDomainConverter;
+
+  @Autowired
+  private SecurityController securityController;
+
   @ResponseBody
   @RequestMapping(value = "/drug/{id}", method = RequestMethod.GET, produces = "application/hal+json")
   public ResponseEntity<DrugResource> getDrug(@PathVariable("id") Long id) {
@@ -72,6 +74,74 @@ public class DrugController {
     }
     return new ResponseEntity<>(drugAssembler.toResource(drug), HttpStatus.OK);
   }
+
+  @Transactional
+  @ResponseBody
+  @RequestMapping(value = "/portfolio/drug", method = RequestMethod.POST, consumes = "application/json")
+  public ResponseEntity<?> saveDrug(@AuthenticationPrincipal Principal principal,
+                                    @RequestBody DrugResource drugResource) {
+    Long loggedInUserProfileId = securityController.getAuthenticatedUserProfileId();
+    if (principal != null && ((UsernamePasswordAuthenticationToken)principal).getPrincipal() == loggedInUserProfileId) {
+      UserProfile userProfile = entityManager.find(UserProfile.class, loggedInUserProfileId);
+      if (userProfile == null) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      } else {
+        Drug drug = drugResourceToDomainConverter.convert(drugResource);
+        entityManager.persist(drug);
+        Portfolio portfolio = userProfile.getPortfolio();
+        portfolio.getDrugs().add(drug);
+        entityManager.merge(portfolio);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(linkTo(methodOn(DrugController.class).getPortfolioDrug(principal,
+          drug.getId())).toUri());
+       /* drugResource.add(linkTo(methodOn(DrugController.class).getPortfolioDrug(principal, drug.getId())).withSelfRel());
+        drugResource.set_id(drug.getId().toString());*/
+        return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
+      }
+    } else {
+      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+  @Transactional
+  @ResponseBody
+  @RequestMapping(value = "/portfolio/drug/{id}", method = RequestMethod.DELETE, consumes = "application/json")
+  public ResponseEntity<?> deleteDrug(@AuthenticationPrincipal Principal principal,
+                                      @PathVariable("id") Long id) {
+    Long loggedInUserProfileId = securityController.getAuthenticatedUserProfileId();
+    if (principal != null && ((UsernamePasswordAuthenticationToken)principal).getPrincipal() == loggedInUserProfileId) {
+      UserProfile userProfile = entityManager.find(UserProfile.class, loggedInUserProfileId);
+      if (userProfile == null) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      } else {
+        Portfolio portfolio = userProfile.getPortfolio();
+        Drug drug = entityManager.find(Drug.class, id);
+        portfolio.getDrugs().remove(drug);
+        entityManager.merge(portfolio);
+        entityManager.remove(drug);
+
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
+    } else {
+      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/portfolio/drug/{id}", method = RequestMethod.GET, produces = "application/json")
+  public ResponseEntity<DrugResource> getPortfolioDrug(@AuthenticationPrincipal Principal principal,
+                                               @PathVariable("id") Long id) {
+    Drug drug = entityManager.find(Drug.class, id);
+    if (drug == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>(drugAssembler.toResource(drug), HttpStatus.OK);
+  }
+
+
+
+
 
   public Set<String> getUniisByName ( String name ) throws IOException {
     String query = this.fdaDrugLabelUrl +

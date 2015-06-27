@@ -9,6 +9,7 @@ public class Drug {
 
   private Long id;
   private String name;
+  private String unii;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,8 +26,24 @@ public class Drug {
     return name;
   }
 
+  public String getUnii() {
+    return unii;
+  }
+
+  public void setUnii(String unii) {
+    this.unii = unii;
+  }
+
   public void setName(String name) {
     this.name = name;
   }
 
+  @Override
+  public String toString() {
+    return "DRUG{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", unii='" + unii + '\'' +
+            '}';
+  }
 }

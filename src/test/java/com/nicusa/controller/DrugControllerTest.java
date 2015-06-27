@@ -1,5 +1,6 @@
 package com.nicusa.controller;
 
+import com.nicusa.util.ApiKey;
 import com.nicusa.util.HttpSlurper;
 
 import com.nicusa.assembler.DrugAssembler;
@@ -83,6 +84,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     final String response = "[{\"term\":\"abcdefg\"}]";
     drug.rest = mock( RestTemplate.class );
+    drug.apiKey = new ApiKey();
     when( drug.rest.getForObject(any(String.class),any(Class.class))).thenReturn(response);
     Set<String> uniis = drug.getUniisByName( "blah" );
     assertEquals( uniis.size(), 1 );
@@ -94,6 +96,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"ADVIL PM\",\"count\":2}]}";
     drug.slurp = mock( HttpSlurper.class );
+    drug.apiKey = new ApiKey();
     when( drug.slurp.getData(anyString())).thenReturn(response);
     Set<String> uniis = new HashSet<String>();
     uniis.add("8GTS82S83M");
@@ -108,6 +111,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"ADVIL PM\",\"count\":2}]}";
     drug.slurp = mock( HttpSlurper.class );
+    drug.apiKey = new ApiKey();
     when( drug.slurp.getData(anyString()) ).thenReturn( response );
     Set<String> result = drug.getBrandNamesByNameAndUnii( "blah", "8GTS82S83M" );
     assertNotNull( result );
@@ -118,6 +122,7 @@ public class DrugControllerTest {
   public void testGetGenericNameByUnii () throws IOException {
     DrugController drug = new DrugController();
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"DIPHENHYDRAMINE HYDROCHLORIDE\",\"count\":245}]}";
+    drug.apiKey = new ApiKey();
     drug.rest = mock( RestTemplate.class );
     when( drug.rest.getForObject(any(String.class),any(Class.class)) ).thenReturn( response );
     String result = drug.getGenericNameByUnii( "blah" );
@@ -143,6 +148,7 @@ public class DrugControllerTest {
     +"suppress\":\"N\",\"umlscui\":\"C0012522\"},{\"rxcui\":\"5640\",\"name\":\"Ibuprofen\",\"synonym\":\"\",\"tty\":\"IN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0020740\"}]},{\"tty\":\"PIN\",\"conceptProperties\":[{\"rxcui\":\"1362\",\"name\":\"Diphenhydramine Hydrochloride\""
     +",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0004963\"},{\"rxcui\":\"82004\",\"name\":\"Diphenhydramine Citrate\",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0282144\"}]}]}}";
     drug.slurp = mock( HttpSlurper.class );
+    drug.apiKey = new ApiKey();
     when( drug.slurp.getData(anyString()) ).thenReturn( response );
     Set<String> result = drug.getActiveIngredientsByRxcui( new Long(643061) );
     assertNotNull( result );
@@ -161,6 +167,8 @@ public class DrugControllerTest {
     +",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0004963\"},{\"rxcui\":\"82004\",\"name\":\"Diphenhydramine Citrate\",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0282144\"}]}]}}";
     drug.slurp = mock( HttpSlurper.class );
     drug.rest = mock( RestTemplate.class );
+    drug.apiKey = new ApiKey();
+
     when( drug.slurp.getData(anyString()) ).thenReturn(slurpResponse1,slurpResponse2,slurpResponse3);
     when( drug.rest.getForObject(any(String.class),any(Class.class))).thenReturn(restResponse1,restResponse2);
     String result = drug.search( "blah", 10, 0 );

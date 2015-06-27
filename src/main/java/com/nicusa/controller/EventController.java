@@ -1,6 +1,7 @@
 package com.nicusa.controller;
 
 import com.nicusa.util.AdverseEffect;
+import com.nicusa.util.ApiKey;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -31,9 +32,10 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class EventController {
     private static final Logger log = LoggerFactory.getLogger(EventController.class);
+
   @Autowired
-  @Value("${api.fda.key:opQssHVEb3CkSrJHxPAJiU1SHgoJPdmLNPUBEbdU}")
-  private String fdaApiKey;
+  ApiKey apiKey;
+
   @Autowired
   @Value("${fda.drug.event.url:https://api.fda.gov/drug/event.json}")
   private String fdaDrugEventUrl;
@@ -44,8 +46,8 @@ public class EventController {
     String query = String.format(
         this.fdaDrugEventUrl + "?search=patient.drug.openfda.unii:%s&count=patient.reaction.reactionmeddrapt.exact",
         URLEncoder.encode( unii, StandardCharsets.UTF_8.name() )) +
-      "&api_key=" +
-      this.fdaApiKey;
+      this.apiKey.getFdaApiKeyQuery();
+
     ObjectMapper mapper = new ObjectMapper();
     JsonNode node = mapper.readTree(
         this.rest.getForObject( query, String.class ));
@@ -89,18 +91,20 @@ public class EventController {
       // TODO set description
       effects.add( ef );
     }
-
-    ArrayNode top = mapper.createArrayNode();
+    ObjectNode top = mapper.createObjectNode();
+    top.put( "UNII", unii );
+    ArrayNode array = mapper.createArrayNode();
     int count = 0;
     for ( AdverseEffect ef : effects ) {
       if ( count >= skip ) {
         if ( count == limit + skip ) {
           break;
         }
-        top.add( mapper.valueToTree( ef ));
+        array.add( mapper.valueToTree( ef ));
       }
       count++;
     }
+    top.put( "effect", array );
 
     return mapper.writeValueAsString( top );
   }

@@ -77,7 +77,7 @@ body {
 				border-left: 0px none;
 				&:hover,
 				&:focus {
-					background: #f5f5f5;
+					background: #eee;
 					color: @link-hover-color;
 				}
 			}
@@ -135,12 +135,21 @@ body {
 }
 
 #info {
+	background: #f8f8f8;
+	border-top: 1px solid #eee;
 	@media only screen and (max-width:767px) {
-		padding: 0 0 0 0;
+		padding: 15px 0;
 	}
 	p {
-		font-size: 10px;
-		color: #999;
+		&.credit {
+			font-size: 12px;
+			line-height: 20px;
+			color: #999;
+			margin: 0 0 0 0;
+		}
+	}
+	hr {
+		margin: 10px 0;
 	}
 }
 
@@ -376,33 +385,36 @@ h4.count {
 	}
 }
 
-.panel-title {
-	font-weight: 700;
-	a {
-		color: @link-color;
-		display: block;
-		&:hover {
-			color: @link-hover-color;
-			i {
-				color: @link-hover-color;
-			}
-		}
-		i {
-			color: #ccc;
+.panel-heading {
+	background: #eee;
+	.panel-title {
+		font-weight: 700;
+		a {
+			color: @link-color;
+			display: block;
 			&:hover {
 				color: @link-hover-color;
+				i {
+					color: @link-hover-color;
+				}
 			}
-		}
-		.count {
-			font-weight: 300;
-			color: @text-color;
-			@media only screen and (max-width:767px) {
+			i {
+				color: #ccc;
+				&:hover {
+					color: @link-hover-color;
+				}
+			}
+			.count {
+				font-weight: 300;
+				color: @text-color;
+				@media only screen and (max-width:767px) {
+					display: block;
+				}		
+			}
+			small {
 				display: block;
-			}		
-		}
-		small {
-			display: block;
-			line-height: 1.5;
+				line-height: 1.5;
+			}
 		}
 	}
 }

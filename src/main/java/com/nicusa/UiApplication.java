@@ -33,34 +33,26 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class UiApplication {
-    
+
   private static final Logger log = LoggerFactory.getLogger(UiApplication.class);
 
   @Value("${keystore.file:}")
   private String keystoreFile;
-  
+
   @Value("${keystore.pass:}")
   private String keystorePassword;
-  
+
   @Value("${keystore.type:}")
   private String keystoreType;
-  
+
   @Value("${keystore.alias:}")
   private String keystoreAlias;
-  
-  
+
+
   public static void main(String[] args) {
     SpringApplication.run(UiApplication.class, args);
   }
 
-  @RequestMapping("/resource")
-  public Map<String, Object> home() {
-    Map<String, Object> model = new HashMap<>();
-    model.put("id", UUID.randomUUID().toString());
-    model.put("content", "Hello World");
-    return model;
-  }
-  
   @Bean
   public EmbeddedServletContainerCustomizer containerCustomizer() throws FileNotFoundException
   {
@@ -75,10 +67,10 @@ public class UiApplication {
       {
           log.warn("Keystore not defined ");
       }
-  
+
 
       final TomcatConnectorCustomizer customizer = new SslTomcatConnectionCustomizer(
-              absoluteKeystoreFile, keystorePassword, keystoreType, keystoreAlias); 
+              absoluteKeystoreFile, keystorePassword, keystoreType, keystoreAlias);
 
       return new EmbeddedServletContainerCustomizer() {
 
@@ -90,32 +82,6 @@ public class UiApplication {
           }
         };
       };
-  }
-
-  @Configuration
-  @EnableWebSecurity
-  @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-  @PropertySources({ 
-    @PropertySource(value = "file:${sys:user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true),
-    @PropertySource(value = "file:${user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true) })
-  protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http.httpBasic().and().authorizeRequests()
-        .antMatchers("/","/index.html"
-                ,"/recalls"
-                ,"/drug/recalls"
-                ,"/drug/enforcements").permitAll()
-        .anyRequest().fullyAuthenticated()
-        .and().csrf().disable();
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-      auth
-        .inMemoryAuthentication()
-        .withUser("user").password("password").roles("USER");
-    }
   }
 
 }

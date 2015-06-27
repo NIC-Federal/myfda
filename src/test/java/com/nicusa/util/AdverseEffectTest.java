@@ -6,6 +6,13 @@ import org.junit.Test;
 public class AdverseEffectTest {
 
   @Test
+  public void uniiTest () {
+    AdverseEffect ae = new AdverseEffect();
+    ae.setUnii( "blah" );
+    assertEquals( "blah", ae.getUnii() );
+  }
+
+  @Test
   public void effectTest () {
     AdverseEffect ae = new AdverseEffect();
     ae.setEffect( "heykitty" );

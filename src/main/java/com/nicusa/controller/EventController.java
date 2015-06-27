@@ -32,7 +32,9 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class EventController {
     private static final Logger log = LoggerFactory.getLogger(EventController.class);
-  ApiKey apiKey = new ApiKey();
+
+  @Autowired
+  ApiKey apiKey;
 
   @Autowired
   @Value("${fda.drug.event.url:https://api.fda.gov/drug/event.json}")
@@ -83,6 +85,7 @@ public class EventController {
     Set<AdverseEffect> effects = new TreeSet<AdverseEffect>();
     for ( String k : terms.keySet() ) {
       AdverseEffect ef = new AdverseEffect();
+      ef.setUnii( unii );
       ef.setEffect( k );
       ef.setCount( terms.get( k ));
       ef.setTotal( max );

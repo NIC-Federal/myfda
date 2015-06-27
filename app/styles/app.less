@@ -26,7 +26,7 @@ body {
 		}
 	}
 	.navbar-brand {
-		background: url("/images/my-fda.png") no-repeat center center;
+		background: url("images/my-fda.png") no-repeat center center;
 		background-size: 105px 50px;
 		width: 135px;
 		height: 50px;
@@ -94,28 +94,6 @@ body {
 	}
 }
 
-.ui-autocomplete {
-	z-index: 1050 !important;
-	> .ui-menu-item {
-		font-size: 14px;
-		text-transform: capitalize !important;
-		padding: 7px 10px;
-		&.ui-state-focus {
-			background: #f8f8f8;
-			border-top-color: #eee;
-			border-bottom-color: #eee;
-			color: @link-hover-color;
-			&:hover,
-			&:focus {
-				background: #f8f8f8;
-				border-top-color: #eee;
-				border-bottom-color: #eee;
-				color: @link-hover-color;
-			}
-		}
-	}
-}
-
 #hero {
 	padding: 30px 0;
 	background: #f8f8f8;
@@ -136,6 +114,10 @@ body {
 #info {
 	@media only screen and (max-width:767px) {
 		padding: 0 0 0 0;
+	}
+	p {
+		font-size: 10px;
+		color: #999;
 	}
 }
 
@@ -161,10 +143,6 @@ body {
 	}
 }
 
-hr {
-	margin: 30px 0;
-}
-
 .page-header {
 	padding-bottom: 10px;
 	margin-bottom: 30px;
@@ -173,7 +151,38 @@ hr {
 	}
 	h2 {
 		margin-top: 0;
+		font-weight: 900;
+		text-transform: uppercase;
+		small {
+			display: block;
+		}
 	}
+}
+
+.ui-autocomplete {
+	z-index: 1050 !important;
+	> .ui-menu-item {
+		font-size: 14px;
+		text-transform: capitalize !important;
+		padding: 7px 10px;
+		&.ui-state-focus {
+			background: #f8f8f8;
+			border-top-color: #eee;
+			border-bottom-color: #eee;
+			color: @link-hover-color;
+			&:hover,
+			&:focus {
+				background: #f8f8f8;
+				border-top-color: #eee;
+				border-bottom-color: #eee;
+				color: @link-hover-color;
+			}
+		}
+	}
+}
+
+hr {
+	margin: 30px 0;
 }
 
 .recall {
@@ -221,20 +230,20 @@ a {
 	}
 }
 
-.page-header {
-	h2 {
-		font-weight: 900;
-		text-transform: uppercase;
-		small {
-			display: block;
-		}
-	}
-}
-
 h3 {
 	small {
 		display: block;
 		line-height: 1.5;
+	}
+}
+
+.nav-tabs {
+	> li {
+		&.active {
+			> a {
+				background-color: #ffffff;
+			}
+		}
 	}
 }
 
@@ -266,15 +275,10 @@ small {
 	}
 }
 
-
-
 .effect {
 	.progress {
 		margin-bottom: 0;
 	}
-}
-
-.modal-content {
 }
 
 .active-ingredients {
@@ -300,7 +304,7 @@ small {
 	z-index: 1020;
 }
 
-.count {
+h4.count {
 	font-weight: 300;
 	font-size: 200%;
 	margin-top: 10px;
@@ -325,7 +329,7 @@ small {
 	justify-content: center;
 	position: relative;
 	color: #fff;
-	margin-bottom: 20px;
+	content: none;
 	canvas {
 		position: absolute;
 		top: 0;
@@ -344,21 +348,63 @@ small {
 	}
 }
 
+.lead {
+	small {
+		font-size: 60%;
+		display: block;
+		color: @text-color;
+	}
+}
+
 .panel-title {
+	font-weight: 700;
 	a {
 		color: @link-color;
 		display: block;
-		&:hover,
-		&:focus {
+		&:hover {
 			color: @link-hover-color;
+			i {
+				color: @link-hover-color;
+			}
+		}
+		i {
+			color: #ccc;
+			&:hover {
+				color: @link-hover-color;
+			}
+		}
+		.count {
+			font-weight: 300;
+			color: @text-color;
+			@media only screen and (max-width:767px) {
+				display: block;
+			}		
+		}
+		small {
+			display: block;
+			line-height: 1.5;
+		}
+	}
+}
+
+.panel-details {
+	h4 {
+		@media only screen and (max-width:767px) {
+			text-align: center;
+		}		
+	}
+	.label-reports {
+		margin-bottom: 20px;
+		@media only screen and (max-width:767px) {
+			margin-bottom: 40px;
 		}
 	}
 }
 
 .male {
-	color: @brand-primary;
+	color: @brand-info;
 }
 
 .female {
-	color: @brand-warning;
+	color: lighten(@brand-danger,10%);
 }

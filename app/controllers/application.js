@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-    searchQuery: "",
+    searchQuery: null,
     // This deals with determining whether or not to display the navigation search bar
     isDashboard: false,
     showNavSearch: function() {

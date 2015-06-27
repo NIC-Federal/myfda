@@ -85,25 +85,26 @@ public class EventController {
     Set<AdverseEffect> effects = new TreeSet<AdverseEffect>();
     for ( String k : terms.keySet() ) {
       AdverseEffect ef = new AdverseEffect();
-      ef.setUnii( unii );
       ef.setEffect( k );
       ef.setCount( terms.get( k ));
       ef.setTotal( max );
       // TODO set description
       effects.add( ef );
     }
-
-    ArrayNode top = mapper.createArrayNode();
+    ObjectNode top = mapper.createObjectNode();
+    top.put( "UNII", unii );
+    ArrayNode array = mapper.createArrayNode();
     int count = 0;
     for ( AdverseEffect ef : effects ) {
       if ( count >= skip ) {
         if ( count == limit + skip ) {
           break;
         }
-        top.add( mapper.valueToTree( ef ));
+        array.add( mapper.valueToTree( ef ));
       }
       count++;
     }
+    top.put( "effect", array );
 
     return mapper.writeValueAsString( top );
   }

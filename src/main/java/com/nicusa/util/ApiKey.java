@@ -19,11 +19,18 @@ public class ApiKey {
   private static int totalRequests = 0;
 
   @Autowired
-  @Value("${api.fda.keys}")
+  @Value("${api.fda.keys}:")
   String[] fdaApiKeys;
 
+  public boolean hasKeys () {
+    return ( fdaApiKeys != null &&
+        fdaApiKeys.length > 0 &&
+        fdaApiKeys[0] != null &&
+        fdaApiKeys[0].trim().length() > 1 );
+  }
+
   String getFdaApiKey () {
-    if ( fdaApiKeys != null ) {
+    if ( this.hasKeys() ) {
       if ( rateLimiter == null ) {
         rateLimiter = RateLimiter.create( this.fdaApiKeys.length * 3.5 );
       }
@@ -40,7 +47,7 @@ public class ApiKey {
   }
 
   public String getFdaApiKeyQuery () {
-    if ( this.fdaApiKeys != null && this.fdaApiKeys.length > 0 ) {
+    if ( this.hasKeys() ) {
       return "&" + this.getFdaApiKeyName() + "=" + this.getFdaApiKey();
     } else {
       return "";
@@ -49,7 +56,7 @@ public class ApiKey {
 
   public void addToUriComponentsBuilder (
       UriComponentsBuilder builder ) {
-    if ( this.fdaApiKeys != null && this.fdaApiKeys.length > 0 ) {
+    if ( this.hasKeys() ) {
       builder.queryParam( this.getFdaApiKeyName(), this.getFdaApiKey() );
     }
   }

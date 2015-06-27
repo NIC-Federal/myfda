@@ -308,6 +308,12 @@ small {
 }
 
 .effect {
+	.label-severity {
+		@media only screen and (max-width:767px) {
+			display: block;
+			text-align: center;
+		}		
+	}
 }
 
 .active-ingredients {
@@ -359,6 +365,7 @@ h4.count {
 	position: relative;
 	color: #fff;
 	content: none;
+	float: left;
 	canvas {
 		position: absolute;
 		top: 0;

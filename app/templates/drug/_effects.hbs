@@ -11,7 +11,9 @@
             </div>
         </div>
     </form> -->
-    {{#each model.effects as |effect|}}
-        {{effect-accordion action="loadEffectData" drugId=params.drug_id name=effect.effect count=effect.count description=effect.description percent=effect.percent malePercent=model.genderCount.male.pct femalePercent=model.genderCount.female.pct}}
-    {{/each}}
+    <div class="panel-group" id="effects" role="tablist" aria-multiselectable="true">
+        {{#each model.effects.effect as |effect|}}
+            {{effect-accordion  name=effect.effect count=effect.count percent=effect.percent description=effect.description view-name="effectAccordion"}}
+        {{/each}}
+    </div>
 </div>

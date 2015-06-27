@@ -279,6 +279,10 @@ small {
 	.progress {
 		margin-bottom: 0;
 	}
+	.effect-header {
+		padding-left: 45px;
+		float: left;
+	}
 }
 
 .active-ingredients {
@@ -324,12 +328,11 @@ h4.count {
 }
 
 .percentage {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	position: relative;
 	color: #fff;
 	content: none;
+	float: left;
+	margin-left: 15px;
 	canvas {
 		position: absolute;
 		top: 0;
@@ -378,7 +381,7 @@ h4.count {
 			color: @text-color;
 			@media only screen and (max-width:767px) {
 				display: block;
-			}		
+			}
 		}
 		small {
 			display: block;
@@ -391,7 +394,7 @@ h4.count {
 	h4 {
 		@media only screen and (max-width:767px) {
 			text-align: center;
-		}		
+		}
 	}
 	.label-reports {
 		margin-bottom: 20px;

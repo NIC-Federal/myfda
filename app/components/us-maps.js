@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-	states: {},
 
 	_initializeMaps: function() {
 

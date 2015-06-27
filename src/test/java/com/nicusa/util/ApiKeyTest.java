@@ -14,8 +14,7 @@ public class ApiKeyTest {
   @Test
   public void testNullApiKey ( ) {
     ApiKey key = new ApiKey();
-    key.fdaApiKey = null;
-    assertTrue( key.getFdaApiKey() == null );
+    key.fdaApiKeys = null;
     assertEquals( "", key.getFdaApiKeyQuery() );
     UriComponentsBuilder builder = mock( UriComponentsBuilder.class );
     key.addToUriComponentsBuilder( builder );
@@ -25,7 +24,7 @@ public class ApiKeyTest {
   @Test
   public void testApiKey () {
     ApiKey key = new ApiKey();
-    key.fdaApiKey = "nope";
+    key.fdaApiKeys = new String[] { "nope" };
     assertEquals( "nope", key.getFdaApiKey() );
     assertEquals( "&api_key=nope", key.getFdaApiKeyQuery() );
   }
@@ -33,7 +32,7 @@ public class ApiKeyTest {
   @Test
   public void testApiKeyBuilder () {
     ApiKey key = new ApiKey();
-    key.fdaApiKey = "unikitty";
+    key.fdaApiKeys = new String[] { "unikitty" };
     UriComponentsBuilder builder = mock( UriComponentsBuilder.class );
     key.addToUriComponentsBuilder( builder );
     verify(builder).queryParam( "api_key", "unikitty" );

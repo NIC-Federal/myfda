@@ -44,7 +44,9 @@ public class DrugController {
   private static final Logger log = LoggerFactory.getLogger(DrugController.class);
   RestTemplate rest = new RestTemplate();
   HttpSlurper slurp = new HttpSlurper();
-  ApiKey apiKey = new ApiKey();
+
+  @Autowired
+  ApiKey apiKey;
 
   @Autowired
   @Value("${fda.drug.label.url:https://api.fda.gov/drug/label.json}")

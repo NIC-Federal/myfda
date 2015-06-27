@@ -35,7 +35,8 @@ public class FeedController {
 
     private static final Logger log = LoggerFactory.getLogger(FeedController.class);
 
-    ApiKey apiKey = new ApiKey();
+    @Autowired
+    ApiKey apiKey;
 
     @Autowired
     @Value("${rss.fda.recalls.url:http://www.fda.gov/AboutFDA/ContactFDA/StayInformed/RSSFeeds/Recalls/rss.xml}")

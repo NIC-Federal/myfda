@@ -13,13 +13,6 @@ export default Ember.Component.extend({
   // These classes allow bootstrap to declare only one open panel at a time
   classNames: ['effect panel panel-default'],
   _initializeAccordion: function() {
-  }.on('didInsertElement'),
-  actions: {
-    sendEffectData: function() {
-      var drugId = this.get("drugId");
-      var drugName = this.get("name");
-      this.sendAction('action', drugName, drugId);
-    }
-  }
+  }.on('didInsertElement')
 
 });

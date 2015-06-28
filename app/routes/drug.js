@@ -7,12 +7,12 @@ export default Ember.Route.extend({
       /////////////////////////
       // Effects
       ////////////////////////
-      effects: $.getJSON("http://localhost:8080/event?unii=" + params.drug_id),
+      effects: $.getJSON("/event?unii=" + params.drug_id),
 
       /////////////////////////
       // Recalls
       ////////////////////////
-      recalls: $.getJSON("http://localhost:8080/drug/enforcements?unii=" + params.drug_id)
+      recalls: $.getJSON("/drug/enforcements?unii=" + params.drug_id)
     });
   },
   setupController: function(controller, model){
@@ -22,8 +22,8 @@ export default Ember.Route.extend({
 
 		let duration = 1500;
 
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			$(".effect", this).velocity("transition.slideRightIn", {duration: duration, stagger: 150});
+		$('a[data-toggle="tab"]').one('shown.bs.tab', function () {
+			$(".effect").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
 		});
 
 		$('.collapse').on('show.bs.collapse', function(){

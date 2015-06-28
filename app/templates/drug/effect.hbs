@@ -15,7 +15,6 @@
 
 <div class="panel-body">
   <p class="lead">{{description}}</p>
-  <!-- PLACEHOLDER FOR SEVERITY -->
   <div class="row">
     <!-- <div class="col-xs-12 col-sm-4 text-center">
       {{easy-pie-chart dataPercent=percent percentText=percent barColor="#3366cc" trackColor="#eee" lineWidth="5" animate="1500"}}
@@ -42,19 +41,18 @@
           {{model.outcomeCount.Outcome5.count}}
         </div>
       </div>
-      <small>
-        <span class="label label-info">Fully Recovered</span>
-        <span class="label label-primary">Improving</span>
-        <span class="label label-success">Persisting Condition</span>
-        <span class="label label-warning">Recovered with Consequences</span>
-        <span class="label label-danger">Death</span>
-      </small>
+      <p>
+        <span class="label-severity text-info"><i class="fa fa-square"></i> Fully Recovered</span>
+        <span class="label-severity text-primary"><i class="fa fa-square"></i> Improving</span>
+        <span class="label-severity text-success"><i class="fa fa-square"></i> Persisting Condition</span>
+        <span class="label-severity text-warning"><i class="fa fa-square"></i> Recovered with Consequences</span>
+        <span class="label-severity text-danger"><i class="fa fa-square"></i> Death</span>
+      </p>
     </div>
   </div>
   <hr />
-  <div class="row">
-    <div class="col-sm-4 text-center">
-      <!-- PLACEHOLDER FOR GENDER -->
+  <div class="row text-center">
+    <div class="col-sm-4">
       <h4>Reported by Gender</h4>
       <div class="row">
         <div class="col-xs-6">
@@ -73,8 +71,7 @@
       <hr class="visible-xs" />
     </div>
     <div class="col-sm-8">
-      <!-- PLACEHOLDER FOR AGES -->
-      <h4>Ages Effected</h4>
+      <h4>Reported by Age</h4>
        {{chartist-chart type="line" options=model.chartOptions data=model.ageCount.results }}
     </div>
   </div>

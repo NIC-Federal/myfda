@@ -1,5 +1,6 @@
 package com.nicusa.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,6 +33,7 @@ public class AdverseEffectDescription
         this.id = id;
     }
 
+    @Column(name="FDA_NAME", length=50)
     public String getFdaName ()
     {
         return fdaName;
@@ -42,6 +44,7 @@ public class AdverseEffectDescription
         this.fdaName = fdaName;
     }
 
+    @Column(name="DESC", length=512)
     public String getDescription ()
     {
         return description;

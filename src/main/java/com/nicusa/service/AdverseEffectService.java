@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 @Service(AdverseEffectService.NAME)
+@Transactional
 public class AdverseEffectService
 {
     Logger log = LoggerFactory.getLogger(AdverseEffectService.class);
@@ -76,7 +77,7 @@ public class AdverseEffectService
                 definition = parseDefinition(s);
                 if(definition != null)
                 {
-                    desc.setDescription(definition);
+                    desc.setDescription(definition.substring(0, definition.length() > 512 ? 512 : definition.length()));
                 }
                 
                 entityManager.persist(desc);
@@ -84,10 +85,7 @@ public class AdverseEffectService
         } catch (IOException | SAXException ioe)
         {
             log.warn("Unable to parse definition for "+effectName);
-        } catch (TransactionRequiredException tre)
-        {
-            log.warn("unable to cache adverse effect description");
-        }
+        } 
         return desc;
     }
     

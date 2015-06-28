@@ -1,28 +1,7 @@
-<!-- <h3>Gender</h3>
-{{#each model.genderCount.results as |data|}}
-    {{data.count}}
-{{/each}}
-
-<h3>handcrafted data</h3>
-{{model.genderCount.male.pct}}
-
-<h3>Age</h3>
-{{#each model.ageCount.results as |data|}}
-    {{data}}
-{{/each}}
--->
-
-
 <div class="panel-body">
   <p class="lead">{{description}}</p>
-  <!-- PLACEHOLDER FOR SEVERITY -->
+  <!-- SEVERITY -->
   <div class="row">
-    <!-- <div class="col-xs-12 col-sm-4 text-center">
-      {{easy-pie-chart dataPercent=percent percentText=percent barColor="#3366cc" trackColor="#eee" lineWidth="5" animate="1500"}}
-      {{to-json model.outcomeCount}}
-      <h4 class="count">{{model.outcomeCount.total}}</h4>
-      <label class="label-reports">Reports</label>
-    </div> -->
     <div class="col-xs-12 col-sm-12">
       <h4>Reported Severity</h4>
       <div class="progress">
@@ -54,7 +33,7 @@
   <hr />
   <div class="row">
     <div class="col-sm-4 text-center">
-      <!-- PLACEHOLDER FOR GENDER -->
+      <!-- GENDER -->
       <h4>Reported by Gender</h4>
       <div class="row">
         <div class="col-xs-6">
@@ -73,7 +52,7 @@
       <hr class="visible-xs" />
     </div>
     <div class="col-sm-8">
-      <!-- PLACEHOLDER FOR AGES -->
+      <!-- AGES -->
       <h4>Ages Effected</h4>
        {{chartist-chart type="line" options=model.chartOptions data=model.ageCount.results }}
     </div>

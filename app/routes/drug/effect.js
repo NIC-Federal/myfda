@@ -119,7 +119,7 @@ export default Ember.Route.extend({
                             break;
                         default:
                     }
-                    if(value.term > 0 && value.term < 5)
+                    if(value.term > 0 && value.term < 6)
                     {
                         total += value.count;
                     }

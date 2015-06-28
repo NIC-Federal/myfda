@@ -13,18 +13,18 @@
 -->
 
 
-<div class="panel-body">
+<div class="panel-body text-center">
   <p class="lead">{{description}}</p>
   <div class="row">
     <!-- <div class="col-xs-12 col-sm-4 text-center">
-      {{easy-pie-chart dataPercent=percent percentText=percent barColor="#3366cc" trackColor="#eee" lineWidth="5" animate="1500"}}
+      {{easy-pie-chart dataPercent=percent percentText=percent barColor="#3366cc" trackColor="#fff" lineWidth="5" animate="1500"}}
       {{to-json model.outcomeCount}}
       <h4 class="count">{{model.outcomeCount.total}}</h4>
       <label class="label-reports">Reports</label>
     </div> -->
     <div class="col-xs-12 col-sm-12">
       <h4>Reported Severity</h4>
-      <div class="progress">
+      <div class="progress fade-in">
         <div class="progress-bar progress-bar-info" style={{progress-bar-percentage model.outcomeCount.Outcome1.pct}} data-toggle="tooltip" data-placement="bottom" title="Fully Recovered">
           {{model.outcomeCount.Outcome1.count}}
         </div>
@@ -51,18 +51,18 @@
     </div>
   </div>
   <hr />
-  <div class="row text-center">
+  <div class="row">
     <div class="col-sm-4">
       <h4>Reported by Gender</h4>
       <div class="row">
         <div class="col-xs-6">
-          <p class="lead male">
+          <p class="lead male fade-in">
             <i class="fa fa-male fa-3x"></i><br />
             {{model.genderCount.male.pct}}% <small>Male</small>
           </p>
         </div>
         <div class="col-xs-6">
-          <p class="lead female">
+          <p class="lead female fade-in">
             <i class="fa fa-female fa-3x"></i><br />
             {{model.genderCount.female.pct}}% <small>Female</small>
           </p>
@@ -72,7 +72,7 @@
     </div>
     <div class="col-sm-8">
       <h4>Reported by Age</h4>
-       {{chartist-chart type="line" options=model.chartOptions data=model.ageCount.results }}
+      <div class="fade-in">{{chartist-chart type="line" options=model.chartOptions data=model.ageCount.results }}</div>
     </div>
   </div>
 </div>

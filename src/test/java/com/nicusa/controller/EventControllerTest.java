@@ -7,6 +7,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.nicusa.service.AdverseEffectService;
 import com.nicusa.util.ApiKey;
 
 import java.io.IOException;
@@ -44,6 +45,9 @@ public class EventControllerTest {
   @Test
   public void testSearch () throws IOException {
     EventController event = new EventController();
+    AdverseEffectService aeService = mock(AdverseEffectService.class);
+    event.adverseEffectService = aeService;
+    when(aeService.findEffectDescription(anyString())).thenReturn("diarrhoea");
     event.rest = mock( RestTemplate.class );
     event.apiKey = new ApiKey();
     final String res = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\": \"2015-01-21\"},\"results\":[{\"term\":\"PAIN\",\"count\": 584  },{\"term\": \"DIARRHOEA\",\"count\":543},{\"term\": \"NAUSEA\",\"count\": 481},{\"term\":\"ANXIETY\",\"count\": 417}]}";
@@ -60,6 +64,7 @@ public class EventControllerTest {
     assertTrue( results.contains( "DIARRHOEA" ));
     assertTrue( results.contains( "481" ));
     assertTrue( !results.contains( "ANXIETY" ));
+    assertTrue( results.contains( "diarrhoea"));
   }
   
   

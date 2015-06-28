@@ -1,11 +1,13 @@
 package com.nicusa.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
 
 import com.nicusa.domain.AdverseEffectDescription;
+import com.nicusa.util.HttpSlurper;
 
 import java.util.ArrayList;
 
@@ -27,13 +29,20 @@ public class AdverseEffectsServiceTest
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
+        HttpSlurper slurper = mock(HttpSlurper.class);
         EntityManager em = mock(EntityManager.class);
         Query q = mock(Query.class);
         when(em.createQuery(any(String.class))).thenReturn(q);
-        when(q.getResultList()).thenReturn(new ArrayList<AdverseEffectDescription>());
+        when(slurper.getData(anyString())).thenReturn(adverseEventXml1);
+        Query q2 = mock(Query.class);
+        when(q2.getResultList()).thenReturn(new ArrayList<AdverseEffectDescription>());
+        when(q.setParameter(anyString(), anyString())).thenReturn(q2);
         service = new AdverseEffectService();
         service.entityManager = em;
         service.documentBuilder = builder;
+        service.slurper = slurper;
+        service.merriamWebsterKey = "TestKey";
+        
     }
 
     @Test

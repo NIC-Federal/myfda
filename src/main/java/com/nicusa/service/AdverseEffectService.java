@@ -41,12 +41,15 @@ public class AdverseEffectService
     DocumentBuilder documentBuilder;
     
     @Autowired
+    HttpSlurper slurper;
+    
+    @Autowired
     @Value("${merriam.webster.key:}")
-    private String merriamWebsterKey;
+    String merriamWebsterKey;
 
     @Autowired
     @Value("${meriam.webster.medical.url:http://www.dictionaryapi.com/api/v1/references/medical/xml/}")
-    private String meriamWebsterUrl;
+    String meriamWebsterUrl;
     
 
     public String findEffectDescription(String effectName) throws IOException {
@@ -70,8 +73,7 @@ public class AdverseEffectService
             if(merriamWebsterKey != null && merriamWebsterKey.length() > 0)
             {
                 String eval = URLEncoder.encode(effectName, "UTF-8");
-                HttpSlurper slurp = new HttpSlurper();
-                String s = slurp.getData(meriamWebsterUrl+eval+"?key="+merriamWebsterKey);
+                String s = slurper.getData(meriamWebsterUrl+eval+"?key="+merriamWebsterKey);
                 String definition = null;
     
                 definition = parseDefinition(s);

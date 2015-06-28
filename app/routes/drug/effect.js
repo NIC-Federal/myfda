@@ -56,14 +56,15 @@ export default Ember.Route.extend({
             ageCount: $.getJSON('https://api.fda.gov/drug/event.json?search=patient.drug.openfda.unii:' + drug_id + '+AND+patient.reaction.reactionmeddrapt:%22' + params.effect_name + '%22&count=patient.patientonsetage').then(function (data) {
 
                 var result = [];
-                for (var i = 0; i < 111; i++) {
+                var i;
+                for (i = 0; i < 110; i++) {
                     result.push({ age: i, count: 0 });
                 }
 
                 var tmpAge;
                 $.each(data.results, function (key, value) {
                     tmpAge = Math.round(value.term);
-                    if(tmpAge > -1 && tmpAge < 111)
+                    if(tmpAge > -1 && tmpAge < 110)
                     {
                         result[tmpAge].count += value.count;
                     }
@@ -74,9 +75,12 @@ export default Ember.Route.extend({
                        series: [[]]
                    };
 
-                   for (var i = 0; i < 111; i++) {
-
+                   for (i = 0; i < 110; i++) {
+                       if((result[i].age % 10)===0){
                        chartFormat.labels.push(result[i].age);
+                   }else {
+                           chartFormat.labels.push('');
+                       }
                        chartFormat.series[0].push(result[i].count);
                    }
                    var results = {results:chartFormat};

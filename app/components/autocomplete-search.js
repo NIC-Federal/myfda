@@ -37,9 +37,7 @@ export default Ember.Component.extend({
   },
   actions: {
     sendSearch: function() {
-      // var keyword = this.get('searchQuery').replace(" ", "+AND+");
-      var keyword = $('.drug-search').val().replace(/ /g,"+");
-      // var keyword = encodeURIComponent(this.get('keyword'));
+      var keyword = this.get('keyword').replace(/ /g,"+");
       console.log("sending search. keyword=" + keyword);
       this.sendAction('action', keyword);
     }

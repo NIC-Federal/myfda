@@ -32,6 +32,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
+@PropertySources({
+  @PropertySource(value = "file:${sys:user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true),
+  @PropertySource(value = "file:${user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true) })
 public class UiApplication {
 
   private static final Logger log = LoggerFactory.getLogger(UiApplication.class);
@@ -83,5 +86,4 @@ public class UiApplication {
         };
       };
   }
-
 }

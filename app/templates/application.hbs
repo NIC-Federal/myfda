@@ -1,27 +1,32 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			{{#link-to 'dashboard' class="navbar-brand text-hide"}}
-				MyFDA
-			{{/link-to}}
+    <div class="container">
+        <div class="navbar-header">
+          {{#link-to 'dashboard' class="navbar-brand text-hide"}}
+              MyFDA
+          {{/link-to}}
 
-			<!-- Navigation Search Bar -->
-			{{#unless isDashboard}}
-				{{autocomplete-search action="performSearch"}}
-			{{/unless}}
+            <!-- Navigation Search Bar -->
+          {{#unless isDashboard}}
+            {{autocomplete-search action="performSearch"}}
+          {{/unless}}
 
-		</div>
-		<div id="nav-collapse-main" class="navbar-collapse">
-			{{#if userIsAuthenticated}}
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-					<li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
-				</ul>
-			{{else}}
-				<button type="button" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal" data-target="#register"><i class="fa fa-facebook-square"></i> Log In with Facebook</button>
-			{{/if}}
-		</div>
-	</div>
+        </div>
+        <div id="nav-collapse-main" class="navbar-collapse">
+          {{#if userIsAuthenticated}}
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+                  <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+              </ul>
+          {{else}}
+              <form name="fb_signin" id="fb_signin" action="/signin/facebook" method="POST">
+                  <input type="hidden" name="scope" value="publish_actions,user_photos"/>
+                  <button href="/signin" class="btn btn-primary navbar-btn navbar-right"><i
+                          class="fa fa-facebook-square"/> Log In with Facebook
+                  </button>
+              </form>
+          {{/if}}
+        </div>
+    </div>
 </nav>
 
 {{outlet}}

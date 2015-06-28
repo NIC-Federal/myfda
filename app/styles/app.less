@@ -11,6 +11,26 @@
 @modal-backdrop-bg:			#000;
 @modal-backdrop-opacity:	.9;
 
+// Contextual colors
+.text-muted {
+  color: @text-muted;
+}
+.text-primary {
+  color: @brand-primary;
+}
+.text-success {
+  color: @brand-success;
+}
+.text-info {
+  color: @brand-info;
+}
+.text-warning {
+  color: @brand-warning;
+}
+.text-danger {
+  color: @brand-danger;
+}
+
 body {
 	padding-top: 70px;
 }
@@ -40,21 +60,24 @@ body {
 		}
 		.form-control {
 			border-radius: 17px 0 0 17px;
-			border: 0px none;
+			border-right: 0px none;
+			border-color: #eee;
 			box-shadow: none;
-			background: #f5f5f5;
+			background: #f8f8f8;
 		}
 		button {
 			border-radius: 0 17px 17px 0 !important;
-			border: 0px none;
 			text-transform: uppercase;
 			font-weight: 700;
-			padding: 7px 12px;
-			background: #f5f5f5;
+			padding: 6px 12px;
+			background: #f8f8f8;
 			&.btn-default {
 				color: @link-color;
+				border-color: #eee;
+				border-left: 0px none;
 				&:hover,
 				&:focus {
+					background: #f5f5f5;
 					color: @link-hover-color;
 				}
 			}
@@ -90,28 +113,6 @@ body {
 		}
 		@media only screen and (max-width:767px) {
 			float: none;
-		}
-	}
-}
-
-.ui-autocomplete {
-	z-index: 1050 !important;
-	> .ui-menu-item {
-		font-size: 14px;
-		text-transform: capitalize !important;
-		padding: 7px 10px;
-		&.ui-state-focus {
-			background: #f8f8f8;
-			border-top-color: #eee;
-			border-bottom-color: #eee;
-			color: @link-hover-color;
-			&:hover,
-			&:focus {
-				background: #f8f8f8;
-				border-top-color: #eee;
-				border-bottom-color: #eee;
-				color: @link-hover-color;
-			}
 		}
 	}
 }
@@ -165,10 +166,6 @@ body {
 	}
 }
 
-hr {
-	margin: 30px 0;
-}
-
 .page-header {
 	padding-bottom: 10px;
 	margin-bottom: 30px;
@@ -177,7 +174,38 @@ hr {
 	}
 	h2 {
 		margin-top: 0;
+		font-weight: 900;
+		text-transform: uppercase;
+		small {
+			display: block;
+		}
 	}
+}
+
+.ui-autocomplete {
+	z-index: 1050 !important;
+	> .ui-menu-item {
+		font-size: 14px;
+		text-transform: capitalize !important;
+		padding: 7px 10px;
+		&.ui-state-focus {
+			background: #f8f8f8;
+			border-top-color: #eee;
+			border-bottom-color: #eee;
+			color: @link-hover-color;
+			&:hover,
+			&:focus {
+				background: #f8f8f8;
+				border-top-color: #eee;
+				border-bottom-color: #eee;
+				color: @link-hover-color;
+			}
+		}
+	}
+}
+
+hr {
+	margin: 30px 0;
 }
 
 .recall {
@@ -222,16 +250,6 @@ a {
 	&:hover,
 	&:focus {
 		text-decoration: none;
-	}
-}
-
-.page-header {
-	h2 {
-		font-weight: 900;
-		text-transform: uppercase;
-		small {
-			display: block;
-		}
 	}
 }
 
@@ -280,12 +298,7 @@ small {
 	}
 }
 
-
-
 .effect {
-	.progress {
-		margin-bottom: 0;
-	}
 }
 
 .active-ingredients {
@@ -311,7 +324,7 @@ small {
 	z-index: 1020;
 }
 
-.count {
+h4.count {
 	font-weight: 300;
 	font-size: 200%;
 	margin-top: 10px;
@@ -355,21 +368,63 @@ small {
 	}
 }
 
+.lead {
+	small {
+		font-size: 60%;
+		display: block;
+		color: @text-color;
+	}
+}
+
 .panel-title {
+	font-weight: 700;
 	a {
 		color: @link-color;
 		display: block;
-		&:hover,
-		&:focus {
+		&:hover {
 			color: @link-hover-color;
+			i {
+				color: @link-hover-color;
+			}
+		}
+		i {
+			color: #ccc;
+			&:hover {
+				color: @link-hover-color;
+			}
+		}
+		.count {
+			font-weight: 300;
+			color: @text-color;
+			@media only screen and (max-width:767px) {
+				display: block;
+			}		
+		}
+		small {
+			display: block;
+			line-height: 1.5;
+		}
+	}
+}
+
+.panel-details {
+	h4 {
+		@media only screen and (max-width:767px) {
+			text-align: center;
+		}		
+	}
+	.label-reports {
+		margin-bottom: 20px;
+		@media only screen and (max-width:767px) {
+			margin-bottom: 40px;
 		}
 	}
 }
 
 .male {
-	color: @brand-primary;
+	color: @brand-info;
 }
 
 .female {
-	color: @brand-warning;
+	color: lighten(@brand-danger,10%);
 }

@@ -18,7 +18,7 @@
 					<li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
 				</ul>
 			{{else}}
-				<button type="button" class="btn btn-primary navbar-btn navbar-right" data-toggle="modal" data-target="#register"><i class="fa fa-facebook-square"></i> Log In with Facebook</button>
+				<button type="button" class="btn btn-fb navbar-btn navbar-right" data-toggle="modal" data-target="#register"><i class="fa fa-facebook-square"></i> Log In with Facebook</button>
 			{{/if}}
 		</div>
 	</div>
@@ -26,13 +26,10 @@
 
 {{outlet}}
 
-<!-- Login Modal -->
-{{partial "login-modal"}}
-
 <!-- Footer -->
 <section id="info" class="section" role="contentinfo">
 	<div class="container">
-		<p class="text-center"><i class="fa fa-plus-square-o"></i> Help make MyFDA better by <a href="#">providing feedback</a>.</p>
+		<p class="text-center">Help make MyFDA better by <a href="#">providing feedback</a>.</p>
 		<hr />
 		<div class="row">
 			<div class="col-md-2 col-sm-3 text-center">
@@ -57,7 +54,7 @@
 				<div class="center-block"><img src="assets/images/nic.png" alt="NIC, Inc." class="img-responsive" /></div>
 			</div>
 			<div class="col-md-10 col-sm-9">
-				<p class="credit">Prototype made by NIC, Inc.</p>
+				<p class="credit">Prototype made by NIC Technologies</p>
 			</div>
 		</div>
 	</div>

@@ -1,21 +1,12 @@
 <section id="drug-details" class="section">
 	<div class="container">
 		<div class="page-header"><h2>{{drugName}}</h2></div>
-		<ul class="nav nav-tabs" role="tablist">
-			{{#if model.recalls.results}}
-				<li role="presentation" class="active"><a href="#drug-recalls" aria-controls="home" role="tab" data-toggle="tab">Recalls</a></li>
-			{{/if}}
-			{{#if model.effects}}
-				<li role="presentation"><a href="#drug-effects" aria-controls="profile" role="tab" data-toggle="tab">Adverse Effects</a></li>
-			{{/if}}
-		</ul>
-		<div class="tab-content">
-			{{#if model.recalls.results}}
-				{{partial "drug/recalls"}}
-			{{/if}}
-			{{#if model.effects}}
-				{{partial "drug/effects"}}
-			{{/if}}
-		</div>
+
+		{{#if model.recalls.results}}
+			{{partial "drug/has-recalls"}}
+		{{else}}
+			{{partial "drug/has-no-recalls"}}
+		{{/if}}
+
 	</div>
 </section>

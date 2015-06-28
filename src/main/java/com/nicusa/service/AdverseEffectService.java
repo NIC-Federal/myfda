@@ -12,6 +12,7 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TransactionRequiredException;
 import javax.xml.parsers.DocumentBuilder;
 
 import org.slf4j.Logger;
@@ -31,8 +32,6 @@ public class AdverseEffectService
     Logger log = LoggerFactory.getLogger(AdverseEffectService.class);
     public static final String NAME = "adverseEffectService";
     
-    @Value("${merriam.webster.key:21a8b25b-2e1b-4969-9a28-d522f5782b26}")
-    private String merriamWebsterKey;
 
     @PersistenceContext
     EntityManager entityManager;
@@ -41,11 +40,11 @@ public class AdverseEffectService
     DocumentBuilder documentBuilder;
     
     @Autowired
-    @Value("${meriam.webster.key:}")
-    private String meriamWebsterKey;
-    
+    @Value("${merriam.webster.key:}")
+    private String merriamWebsterKey;
+
     @Autowired
-    @Value("${meriam.webster.medical.url:http://www.dictionaryapi.com/api/v1/references/medical/xml/")
+    @Value("${meriam.webster.medical.url:http://www.dictionaryapi.com/api/v1/references/medical/xml/}")
     private String meriamWebsterUrl;
     
 
@@ -57,7 +56,6 @@ public class AdverseEffectService
         {
             desc = retrieveDescriptionFromDictionary(effectName);
         }
-        assert(desc != null);
         return desc.getDescription();
     }
     
@@ -65,21 +63,30 @@ public class AdverseEffectService
     private AdverseEffectDescription retrieveDescriptionFromDictionary(String effectName) throws IOException
     {
         AdverseEffectDescription desc = new AdverseEffectDescription();
+        desc.setFdaName(effectName);
+        desc.setDescription(effectName.toLowerCase());
         try {
-            String eval = URLEncoder.encode(effectName, "UTF-8");
-            HttpSlurper slurp = new HttpSlurper();
-            String s = slurp.getData(meriamWebsterUrl+eval+"?key="+merriamWebsterKey);
-            String definition = null;
-
-            definition = parseDefinition(s);
-            
-            desc.setFdaName(effectName);
-            desc.setDescription(definition);
-            entityManager.persist(desc);
-
+            if(merriamWebsterKey != null && merriamWebsterKey.length() > 0)
+            {
+                String eval = URLEncoder.encode(effectName, "UTF-8");
+                HttpSlurper slurp = new HttpSlurper();
+                String s = slurp.getData(meriamWebsterUrl+eval+"?key="+merriamWebsterKey);
+                String definition = null;
+    
+                definition = parseDefinition(s);
+                if(definition != null)
+                {
+                    desc.setDescription(definition);
+                }
+                
+                entityManager.persist(desc);
+            }
         } catch (IOException | SAXException ioe)
         {
             log.warn("Unable to parse definition for "+effectName);
+        } catch (TransactionRequiredException tre)
+        {
+            log.warn("unable to cache adverse effect description");
         }
         return desc;
     }
@@ -87,7 +94,7 @@ public class AdverseEffectService
     private AdverseEffectDescription findEventDescriptionInCache(String fdaEventName) {
         AdverseEffectDescription retval = null;
         Query q = entityManager.createQuery("SELECT a FROM AdverseEffectDescription a WHERE a.fdaName = :fdaName");
-        Collection<AdverseEffectDescription> aeDescriptions = q.getResultList();
+        Collection<AdverseEffectDescription> aeDescriptions = q.setParameter("fdaName", fdaEventName).getResultList();
         if(aeDescriptions.size() > 0)
         {
             retval = (AdverseEffectDescription)aeDescriptions.toArray()[0];

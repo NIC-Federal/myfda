@@ -2,10 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
+	distribution_pattern: [],
 
 	_initializeMaps: function() {
 
-		var states = this.get('states'),
+		var states = this.get('distribution_pattern'),
 		    stateObj = {},
 		    fillStyle;
 

@@ -215,7 +215,7 @@ public class DrugController {
 
     // implement skip/limit
     if ( rv.size() > 0 ) {
-      rv = rv.subList( skip, Math.min( rv.size(), limit ));
+      rv = rv.subList( skip, Math.min( rv.size(), skip+limit ));
     }
 
     // fill in details for all the results we're returning

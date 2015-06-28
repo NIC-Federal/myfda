@@ -18,6 +18,7 @@ export default Ember.Route.extend({
 
 		$('#tab-effects').on('shown.bs.tab', function () {
 			$(".effect").velocity("transition.slideRightIn", {duration: duration, stagger: 150});
+			$(".fade-in").velocity("transition.slideRightIn", {duration: duration, stagger: 150});
 		});
 
 		$('.collapse').on('show.bs.collapse', function(){

@@ -7,12 +7,12 @@ import geb.Page
  */
 class SearchResultsPage extends Page {
     static at = {
-        $('#search-results > div > div > div > div.page-header > h2').text().startsWith("Search Results for")
+        waitFor(10) { $('#search-results > div > div > div > div.page-header > h2').text().startsWith("SEARCH RESULTS FOR") }
     }
 
     static content = {
         firstResult {
-            $('#search-results > div > div > div > div > div > h3 > a')
+            waitFor(20) { $('#search-result-list > div > p > a') }
         }
     }
 }

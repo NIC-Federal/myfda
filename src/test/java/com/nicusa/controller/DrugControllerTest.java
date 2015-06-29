@@ -25,6 +25,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashSet;
@@ -126,10 +127,11 @@ public class DrugControllerTest {
   @Test
   public void testGetUniisByName () throws IOException {
     DrugController drug = new DrugController();
+    drug.fdaDrugLabelUrl = "http://localhost:8080";
     final String response = "[{\"term\":\"abcdefg\"}]";
     drug.rest = mock( RestTemplate.class );
     drug.apiKey = new ApiKey();
-    when( drug.rest.getForObject(any(String.class),any(Class.class))).thenReturn(response);
+    when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn(response);
     Set<String> uniis = drug.getUniisByName( "blah" );
     assertEquals( uniis.size(), 1 );
     assertTrue( uniis.contains( "ABCDEFG" ));
@@ -138,10 +140,11 @@ public class DrugControllerTest {
   @Test
   public void testGetBrandNamesByNameAndUniis () throws IOException {
     DrugController drug = new DrugController();
+    drug.fdaDrugLabelUrl = "http://localhost:8080";
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"ADVIL PM\",\"count\":2}]}";
-    drug.slurp = mock( HttpSlurper.class );
+    drug.rest = mock( RestTemplate.class );
     drug.apiKey = new ApiKey();
-    when( drug.slurp.getData(anyString())).thenReturn(response);
+    when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn(response);
     Set<String> uniis = new HashSet<String>();
     uniis.add("8GTS82S83M");
     uniis.add("WK2XYI10QM");
@@ -153,10 +156,11 @@ public class DrugControllerTest {
   @Test
   public void testGetBrandNamesByNameAndUnii () throws IOException {
     DrugController drug = new DrugController();
+    drug.fdaDrugLabelUrl = "http://localhost:8080";
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"ADVIL PM\",\"count\":2}]}";
-    drug.slurp = mock( HttpSlurper.class );
+    drug.rest = mock( RestTemplate.class );
     drug.apiKey = new ApiKey();
-    when( drug.slurp.getData(anyString()) ).thenReturn( response );
+    when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn( response );
     Set<String> result = drug.getBrandNamesByNameAndUnii( "blah", "8GTS82S83M" );
     assertNotNull( result );
     assertTrue( result.contains("ADVIL PM") );
@@ -202,6 +206,7 @@ public class DrugControllerTest {
   @Test
   public void testSimpleSearch() throws IOException {
     DrugController drug = new DrugController();
+    drug.fdaDrugLabelUrl = "http://localhost:8080";
     final String restResponse1 = "[{\"term\":\"abcdefg\"}]";
     final String restResponse2 = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"DIPHENHYDRAMINE HYDROCHLORIDE\",\"count\":245}]}";
     final String slurpResponse1 = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"ADVIL PM\",\"count\":2}]}";
@@ -213,7 +218,8 @@ public class DrugControllerTest {
     drug.rest = mock( RestTemplate.class );
     drug.apiKey = new ApiKey();
 
-    when( drug.slurp.getData(anyString()) ).thenReturn(slurpResponse1,slurpResponse2,slurpResponse3);
+    when( drug.slurp.getData(anyString()) ).thenReturn(slurpResponse2,slurpResponse3);
+    when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn(slurpResponse1 );
     when( drug.rest.getForObject(any(String.class),any(Class.class))).thenReturn(restResponse1,restResponse2);
     String result = drug.search( "blah", 10, 0 );
     assertNotNull( result );

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="navbar-header">
 			{{#link-to 'dashboard' class="navbar-brand text-hide"}}
 				MyFDA
@@ -21,8 +21,14 @@
           {{else}}
             <!-- Sign Out -->
               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#"><i class="fa fa-user"></i> My Meds</a></li>
-                  <li><a href="/signout"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                  <li>{{#link-to 'dashboard'}}<i class="fa fa-bookmark"></i> My Meds{{/link-to}}</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{model.name}} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="/signout"><i class="fa fa-sign-out"></i> Log Out</a></li>
+						</ul>
+					</li>
+                  
               </ul>
           {{/if}}
         </div>
@@ -34,7 +40,7 @@
 <!-- Footer -->
 <section id="info" class="section" role="contentinfo">
 	<div class="container">
-		<p class="text-center">Help make MyFDA better by <a href="#">providing feedback</a>.</p>
+		<p class="text-center">Help make MyFDA better by <a href="#">providing feedback</a> or contributing to the project on <a href="https://github.com/NIC-Federal/unikitty.git" target="_blank"><i class="fa fa-github"></i> Github</a>.</p>
 		<hr />
 		<div class="row">
 			<div class="col-md-2 col-sm-3 text-center">
@@ -64,5 +70,3 @@
 		</div>
 	</div>
 </section>
-
-<span class="hidden-xs"><a href="https://github.com/NIC-Federal"><img style="position: absolute; top: 70px; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a></span>

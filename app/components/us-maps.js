@@ -20,8 +20,6 @@ export default Ember.Component.extend({
 			fillStyle = "#3366cc";
 		}
 
-		console.log(stateObj);
-
 		this.$().usmap({
 			showLabels: false,
 			stateStyles: {

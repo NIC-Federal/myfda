@@ -5,7 +5,6 @@ export default Ember.Route.extend({
   model: function(params) {
     return Ember.RSVP.hash({
       effects: $.getJSON("event?unii=" + params.drug_id),
-
       recalls: $.getJSON("drug/enforcements?unii=" + params.drug_id)
     });
   },
@@ -16,9 +15,8 @@ export default Ember.Route.extend({
 
 		let duration = 1500;
 
-		$('#tab-effects').on('shown.bs.tab', function () {
-			$(".effect").velocity("transition.slideRightIn", {duration: duration, stagger: 150});
-			$(".fade-in").velocity("transition.slideRightIn", {duration: duration, stagger: 150});
+		$('a[data-toggle="tab"]').one('shown.bs.tab', function () {
+			$(".effect").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
 		});
 
 		$('.collapse').on('show.bs.collapse', function(){

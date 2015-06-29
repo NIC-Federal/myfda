@@ -1,43 +1,29 @@
-<!-- <h3>Gender</h3>
-{{#each model.genderCount.results as |data|}}
-    {{data.count}}
-{{/each}}
-
-<h3>handcrafted data</h3>
-{{model.genderCount.male.pct}}
-
-<h3>Age</h3>
-{{#each model.ageCount.results as |data|}}
-    {{data}}
-{{/each}}
--->
-
-
 <div class="panel-body text-center">
   <p class="lead">{{description}}</p>
-  <div class="row">
     <!-- <div class="col-xs-12 col-sm-4 text-center">
       {{easy-pie-chart dataPercent=percent percentText=percent barColor="#3366cc" trackColor="#fff" lineWidth="5" animate="1500"}}
       {{to-json model.outcomeCount}}
       <h4 class="count">{{model.outcomeCount.total}}</h4>
       <label class="label-reports">Reports</label>
     </div> -->
+  <p class="lead">{{description}}</p>
+  <div class="row">
     <div class="col-xs-12 col-sm-12">
       <h4>Reported Severity</h4>
-      <div class="progress fade-in">
-        <div class="progress-bar progress-bar-info" style={{progress-bar-percentage model.outcomeCount.Outcome1.pct}} data-toggle="tooltip" data-placement="bottom" title="Fully Recovered">
+      <div class="progress">
+        <div class="progress-bar progress-bar-info" style={{progress-bar-percentage model.outcomeCount.Outcome1.pct}}>
           {{model.outcomeCount.Outcome1.count}}
         </div>
-        <div class="progress-bar progress-bar" style={{progress-bar-percentage model.outcomeCount.Outcome2.pct}} data-toggle="tooltip" data-placement="bottom" title="Improving">
+        <div class="progress-bar progress-bar" style={{progress-bar-percentage model.outcomeCount.Outcome2.pct}}>
           {{model.outcomeCount.Outcome2.count}}
         </div>
-        <div class="progress-bar progress-bar-success" style={{progress-bar-percentage model.outcomeCount.Outcome3.pct}} data-toggle="tooltip" data-placement="bottom" title="Persisting Condition">
+        <div class="progress-bar progress-bar-success" style={{progress-bar-percentage model.outcomeCount.Outcome3.pct}}>
           {{model.outcomeCount.Outcome3.count}}
         </div>
-        <div class="progress-bar progress-bar-warning" style={{progress-bar-percentage model.outcomeCount.Outcome4.pct}} data-toggle="tooltip" data-placement="bottom" title="Recovered with Consequences">
+        <div class="progress-bar progress-bar-warning" style={{progress-bar-percentage model.outcomeCount.Outcome4.pct}}>
           {{model.outcomeCount.Outcome4.count}}
         </div>
-        <div class="progress-bar progress-bar-danger" style={{progress-bar-percentage model.outcomeCount.Outcome5.pct}} data-toggle="tooltip" data-placement="bottom" title="Death">
+        <div class="progress-bar progress-bar-danger" style={{progress-bar-percentage model.outcomeCount.Outcome5.pct}}>
           {{model.outcomeCount.Outcome5.count}}
         </div>
       </div>
@@ -52,17 +38,17 @@
   </div>
   <hr />
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4 text-center">
       <h4>Reported by Gender</h4>
       <div class="row">
         <div class="col-xs-6">
-          <p class="lead male fade-in">
+          <p class="lead male">
             <i class="fa fa-male fa-3x"></i><br />
             {{model.genderCount.male.pct}}% <small>Male</small>
           </p>
         </div>
         <div class="col-xs-6">
-          <p class="lead female fade-in">
+          <p class="lead female">
             <i class="fa fa-female fa-3x"></i><br />
             {{model.genderCount.female.pct}}% <small>Female</small>
           </p>
@@ -72,7 +58,7 @@
     </div>
     <div class="col-sm-8">
       <h4>Reported by Age</h4>
-      <div class="fade-in">{{chartist-chart type="line" options=model.chartOptions data=model.ageCount.results }}</div>
+      {{chartist-chart type="line" options=model.chartOptions data=model.ageCount.results }}
     </div>
   </div>
 </div>

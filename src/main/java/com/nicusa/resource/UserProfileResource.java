@@ -8,7 +8,7 @@ import java.util.Collection;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-public class UserProfileResource extends ResourceSupport {
+public class UserProfileResource extends AbstractResource {
 
   public static final UserProfileResource ANONYMOUS_USER_PROFILE;
   public static final Long ANONYMOUS_USER_PROFILE_ID = 0L;
@@ -17,19 +17,15 @@ public class UserProfileResource extends ResourceSupport {
     ANONYMOUS_USER_PROFILE = new UserProfileResource();
     ANONYMOUS_USER_PROFILE.setName("anonymous");
     ANONYMOUS_USER_PROFILE.setAnonymous(true);
-    ANONYMOUS_USER_PROFILE.add(linkTo(methodOn(UserProfileController.class).getUserProfile(0L)).withSelfRel());
+    ANONYMOUS_USER_PROFILE.getLinks().put("self", linkTo(methodOn(UserProfileController.class).getUserProfile(0L))
+      .withSelfRel().getHref());
   }
 
-  private String _id;
   private String userId;
   private String name;
   private String emailAddress;
   private Boolean anonymous = false;
   private Collection<NotificationSettingResource> notificationSettingResources;
-
-  public String get_id() {return _id; }
-
-  public void set_id(String _id) {  this._id = _id;  }
 
   public String getUserId() {
     return userId;

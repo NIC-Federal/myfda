@@ -44,6 +44,7 @@ public class PortfolioResourceToDomainConverterTest {
         Portfolio persistedPortfolio = new Portfolio();
         when(entityManager.find(Portfolio.class, 1L)).thenReturn(persistedPortfolio);
         PortfolioResource portfolioResource = new PortfolioResource();
+      portfolioResource.setId(1L);
         Portfolio portfolio = portfolioResourceToDomainConverter.convert(portfolioResource);
         assertThat(portfolio, is(not(nullValue())));
     }
@@ -56,7 +57,8 @@ public class PortfolioResourceToDomainConverterTest {
         when(entityManager.find(Portfolio.class, 1L)).thenReturn(persistedPortfolio);
         when(drugResourceToDomainConverter.convert(any(DrugResource.class))).thenReturn(drug);
         PortfolioResource portfolioResource = new PortfolioResource();
-        portfolioResource.add(linkTo(methodOn(DrugController.class).get(1L)).withRel("drugs"));
+        portfolioResource.setId(1L);
+        portfolioResource.getDrugLinks().add(linkTo(methodOn(DrugController.class).get(1L)).withRel("drugs").getHref());
         Portfolio portfolio = portfolioResourceToDomainConverter.convert(portfolioResource);
         assertThat(portfolio, is(not(nullValue())));
     }

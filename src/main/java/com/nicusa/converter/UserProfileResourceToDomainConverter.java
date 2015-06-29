@@ -28,15 +28,15 @@ public class UserProfileResourceToDomainConverter extends ResourceToDomainConver
 
   @Override
   public UserProfile convert(UserProfileResource userProfileResource) {
-    UserProfile userProfile = entityManager.find(UserProfile.class, extractIdFromLink(UserProfileController.class,
-      userProfileResource, "getUserProfile", Long.class));
+    UserProfile userProfile = entityManager.find(UserProfile.class, userProfileResource.getId());
     if (userProfile == null) {
       userProfile = new UserProfile();
     }
     userProfile.setName(userProfileResource.getName());
 
     PortfolioResource portfolioResource = new PortfolioResource();
-    portfolioResource.add(userProfileResource.getLink("portfolio").withRel("self"));
+
+    portfolioResource.getLinks().put("self", userProfileResource.getLinks().get("portfolio"));
     userProfile.setPortfolio(portfolioResourceToDomainConverter.convert(portfolioResource));
 
     userProfile.setEmailAddress(userProfileResource.getEmailAddress());

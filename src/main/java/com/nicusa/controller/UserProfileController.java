@@ -44,11 +44,10 @@ public class UserProfileController {
 
   @ResponseBody
   @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
-  public ResponseEntity<Map<String,UserProfileResource>> getUserProfile(@PathVariable("id") Long id) {
-    Map<String,UserProfileResource> userProfileResourceMap = new HashMap<>();
+  public ResponseEntity<UserProfileResource> getUserProfile(@PathVariable("id") Long id) {
+    UserProfileResource userProfileResourceMap = new UserProfileResource();
     if(id == UserProfileResource.ANONYMOUS_USER_PROFILE_ID) {
-      userProfileResourceMap.put("user", UserProfileResource.ANONYMOUS_USER_PROFILE);
-      return new ResponseEntity<>(userProfileResourceMap, HttpStatus.OK);
+      return new ResponseEntity<>(UserProfileResource.ANONYMOUS_USER_PROFILE, HttpStatus.OK);
     } else {
       Long loggedInUserProfileId = securityController.getAuthenticatedUserProfileId();
       if (loggedInUserProfileId != null && loggedInUserProfileId.equals(id)) {
@@ -56,8 +55,7 @@ public class UserProfileController {
         if (userProfile == null) {
           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-          userProfileResourceMap.put("user", userProfileAssembler.toResource(userProfile));
-          return new ResponseEntity<>(userProfileResourceMap, HttpStatus.OK);
+          return new ResponseEntity<>(userProfileAssembler.toResource(userProfile), HttpStatus.OK);
         }
       } else {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

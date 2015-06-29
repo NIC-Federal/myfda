@@ -41,12 +41,7 @@ public class PortfolioAssemblerTest {
         PortfolioResource portfolioResource = portfolioAssembler.toResource(portfolio);
 
         Integer linkCount = 0;
-        for(Link link : portfolioResource.getLinks()) {
-            if(link.getRel().equals("drugs")) {
-                linkCount++;
-            }
-        }
-        assertThat(linkCount, is(2));
+        assertThat(portfolioResource.getDrugLinks().size(), is(2));
 
     }
 }

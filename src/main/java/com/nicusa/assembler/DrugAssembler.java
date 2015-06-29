@@ -10,18 +10,12 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Component
-public class DrugAssembler extends ResourceAssemblerSupport<Drug, DrugResource> {
-
-  public DrugAssembler() {
-    super(DrugController.class, DrugResource.class);
-  }
-
-  @Override
+public class DrugAssembler {
   public DrugResource toResource(Drug drug) {
-    DrugResource drugResource = createResourceWithId(drug.getId(), drug);
+    DrugResource drugResource = new DrugResource();
     drugResource.setName(drug.getName());
     drugResource.setUnii(drug.getUnii());
-    drugResource.set_id(drug.getId().toString());
+    drugResource.setId(drug.getId());
     return drugResource;
   }
 }

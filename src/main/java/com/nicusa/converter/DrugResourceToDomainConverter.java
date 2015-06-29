@@ -17,9 +17,8 @@ public class DrugResourceToDomainConverter extends ResourceToDomainConverter<Dru
   @Override
   public Drug convert(DrugResource drugResource) {
     Drug drug;
-    if (drugResource.getLink("self") != null) {
-      drug = entityManager.find(Drug.class, extractIdFromLink(DrugController.class, drugResource, "get",
-              Long.class));
+    if (drugResource.getId() != null) {
+      drug = entityManager.find(Drug.class, drugResource.getId());
     } else {
       drug = new Drug();
     }

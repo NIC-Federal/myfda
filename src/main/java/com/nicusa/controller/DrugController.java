@@ -66,7 +66,7 @@ public class DrugController {
 
   @Transactional
   @ResponseBody
-  @RequestMapping(value = "/drug", method = RequestMethod.POST, consumes = "application/json")
+  @RequestMapping(value = "/api/drug", method = RequestMethod.POST, consumes = "application/json")
   public ResponseEntity<?> create(@RequestBody DrugResource drugResource) {
     Long loggedInUserProfileId = securityController.getAuthenticatedUserProfileId();
   if (loggedInUserProfileId != null && loggedInUserProfileId != UserProfileResource.ANONYMOUS_USER_PROFILE_ID) {

@@ -25,7 +25,7 @@ public class MySqlPersistenceConfiguration {
 
   @Autowired
   @Value("${mysql.username}") String username;
-  
+
   @Autowired
   @Value("${mysql.password}") String password;
 
@@ -72,6 +72,7 @@ public class MySqlPersistenceConfiguration {
     factory.getJpaPropertyMap().put("eclipselink.logging.level", "FINE");
     factory.getJpaPropertyMap().put("eclipselink.validate-existence", "true");
     factory.getJpaPropertyMap().put("eclipselink.id-validation", "NULL");
+    factory.getJpaPropertyMap().put("eclipselink.ddl-generation", "create-or-extend-tables");
     factory.setDataSource(dataSource());
     return factory;
   }

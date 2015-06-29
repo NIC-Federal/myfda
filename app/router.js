@@ -19,6 +19,7 @@ Router.map(function() {
     this.route('notifications');
   });
 
+  this.route('style-guide');
 });
 
 Router.reopen({

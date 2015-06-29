@@ -1,31 +1,27 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-          {{#link-to 'dashboard' class="navbar-brand text-hide"}}
-              MyFDA
-          {{/link-to}}
+	<div class="container">
+		<div class="navbar-header">
+			{{#link-to 'dashboard' class="navbar-brand text-hide"}}
+				MyFDA
+			{{/link-to}}
 
-            <!-- Navigation Search Bar -->
-          {{#unless isDashboard}}
-            {{autocomplete-search action="performSearch"}}
-          {{/unless}}
+			<!-- Navigation Search Bar -->
+			{{#unless isDashboard}}
+				{{autocomplete-search action="performSearch"}}
+			{{/unless}}
 
-        </div>
-        <div id="nav-collapse-main" class="navbar-collapse">
-          {{#if userIsAuthenticated}}
-              <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                  <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
-              </ul>
-          {{else}}
-              <form name="fb_signin" id="fb_signin" action="/signin/facebook" method="POST">
-                  <button href="/signin" class="btn btn-fb navbar-btn navbar-right"><i
-                          class="fa fa-facebook-square"/> Log In with Facebook
-                  </button>
-              </form>
-          {{/if}}
-        </div>
-    </div>
+		</div>
+		<div id="nav-collapse-main" class="navbar-collapse">
+			{{#if userIsAuthenticated}}
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+					<li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+				</ul>
+			{{else}}
+				<button type="button" class="btn btn-fb navbar-btn navbar-right" data-toggle="modal" data-target="#register"><i class="fa fa-facebook-square"></i> Log In with Facebook</button>
+			{{/if}}
+		</div>
+	</div>
 </nav>
 
 {{outlet}}
@@ -63,3 +59,5 @@
 		</div>
 	</div>
 </section>
+
+<span class="hidden-xs"><a href="https://github.com/NIC-Federal"><img style="position: absolute; top: 70px; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a></span>

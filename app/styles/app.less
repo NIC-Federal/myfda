@@ -2,27 +2,18 @@
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
 @import url(//fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic);
 
+// BOOTSTRAP OVERRIDES
 @font-family-sans-serif:	"Roboto", Helvetica, Arial, sans-serif;
-
 @brand-primary:				#3366cc;
 @brand-success:				#339933;
-@brand-secondary:			#999;
-
+@fb-blue:					#3b579d;
 @link-color:				@brand-primary;
-
 @modal-backdrop-bg:			#000;
 @modal-backdrop-opacity:	.9;
-
-@fb-blue:					#3b579d;
-
-
+@headings-font-weight:		900;
 @btn-fb-color:              @fb-blue;
 @btn-fb-bg:                 #f8f8f8;
 @btn-fb-border:             #eee;
-
-.btn-fb {
-	.button-variant(@btn-fb-color; @btn-fb-bg; @btn-fb-border);
-}
 
 
 html, body {
@@ -31,7 +22,23 @@ html, body {
 	position: relative;
 }
 
-// Contextual colors
+.full-page-overlay {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 1020;
+	.center-vert {
+		position: absolute;
+		width: 100%;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+
+// COLORS
 .text-muted {
   color: #999;
 }
@@ -51,6 +58,8 @@ html, body {
   color: @brand-danger;
 }
 
+
+// NAVBAR
 body {
 	padding-top: 70px;
 }
@@ -98,7 +107,6 @@ body {
 				border-left: 0px none;
 				&:hover,
 				&:focus {
-					background: #eee;
 					color: @link-hover-color;
 				}
 			}
@@ -138,20 +146,52 @@ body {
 	}
 }
 
+// FORMS
+.navbar-form {
+	&.example {
+		margin: 0 0 0 0;
+	}
+	@media only screen and (max-width:767px) {
+		border: 0px none;
+		margin-top: -2px;
+		margin-bottom: 0;
+		margin-right: 0;
+	}
+	.form-control {
+		border-radius: 17px 0 0 17px;
+		border-right: 0px none;
+		border-color: #eee;
+		box-shadow: none;
+		background: #f8f8f8;
+		height: 32px;
+	}
+	button {
+		border-radius: 0 17px 17px 0 !important;
+		text-transform: uppercase;
+		font-weight: 700;
+		padding: 5px 12px;
+		background: #f8f8f8;
+		&.btn-default {
+			color: @link-color;
+			border-color: #eee;
+			border-left: 0px none;
+			&:hover,
+			&:focus {
+				background: #eee;
+				color: @link-hover-color;
+			}
+		}
+	}
+}
+
+
+// SECTIONS
 #hero {
 	padding: 30px 0;
 	background: #f8f8f8;
 	border-bottom: 1px solid #eee;
 	@media only screen and (max-width:767px) {
 		padding-bottom: 0;
-	}
-	p {
-		font-size: 16px;
-		margin-top: 20px;
-		&.lead {
-			font-size: 24px;
-			margin-top: 0;
-		}
 	}
 }
 
@@ -160,32 +200,8 @@ body {
 	@media only screen and (max-width:767px) {
 		padding: 30px 0;
 	}
-	h1 {
-		font-weight: 900;
-		margin-top: 0;
-	}
-	h2 {
-		font-weight: 700;
-	}
-	p {
-		font-size: 16px;
-		margin-top: 20px;
-		&.lead {
-			font-size: 18px;
-			margin-top: 0;
-			strong {
-				text-transform: uppercase;
-				i {
-					color: @brand-info;
-					float: left;
-					margin: 2px 5px 40px 0;
-					font-size: 1.1em;
-				}
-			}
-		}
-	}
 	.page-header {
-		padding-top: 60px;
+		padding-top: 30px;
 	}
 }
 
@@ -234,28 +250,135 @@ body {
 	@media only screen and (max-width:767px) {
 		padding-bottom: 0;
 	}
-	.lead {
+	h1 {
 		font-weight: 700;
+		font-size: 40px;
+		line-height: 40px;
+		margin: 20px 0;
+		@media only screen and (max-width:767px) {
+			font-size: 24px;
+			line-height: 30px;
+			margin-top: 0;
+		}
 	}
-	.help-block {
-		font-size: 14px;
+}
+
+.effect {
+	.label-severity {
+		margin-right: 10px;
+		@media only screen and (max-width:767px) {
+			display: block;
+			text-align: center;
+			margin-right: 0;
+		}
+		.label {
+			transform: translateY(-7px);
+		}
+	}
+	.panel-body {
+		h4 {
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.tab-pane {
+	padding: 30px 0;
+	.form-group {
 		margin-bottom: 0;
 	}
 }
 
+
+// TYPE
 .page-header {
 	padding-bottom: 10px;
 	margin-bottom: 30px;
 	@media only screen and (max-width:767px) {
 		padding-top: 5px;
 	}
+	h1,
 	h2 {
 		margin-top: 0;
 		font-weight: 900;
 		text-transform: uppercase;
-		small {
-			display: block;
+	}
+	small {
+		display: block;
+		text-transform: none;
+		line-height: 1.5;
+	}
+}
+
+h3 {
+	small {
+		display: block;
+		line-height: 1.5;
+	}
+}
+
+p {
+	&.lead {
+		font-size: 18px;
+		margin-top: 0;
+		strong {
+			text-transform: uppercase;
+			font-weight: 900;
+			i {
+				color: @brand-info;
+				float: left;
+				margin: 2px 5px 40px 0;
+				font-size: 1.1em;
+			}
 		}
+	}
+}
+
+.prepend {
+	text-transform: uppercase;
+}
+
+.list-inline {
+	> li {
+		padding: 10px 0;
+	}
+}
+
+small {
+	strong {
+		text-transform: uppercase;
+	}
+}
+
+.title-recall {
+	margin-top: 0;
+	.label {
+		font-size: 62%;
+		transform: translateY(-5px);
+	}
+}
+
+.panel-details {
+	h4 {
+		@media only screen and (max-width:767px) {
+			text-align: center;
+		}
+	}
+	.label-reports {
+		margin-bottom: 20px;
+		@media only screen and (max-width:767px) {
+			margin-bottom: 40px;
+		}
+	}
+}
+
+
+// COMPONENTS
+.map {
+	width: 100%;
+	position: relative;
+	.ember-view {
+		width: 100%;
 	}
 }
 
@@ -281,28 +404,20 @@ body {
 	}
 }
 
-hr {
-	margin: 30px 0;
-}
-
-.recall {
-	.timestamp {
+.active-ingredients {
+	.active-ingredient {
 		margin-right: 5px;
+		&:after {
+			content: ",";
+		}
+		&:last-child:after {
+			content: " ";
+		}
 	}
 }
 
-.prepend {
-	text-transform: uppercase;
-}
 
-.map {
-	width: 100%;
-	position: relative;
-	.ember-view {
-		width: 100%;
-	}
-}
-
+// LINKS
 .btn {
 	text-transform: uppercase;
 	font-weight: 700;
@@ -324,6 +439,10 @@ hr {
 	}
 }
 
+.btn-fb {
+	.button-variant(@btn-fb-color; @btn-fb-bg; @btn-fb-border);
+}
+
 a {
 	&:hover,
 	&:focus {
@@ -331,16 +450,12 @@ a {
 	}
 }
 
-h3 {
-	color: @brand-secondary;
-	small {
-		display: block;
-		line-height: 1.5;
-	}
-}
-
 .nav-tabs {
 	> li {
+		> a {
+			text-transform: uppercase;
+			font-weight: 700;
+		}
 		&.active {
 			> a {
 				background-color: #ffffff;
@@ -349,81 +464,8 @@ h3 {
 	}
 }
 
-.tab-pane {
-	padding: 30px 0;
-	.title-tab {
-		margin-top: 10px;
-		margin-bottom: 0;
-	}
-	.form-group {
-		margin-bottom: 0;
-	}
-}
 
-.title-recall {
-	margin-top: 0;
-	.label {
-		font-size: 62%;
-		float: right;
-		&.pull-right {
-			margin-left: 15px;
-		}
-	}
-}
 
-small {
-	strong {
-		text-transform: uppercase;
-	}
-}
-
-.effect {
-	.label-severity {
-		margin-right: 10px;
-		@media only screen and (max-width:767px) {
-			display: block;
-			text-align: center;
-			margin-right: 0;
-		}
-	}
-	.effect-header {
-		padding-left: 45px;
-		float: left;
-	}
-	.panel-body {
-		h4 {
-			margin-bottom: 20px;
-		}
-	}
-}
-
-.active-ingredients {
-
-	.active-ingredient {
-		margin-right: 5px;
-		&:after {
-			content: ",";
-		}
-		&:last-child:after {
-			content: " ";
-		}
-	}
-}
-
-.full-page-overlay {
-	width: 100%;
-	height: 100%;
-	background: #fff;
-	position: fixed;
-	top: 0; left: 0; right: 0; bottom: 0;
-	z-index: 1020;
-	.center-vert {
-		position: absolute;
-		width: 100%;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-}
 
 h4.count {
 	font-weight: 300;
@@ -444,23 +486,6 @@ h4.count {
 	}
 }
 
-.percentage {
-	position: relative;
-	margin-left: 15px;
-	color: #fff;
-	content: none;
-	float: left;
-	canvas {
-		position: absolute;
-		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-	span {
-		position: absolute;
-	}
-}
-
 .progress {
 	height: 30px;
 	.progress-bar {
@@ -476,11 +501,35 @@ h4.count {
 	}
 }
 
+.wrapper-header {
+	position: relative;
+	display: block;
+	.percentage {
+		position: absolute;
+		top: 10px;
+		left: 15px;
+		color: #fff;
+		content: none;
+		float: left;
+	}
+	.toggle-icon {
+		position: absolute;
+		top: 10px;
+		right: 15px;
+	}
+	.effect-header {
+		padding-left: 45px;
+		padding-right: 45px;
+	}
+}
+
 .panel-heading {
 	background: #eee;
 	padding: 0 0 0 0;
+	position: relative;
 	.panel-title {
 		font-weight: 700;
+		position: relative;
 		a {
 			padding: 10px 15px;
 			color: @link-color;
@@ -512,18 +561,8 @@ h4.count {
 	}
 }
 
-.panel-details {
-	h4 {
-		@media only screen and (max-width:767px) {
-			text-align: center;
-		}
-	}
-	.label-reports {
-		margin-bottom: 20px;
-		@media only screen and (max-width:767px) {
-			margin-bottom: 40px;
-		}
-	}
+hr {
+	margin: 30px 0;
 }
 
 .male {
@@ -534,7 +573,7 @@ h4.count {
 	color: lighten(@brand-danger,10%);
 }
 
-// Line Charts
+// LINE CHARTS
 .ct-series-a .ct-line {
   stroke: @brand-primary !important;
 }
@@ -551,3 +590,4 @@ h4.count {
 		padding-bottom: 30% !important;
 	}
 }
+

@@ -1,6 +1,5 @@
 <section id="dashboard-public">
 	<div class="container">
-	
 	    <div class="row">
 	        <div class="col-sm-4">
 		        <p class="lead"><strong><i class="fa fa-search fa-fw"></i> Search</strong> for prescription and over-the-counter drugs by name.</p> 
@@ -30,13 +29,14 @@
 	        </div>
 	    </div>
     
+<!--
 	    <div class="page-header"><h2>Latest Drug Recalls</h2></div>
 	
 	    {{#each model.results as |recall|}}
         <div class="recall">
             <div class="row">
                 <div class="col-sm-8 col-md-9">
-                    <h3 class="title-recall"><span class="label label-success">{{recall.status}}</span>Recall Number: {{recall.recall_number}}</h3>
+                    <h3 class="title-recall"><span class="label label-success">{{recall.status}}</span> Recall Number: {{recall.recall_number}}</h3>
                     <p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
                     <p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
                     <p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
@@ -44,12 +44,22 @@
                 </div>
                 <div class="col-sm-4 col-md-3 text-center">
                     <h4>Recall Distribution:</h4>
+					<ul class="list-inline">
+	                {{#if recall.distribution_pattern}}
+	                    {{#each recall.distribution_pattern as |state|}}
+	                        <l1><span class="label label-info">{{state}}</span></l1>
+	                    {{/each}}
+	                {{else}}
+	                    <l1><span class="label label-info">USA</span></l1>
+	                {{/if}}
+	                </ul>
                     {{us-maps distribution_pattern=recall.distribution_pattern}}
                 </div>
             </div>
             <hr />
         </div>
 	    {{/each}}
+-->
 
 	</div>
 </section>

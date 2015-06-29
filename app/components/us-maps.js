@@ -12,12 +12,12 @@ export default Ember.Component.extend({
 
 		if (states.length > 0) {
 			$.each(states, function(index, value){
-				stateObj[value] = {fill: '#3366cc'};
+				stateObj[value] = {fill: '#5bc0de'};
 			});
 			fillStyle = "#eee";
 		} else {
 			// If states is blank this means highlight all states
-			fillStyle = "#3366cc";
+			fillStyle = "#5bc0de";
 		}
 
 		this.$().usmap({

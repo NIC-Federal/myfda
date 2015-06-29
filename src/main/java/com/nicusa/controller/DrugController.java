@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,13 +38,14 @@ public class DrugController {
 
   RestTemplate rest = new RestTemplate();
   HttpSlurper slurp = new HttpSlurper();
+  FdaSearchTermUtil fixTerm = new FdaSearchTermUtil();
 
   @Autowired
   ApiKey apiKey;
 
   @Autowired
   @Value("${fda.drug.label.url:https://api.fda.gov/drug/label.json}")
-  private String fdaDrugLabelUrl;
+  String fdaDrugLabelUrl;
   @Autowired
   @Value("${nlm.dailymed.autocomplete.url:https://dailymed.nlm.nih.gov/dailymed/autocomplete.cfm}")
   private String nlmDailymedAutocompleteUrl;
@@ -103,12 +105,14 @@ public class DrugController {
   }
 
   public Set<String> getUniisByName ( String name ) throws IOException {
-    String query = this.fdaDrugLabelUrl +
-      "?search=openfda.brand_name:" +
-      URLEncoder.encode( name, StandardCharsets.UTF_8.name() ) +
-      "&count=openfda.unii" + this.apiKey.getFdaApiKeyQuery();
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+        this.fdaDrugLabelUrl )
+      .queryParam( "search", "(openfda.brand_name:" +
+          fixTerm.makeFdaReady( name ) + ")" )
+      .queryParam( "count", "openfda.unii" );
+    this.apiKey.addToUriComponentsBuilder( builder );
     try {
-      String result = rest.getForObject( query, String.class );
+      String result = rest.getForObject( builder.build().toUri(), String.class );
       FieldFinder finder = new FieldFinder( "term" );
       return finder.find( result );
     } catch ( HttpClientErrorException notFound ) {
@@ -134,23 +138,27 @@ public class DrugController {
   public Set<String> getBrandNamesByNameAndUnii (
       String name,
       String unii ) throws IOException {
-    String query = this.fdaDrugLabelUrl +
-      "?search=(openfda.unii:" +
-      URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
-      ")+AND+(openfda.brand_name:" +
-      URLEncoder.encode( name, StandardCharsets.UTF_8.name() ) +
-      ")&count=openfda.brand_name.exact" +
-      this.apiKey.getFdaApiKeyQuery();
-
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+        this.fdaDrugLabelUrl )
+      .queryParam( "search", "(openfda.unii:" +
+          fixTerm.makeFdaSafe( unii ) +
+          ")+AND+(openfda.brand_name:" +
+          fixTerm.makeFdaReady( fixTerm.makeFdaSafe( name )) +
+          ")")
+      .queryParam( "count", "openfda.brand_name.exact" );
+    this.apiKey.addToUriComponentsBuilder( builder );
     try {
-      String result = slurp.getData( query );
+      String result = rest.getForObject( builder.build().toUri(), String.class );
       FieldFinder finder = new FieldFinder( "term" );
       return finder.find( result );
-    } catch ( FileNotFoundException notFound ) {
-      // server reported 404, handle it by returning no results
-      log.warn( "No brand name data found for search by name: " +
+    } catch ( HttpClientErrorException notFound ) {
+      if( notFound.getStatusCode() == HttpStatus.NOT_FOUND ){
+        // server reported 404, handle it by returning no results
+        log.warn( "No brand name data found for search by name: " +
           name + " and unii " + unii );
-      return Collections.emptySet();
+        return Collections.emptySet();
+      }
+      throw notFound;
     }
   }
 
@@ -207,11 +215,10 @@ public class DrugController {
     @RequestParam(value = "name", defaultValue = "") String name,
     @RequestParam(value = "limit", defaultValue = "10") int limit,
     @RequestParam(value = "skip", defaultValue = "0") int skip) throws IOException {
-    if (name == null) {
-      name = "";
+    name = fixTerm.makeFdaSafe( name );
+    if ( name.length() == 0 ) {
+      return "[]";
     }
-
-    name = name.replaceAll(",", "");
 
     List<DrugSearchResult> rv = new LinkedList<DrugSearchResult>();
 
@@ -220,40 +227,38 @@ public class DrugController {
         name,
         uniis );
 
-    int count = 0;
+    // create full list of drug search results
     for ( String unii : uniis ) {
-      if ( rv.size() >= limit ) {
-        break;
-      }
       for ( String brandName : brandNames.get( unii )) {
-        if ( rv.size() >= limit ) {
-          break;
-        }
-        if ( count > skip ) {
-          DrugSearchResult res = new DrugSearchResult();
-          res.setUnii( unii );
-          res.setBrandName( brandName );
-          res.setGenericName( this.getGenericNameByUnii( unii ));
-          res.setRxcui( this.getRxcuiByBrandName( brandName ));
-          res.setActiveIngredients( this.getActiveIngredientsByRxcui(
-                res.getRxcui() ));
-          // workaround for beta rxcui source
-          if ( res.getActiveIngredients().isEmpty() &&
-              res.getGenericName() != null ) {
-            res.setActiveIngredients(
-              new TreeSet<String>( Arrays.asList(
-                res.getGenericName().split( ", " ))));
-          }
-
-          // if the brand name matches the search, display as first result
-          if ( name.equalsIgnoreCase( brandName )) {
-            rv.add( 0, res );
-          } else {
-            rv.add( res );
-          }
-        }
-        count++;
+        DrugSearchResult res = new DrugSearchResult();
+        res.setUnii( unii );
+        res.setBrandName( brandName );
+        rv.add( res );
       }
+    }
+
+    // sort the list of drug search results by custom comparator
+    Collections.sort( rv, new DrugSearchComparator( name ));
+
+    // implement skip/limit
+    if ( rv.size() > 0 ) {
+      rv = rv.subList( skip, Math.min( rv.size(), skip+limit ));
+    }
+
+    // fill in details for all the results we're returning
+    for ( DrugSearchResult res : rv ) {
+      res.setGenericName( this.getGenericNameByUnii( res.getUnii() ));
+      res.setRxcui( this.getRxcuiByBrandName( res.getBrandName() ));
+      res.setActiveIngredients( this.getActiveIngredientsByRxcui(
+            res.getRxcui() ));
+      // workaround for beta rxcui source
+      if ( res.getActiveIngredients().isEmpty() &&
+          res.getGenericName() != null ) {
+        res.setActiveIngredients(
+            new TreeSet<String>( Arrays.asList(
+                res.getGenericName().split( ", " ))));
+      }
+
     }
 
     ObjectMapper mapper = new ObjectMapper();

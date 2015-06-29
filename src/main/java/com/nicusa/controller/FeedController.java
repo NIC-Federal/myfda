@@ -1,13 +1,12 @@
 package com.nicusa.controller;
 
-import com.nicusa.util.ApiKey;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.nicusa.util.NormalizeStateCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.nicusa.util.ApiKey;
+import com.nicusa.util.HttpRestClient;
+import com.nicusa.util.NormalizeStateCode;
 
 
 @RestController
@@ -58,11 +58,11 @@ public class FeedController {
     @Value("${drug.recalls.unii.total.limit:99}")
     private int uniiRecallsLimit;
 
+    private HttpRestClient rest = new HttpRestClient();
 
     @RequestMapping("/recalls")
     @ResponseBody
     public JsonNode getFDARecalls() throws IOException {
-        RestTemplate rest = new RestTemplate();
         JsonNode node = null;
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.readTree(rest.getForObject(xml2JsonCnvrtrUrl + fdaRecallsRSSurl, String.class));
@@ -75,7 +75,6 @@ public class FeedController {
     public JsonNode getDrugRecalls(@RequestParam(value = "limit", defaultValue = "5") int limit,
                                    @RequestParam(value = "fromDt", defaultValue = "") String fromDt,
                                    @RequestParam(value = "toDt", defaultValue = "") String toDt) throws Exception {
-        RestTemplate rest = new RestTemplate();
         JsonNode node;
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -97,7 +96,6 @@ public class FeedController {
             @RequestParam(value = "unii", defaultValue = "") String unii,
             @RequestParam(value = "limit", defaultValue = "0") int limit) throws Exception {
         JsonNode node;
-        RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         ObjectMapper mapper = new ObjectMapper();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);

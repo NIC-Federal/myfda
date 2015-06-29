@@ -1,10 +1,12 @@
 package com.nicusa;
 
-import java.io.File;
+import com.nicusa.util.HttpSlurper;
+
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +29,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -53,6 +54,25 @@ public class UiApplication {
     SpringApplication.run(UiApplication.class, args);
   }
 
+  @Bean
+  public DocumentBuilder documentBuilder() throws ParserConfigurationException
+  {
+      DocumentBuilder builder = null;
+      builder = documentBuilderFactory().newDocumentBuilder();
+      return builder;
+  }
+  
+  @Bean 
+  public HttpSlurper slurper()
+  {
+      return new HttpSlurper();
+  }
+  
+  public DocumentBuilderFactory documentBuilderFactory()
+  {
+      return DocumentBuilderFactory.newInstance();
+  }
+  
   @Bean
   public EmbeddedServletContainerCustomizer containerCustomizer() throws FileNotFoundException
   {

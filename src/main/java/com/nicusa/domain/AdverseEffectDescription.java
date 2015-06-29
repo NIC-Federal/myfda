@@ -44,7 +44,7 @@ public class AdverseEffectDescription
         this.fdaName = fdaName;
     }
 
-    @Column(name="DESC", length=512)
+    @Column(name="DESCRIPTION", length=512)
     public String getDescription ()
     {
         return description;

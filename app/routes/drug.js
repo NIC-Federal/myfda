@@ -29,5 +29,18 @@ export default Ember.Route.extend({
 		$('[data-toggle="tooltip"]').tooltip();
 
     });
+  },
+  actions: {
+      saveDrugToPortfolio: function(drugId) {
+          $.ajax({
+           type: "POST",
+           url: "/api/drug",
+           data: JSON.stringify({ unni: drugId }),
+           success: function(response) {
+               console.log(response);
+           },
+           contentType: "application/json"
+          });
+      }
   }
 });

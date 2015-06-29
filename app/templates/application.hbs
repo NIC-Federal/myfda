@@ -9,25 +9,22 @@
           {{#unless hideNavSearch}}
             {{autocomplete-search action="performSearch"}}
           {{/unless}}
-
-          {{#each model.links as |thing|}}
-            {{thing.href}}
-          {{/each}}
-
         </div>
         <div id="nav-collapse-main" class="navbar-collapse">
-          {{#unless anonymous}}
-              <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#"><i class="fa fa-user"></i> My Meds</a></li>
-                  <li><a href="/signout"><i class="fa fa-sign-out"></i> Log Out</a></li>
-              </ul>
-          {{else}}
+          {{#if model.anonymous}}
+              <!-- Login -->
               <form name="fb_signin" id="fb_signin" action="/signin/facebook" method="POST">
                   <button href="/signin" class="btn btn-fb navbar-btn navbar-right"><i
                           class="fa fa-facebook-square"/> Log In with Facebook
                   </button>
               </form>
-          {{/unless}}
+          {{else}}
+            <!-- Sign Out -->
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#"><i class="fa fa-user"></i> My Meds</a></li>
+                  <li><a href="/signout"><i class="fa fa-sign-out"></i> Log Out</a></li>
+              </ul>
+          {{/if}}
         </div>
     </div>
 </nav>

@@ -9,6 +9,9 @@ export default Ember.Controller.extend({
         var currentPath = this.get("currentPath");
         var hideSearch = currentPath ? currentPath.indexOf("dashboard") === 0 || currentPath.indexOf("loading") === 0 || currentPath.indexOf("search.loading") === 0: false;
         this.set("hideNavSearch", hideSearch);
-    }.observes('currentPath').on("init")
+    }.observes('currentPath').on("init"),
+    setupController: function(controller, model) {
+        controller.set('model', model);
+    }
 
 });

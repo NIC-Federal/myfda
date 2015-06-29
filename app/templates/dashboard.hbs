@@ -9,8 +9,8 @@
 </section>
 
 <!-- Dashboards -->
-{{#if userIsAuthenticated}}
-    {{partial "dashboards/authenticated"}}
-{{else}}
+{{#if UserData.anonymous}}
     {{partial "dashboards/unauthenticated"}}
+{{else}}
+    {{partial "dashboards/authenticated"}}
 {{/if}}

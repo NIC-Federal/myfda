@@ -13,9 +13,8 @@ class SearchTest {
         def browser = new Browser();
         browser.drive {
             to DashboardPage
-            waitFor at DashboardPage
-            searchTextBox.value('ASPIRIN')
-            searchButton.click()
+            largeSearchTextBox.value('ASPIRIN')
+            largeSearchButton.click()
             at SearchResultsPage
             firstResult.click()
         }

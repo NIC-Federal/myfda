@@ -1,11 +1,15 @@
 package com.nicusa.controller;
 
+import com.nicusa.converter.DrugResourceToDomainConverter;
+import com.nicusa.resource.UserProfileResource;
 import com.nicusa.util.ApiKey;
 import com.nicusa.util.HttpSlurper;
 
 import com.nicusa.assembler.DrugAssembler;
 import com.nicusa.domain.Drug;
 import com.nicusa.resource.DrugResource;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,7 +19,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.IOException;
 import java.util.Set;
@@ -39,6 +46,43 @@ public class DrugControllerTest {
 
   @InjectMocks
   private DrugController drugController;
+
+  @Mock
+  private SecurityController securityController;
+
+  @Mock
+  private DrugResourceToDomainConverter drugResourceToDomainConverter;
+
+  @Before
+  public void before() {
+    RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
+  }
+
+  @After
+  public void after() {
+    RequestContextHolder.setRequestAttributes(null);
+  }
+
+  @Test
+  public void testCreateDrugAsAnonymousUser() {
+    DrugResource drugResource = new DrugResource();
+    when(securityController.getAuthenticatedUserProfileId()).thenReturn(UserProfileResource.ANONYMOUS_USER_PROFILE_ID);
+    ResponseEntity<?> responseEntity = drugController.create(drugResource);
+    assertThat(responseEntity.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+  }
+
+  @Test
+  public void testCreateDrugAsALoggedInUser() {
+    Drug drug = new Drug();
+    drug.setId(1L);
+    DrugResource drugResource = new DrugResource();
+    when(securityController.getAuthenticatedUserProfileId()).thenReturn(1L);
+    when(drugResourceToDomainConverter.convert(drugResource)).thenReturn(drug);
+    ResponseEntity<?> responseEntity = drugController.create(drugResource);
+    assertThat(responseEntity.getStatusCode(), is(HttpStatus.CREATED));
+  }
+
+
 
   @Test
   public void testGetDrugFound() {

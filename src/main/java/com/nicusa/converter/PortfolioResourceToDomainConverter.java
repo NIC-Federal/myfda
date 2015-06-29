@@ -38,6 +38,7 @@ public class PortfolioResourceToDomainConverter extends ResourceToDomainConverte
       drugResource.getLinks().put("self", drugHref);
       drugs.add(drugResourceToDomainConverter.convert(drugResource));
     }
+    portfolio.setDrugs(drugs);
     return portfolio;
 
   }

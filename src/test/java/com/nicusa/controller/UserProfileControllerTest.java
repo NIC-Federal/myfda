@@ -19,6 +19,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.persistence.EntityManager;
 
+import java.util.Map;
+
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -65,12 +67,14 @@ public class UserProfileControllerTest {
   @Test
   public void testGetUserProfileAnonymous() throws Exception {
     RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
-    ResponseEntity<UserProfileResource> userProfileResponseEntity = userProfileController.getUserProfile(0L);
+    ResponseEntity<Map<String,UserProfileResource>> userProfileResponseEntity = userProfileController.getUserProfile(0L);
     assertThat(userProfileResponseEntity.getStatusCode(), is(HttpStatus.OK));
     assertThat(userProfileResponseEntity.getBody(), is(not(nullValue())));
-    assertThat(userProfileResponseEntity.getBody(), instanceOf(UserProfileResource.class));
-    assertThat(userProfileResponseEntity.getBody().getName(), is("anonymous"));
-    assertThat(userProfileResponseEntity.getBody().getLink("self").getHref(), is("http://localhost/user/0"));
+    assertThat(userProfileResponseEntity.getBody(), instanceOf(Map.class));
+    assertThat(userProfileResponseEntity.getBody().get("user"), is(not(nullValue())));
+    assertThat(userProfileResponseEntity.getBody().get("user"), instanceOf(UserProfileResource.class));
+    assertThat(userProfileResponseEntity.getBody().get("user").getName(), is("anonymous"));
+    assertThat(userProfileResponseEntity.getBody().get("user").getLink("self").getHref(), is("http://localhost/user/0"));
   }
 
   @Test
@@ -84,11 +88,13 @@ public class UserProfileControllerTest {
     when(entityManager.find(UserProfile.class, 1L)).thenReturn(userProfile);
     when(userProfileAssembler.toResource(userProfile)).thenReturn(userProfileResource);
 
-    ResponseEntity<UserProfileResource> userProfileResponseEntity = userProfileController.getUserProfile(1L);
+    ResponseEntity<Map<String,UserProfileResource>> userProfileResponseEntity = userProfileController.getUserProfile(1L);
     assertThat(userProfileResponseEntity.getStatusCode(), is(HttpStatus.OK));
     assertThat(userProfileResponseEntity.getBody(), is(not(nullValue())));
-    assertThat(userProfileResponseEntity.getBody(), instanceOf(UserProfileResource.class));
-    assertThat(userProfileResponseEntity.getBody().getLink("self").getHref(), is("http://localhost/user/1"));
+    assertThat(userProfileResponseEntity.getBody(), instanceOf(Map.class));
+    assertThat(userProfileResponseEntity.getBody().get("user"), is(not(nullValue())));
+    assertThat(userProfileResponseEntity.getBody().get("user"), instanceOf(UserProfileResource.class));
+    assertThat(userProfileResponseEntity.getBody().get("user").getLink("self").getHref(), is("http://localhost/user/1"));
   }
 
   @Test
@@ -106,7 +112,7 @@ public class UserProfileControllerTest {
     userProfile.setId(1L);
     when(securityController.getAuthenticatedUserProfileId()).thenReturn(2L);
 
-    ResponseEntity<UserProfileResource> userProfileResponseEntity = userProfileController.getUserProfile(1L);
+    ResponseEntity<Map<String,UserProfileResource>> userProfileResponseEntity = userProfileController.getUserProfile(1L);
     assertThat(userProfileResponseEntity.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
   }
 

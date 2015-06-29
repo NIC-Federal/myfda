@@ -5,9 +5,9 @@
     <div class="form-group">
         <label class="sr-only">Search MyFDA</label>
         <div id="dashboard-search" class="input-group">
-            {{input type="text" name="name" class="form-control drug-search input-lg" placeholder="Search drugs by name..."}}
+            {{input id="large-search-text-box" type="text" name="name" class="form-control drug-search input-lg" placeholder="Search drugs by name..."}}
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary input-lg"><i class="fa fa-search"></i> Search</button>
+                <button id="large-search-button" type="submit" class="btn btn-primary input-lg"><i class="fa fa-search"></i> Search</button>
             </span>
         </div>
     </div>
@@ -20,9 +20,9 @@
   <div class="form-group">
     <label class="sr-only">Search MyFDA</label>
     <div class="input-group">
-        {{input type="text" name="name" class="form-control drug-search" placeholder="Search..."}}
+        {{input id="small-search-text-box" type="text" name="name" class="form-control drug-search" placeholder="Search..."}}
       <span class="input-group-btn">
-        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+        <button id="small-search-button" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
       </span>
     </div>
   </div>

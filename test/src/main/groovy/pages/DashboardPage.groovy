@@ -6,15 +6,15 @@ class DashboardPage extends Page {
     static url = System.properties['application.context.root']
 
     static at = {
-        $('.lead') != null
+        waitFor { $('#dashboard-header').text().startsWith("Look up drug") }
     }
 
     static content = {
-        searchButton {
-            $('#dashboard-search > span > button')
+        largeSearchButton {
+            $('#large-search-button')
         }
-        searchTextBox {
-            $('#ember424')
+        largeSearchTextBox {
+            $('#large-search-text-box')
         }
     }
 }

@@ -11,23 +11,28 @@ class SaveADrugToAPortfolioTest {
     @Test
     public void saveADrugToAPortfolio() {
         def userApi = new HTTPBuilder( System.properties['application.context.root'] )
-        userApi.post(path: '/signin/facebook', requestContentType: URLENC, body: [
-                
-        ]
-        )
-        userApi.post(path: '/drug', body: [
+        def redirectLocation;
+        userApi.post(path: '/signin/facebook' ) { resp ->
+            assert resp.statusLine.statusCode == 302
+            assert resp.headers.Location.startsWith('https://www.facebook.com/v1.0/dialog/oauth')
+            redirectLocation = resp.headers.Location
+        }
+
+        userApi.get(uri: redirectLocation) { resp ->
+            assert resp.statusLine.statusCode == 302
+            assert resp.headers.Location.startsWith('https://www.facebook.com/login.php')
+            redirectLocation = resp.headers.Location
+        }
+
+        userApi.get(uri: redirectLocation) { resp ->
+
+        }
+
+        userApi.post(path: '/api/drug', body: [
             name: 'ASPIRIN',
             unni: '3G6A5W338E'
-        ]) {
-            response.success = { response ->
-                println "Success"
-                println response;
-            }
-
-            response.failure = { response ->
-                println "Failure"
-                println response;
-            }
+        ]) { resp ->
+            assert resp.statusLine.statusCode == 201
         }
 
     }

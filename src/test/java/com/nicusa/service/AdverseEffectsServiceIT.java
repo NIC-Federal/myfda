@@ -1,21 +1,28 @@
 package com.nicusa.service;
 
 import com.nicusa.PersistenceConfiguration;
+import com.nicusa.TestConfig;
 
+import java.io.IOException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.*;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestConfig.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @EnableAutoConfiguration
 @ActiveProfiles("local")
@@ -29,19 +36,10 @@ public class AdverseEffectsServiceIT
     @Autowired
     private AdverseEffectService adverseEffectService;
 
-    
-//    @Test
-//    public void testMerriamWebsterCall() throws IOException
-//    {
-//        RestTemplate rest = new RestTemplate();
-//        HttpSlurper slurp = new HttpSlurper();
-//        String val = "CEREBROVASCULAR ACCIDENT";
-//        String eval = URLEncoder.encode(val, "UTF-8");
-//        String s = slurp.getData("http://www.dictionaryapi.com/api/v1/references/medical/xml/"+eval+"?key=21a8b25b-2e1b-4969-9a28-d522f5782b26");
-//        if(s.contains("<dt>"))
-//        {
-//            String def = s.substring(s.indexOf("<dt>")+4, s.indexOf("</dt>"));
-//            System.out.println(def);
-//        }
-//    }
+    @Test
+    public void testFindEffectDescription() throws IOException {
+      String desc = adverseEffectService.findEffectDescription( "CEREBROVASCULAR ACCIDENT" );
+      assertTrue( desc.contains( "cerebro" ));
+    }
+
 }

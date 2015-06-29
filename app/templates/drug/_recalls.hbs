@@ -14,7 +14,7 @@
     <div class="recall">
         <div class="row">
             <div class="col-sm-8 col-md-9">
-                <h3 class="title-recall"><span class="label label-success">{{recall.status}}</span>Recall Number: {{recall.recall_number}}</h3>
+                <h3 class="title-recall"><span class="label label-success">{{recall.status}}</span> Recall Number: {{recall.recall_number}}</h3>
                 <p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
                 <p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
                 <p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
@@ -25,10 +25,10 @@
 				<ul class="list-inline">
                 {{#if recall.distribution_pattern}}
                     {{#each recall.distribution_pattern as |state|}}
-                        <l1>{{state}}</l1>
+                        <l1><span class="label label-info">{{state}}</span></l1>
                     {{/each}}
                 {{else}}
-                    <l1>USA</l1>
+                    <l1><span class="label label-info">USA</span></l1>
                 {{/if}}
                 </ul>
                 {{us-maps distribution_pattern=recall.distribution_pattern}}

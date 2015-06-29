@@ -67,14 +67,12 @@ public class UserProfileControllerTest {
   @Test
   public void testGetUserProfileAnonymous() throws Exception {
     RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
-    ResponseEntity<Map<String,UserProfileResource>> userProfileResponseEntity = userProfileController.getUserProfile(0L);
+    ResponseEntity<UserProfileResource> userProfileResponseEntity = userProfileController.getUserProfile(0L);
     assertThat(userProfileResponseEntity.getStatusCode(), is(HttpStatus.OK));
     assertThat(userProfileResponseEntity.getBody(), is(not(nullValue())));
-    assertThat(userProfileResponseEntity.getBody(), instanceOf(Map.class));
-    assertThat(userProfileResponseEntity.getBody().get("user"), is(not(nullValue())));
-    assertThat(userProfileResponseEntity.getBody().get("user"), instanceOf(UserProfileResource.class));
-    assertThat(userProfileResponseEntity.getBody().get("user").getName(), is("anonymous"));
-    assertThat(userProfileResponseEntity.getBody().get("user").getLink("self").getHref(), is("http://localhost/user/0"));
+    assertThat(userProfileResponseEntity.getBody(), instanceOf(UserProfileResource.class));
+    assertThat(userProfileResponseEntity.getBody().getName(), is("anonymous"));
+    assertThat(userProfileResponseEntity.getBody().getLinks().get("self"), is("http://localhost/user/0"));
   }
 
   @Test
@@ -83,18 +81,16 @@ public class UserProfileControllerTest {
     UserProfile userProfile = new UserProfile();
     userProfile.setId(1L);
     UserProfileResource userProfileResource = new UserProfileResource();
-    userProfileResource.add(linkTo(methodOn(UserProfileController.class).getUserProfile(1L)).withSelfRel());
+    userProfileResource.getLinks().put("self", linkTo(methodOn(UserProfileController.class).getUserProfile(1L)).withSelfRel().getHref());
     when(securityController.getAuthenticatedUserProfileId()).thenReturn(1L);
     when(entityManager.find(UserProfile.class, 1L)).thenReturn(userProfile);
     when(userProfileAssembler.toResource(userProfile)).thenReturn(userProfileResource);
 
-    ResponseEntity<Map<String,UserProfileResource>> userProfileResponseEntity = userProfileController.getUserProfile(1L);
+    ResponseEntity<UserProfileResource> userProfileResponseEntity = userProfileController.getUserProfile(1L);
     assertThat(userProfileResponseEntity.getStatusCode(), is(HttpStatus.OK));
     assertThat(userProfileResponseEntity.getBody(), is(not(nullValue())));
-    assertThat(userProfileResponseEntity.getBody(), instanceOf(Map.class));
-    assertThat(userProfileResponseEntity.getBody().get("user"), is(not(nullValue())));
-    assertThat(userProfileResponseEntity.getBody().get("user"), instanceOf(UserProfileResource.class));
-    assertThat(userProfileResponseEntity.getBody().get("user").getLink("self").getHref(), is("http://localhost/user/1"));
+    assertThat(userProfileResponseEntity.getBody(), instanceOf(UserProfileResource.class));
+    assertThat(userProfileResponseEntity.getBody().getLinks().get("self"), is("http://localhost/user/1"));
   }
 
   @Test
@@ -112,7 +108,7 @@ public class UserProfileControllerTest {
     userProfile.setId(1L);
     when(securityController.getAuthenticatedUserProfileId()).thenReturn(2L);
 
-    ResponseEntity<Map<String,UserProfileResource>> userProfileResponseEntity = userProfileController.getUserProfile(1L);
+    ResponseEntity<UserProfileResource> userProfileResponseEntity = userProfileController.getUserProfile(1L);
     assertThat(userProfileResponseEntity.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
   }
 
@@ -120,7 +116,8 @@ public class UserProfileControllerTest {
   public void testCreateUserProfileUnauthorized() throws Exception {
     RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
     UserProfileResource userProfileResource = new UserProfileResource();
-    userProfileResource.add(linkTo(methodOn(UserProfileController.class).getUserProfile(1L)).withSelfRel());
+
+    userProfileResource.getLinks().put("self", linkTo(methodOn(UserProfileController.class).getUserProfile(1L)).withSelfRel().getHref());
     UserProfile userProfile = new UserProfile();
     userProfile.setId(1L);
     when(securityController.getAuthenticatedUserProfileId()).thenReturn(2L);
@@ -134,7 +131,7 @@ public class UserProfileControllerTest {
   public void testCreateUserProfileAnonymous() throws Exception {
     RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
     UserProfileResource userProfileResource = new UserProfileResource();
-    userProfileResource.add(linkTo(methodOn(UserProfileController.class).getUserProfile(1L)).withSelfRel());
+    userProfileResource.getLinks().put("self", linkTo(methodOn(UserProfileController.class).getUserProfile(1L)).withSelfRel().getHref());
     UserProfile userProfile = new UserProfile();
     userProfile.setId(1L);
     when(securityController.getAuthenticatedUserProfileId()).thenReturn(0L);
@@ -149,7 +146,7 @@ public class UserProfileControllerTest {
   public void testCreateUserProfileCreated() throws Exception {
     RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
     UserProfileResource userProfileResource = new UserProfileResource();
-    userProfileResource.add(linkTo(methodOn(UserProfileController.class).getUserProfile(1L)).withSelfRel());
+    userProfileResource.getLinks().put("self", linkTo(methodOn(UserProfileController.class).getUserProfile(1L)).withSelfRel().getHref());
     UserProfile userProfile = new UserProfile();
     userProfile.setId(1L);
     when(securityController.getAuthenticatedUserProfileId()).thenReturn(1L);

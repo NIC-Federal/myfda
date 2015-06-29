@@ -50,9 +50,10 @@ public class DrugResourceToDomainConverterTest {
         when(entityManager.find(Drug.class, 1L)).thenReturn(persistedDrug);
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
         DrugResource drugResource = new DrugResource();
+        drugResource.setId(1L);
         drugResource.setName("unikitty");
         drugResource.setUnii("6M3C89ZY6R");
-        drugResource.add(linkTo(methodOn(DrugController.class).get(1L)).withRel("self"));
+        drugResource.getLinks().put("self", linkTo(methodOn(DrugController.class).get(1L)).withRel("self").getHref());
         Drug drug = drugResourceToDomainConverter.convert(drugResource);
         assertThat(drugResource.getName(), is(drug.getName()));
         assertThat(drug.getId(), is(1L));

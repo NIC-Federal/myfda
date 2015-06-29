@@ -12,25 +12,19 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Component
-public class PortfolioAssembler extends ResourceAssemblerSupport<Portfolio, PortfolioResource> {
+public class PortfolioAssembler {
 
-  public PortfolioAssembler() {
-    super(PortfolioController.class, PortfolioResource.class);
-  }
-
-
-  @Override
   public PortfolioResource toResource(Portfolio portfolio) {
-    PortfolioResource portfolioResource;
+    PortfolioResource portfolioResource = new PortfolioResource();
     if (portfolio.getId() != null) {
-      portfolioResource = createResourceWithId(portfolio.getId(), portfolio);
-    } else {
-      portfolioResource = new PortfolioResource();
+      portfolioResource.setId(portfolio.getId());
+      portfolioResource.getLinks().put("self", linkTo(methodOn(PortfolioController.class).getPortfolio(portfolio.getId())).withSelfRel().getHref());
     }
     portfolioResource.setName(portfolio.getName());
-    portfolioResource.set_id(portfolio.getId().toString());
+    portfolioResource.setId(portfolio.getId());
+
     for (Drug drug : portfolio.getDrugs()) {
-      portfolioResource.add(linkTo(methodOn(DrugController.class).get(drug.getId())).withRel("drugs"));
+      portfolioResource.getDrugLinks().add(linkTo(methodOn(DrugController.class).get(drug.getId())).withRel("drugs").getHref());
     }
     return portfolioResource;
   }

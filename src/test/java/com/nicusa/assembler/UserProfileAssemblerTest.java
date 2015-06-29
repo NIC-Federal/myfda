@@ -41,6 +41,6 @@ public class UserProfileAssemblerTest {
         userProfile.setPortfolio(portfolio);
         UserProfileResource userProfileResource = userProfileAssembler.toResource(userProfile);
         assertThat(userProfileResource.getName(), is(userProfile.getName()));
-        assertThat(userProfileResource.getLink("portfolio"), is(not(nullValue())));
+        assertThat(userProfileResource.getLinks().get("portfolio"), is(not(nullValue())));
     }
 }

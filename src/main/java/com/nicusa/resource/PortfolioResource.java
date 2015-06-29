@@ -1,17 +1,18 @@
 package com.nicusa.resource;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.hateoas.ResourceSupport;
 
-public class PortfolioResource extends ResourceSupport {
+import java.util.ArrayList;
+import java.util.Collection;
 
-  private String _id;
+public class PortfolioResource extends AbstractResource {
+
   private String name;
 
-  public String get_id() {
-    return _id;
-  }
-  public void set_id(String _id) {
-    this._id = _id;
+  public PortfolioResource() {
+    super();
+    getLinks().put("drugs", new ArrayList<String>());
   }
 
   public String getName() {
@@ -21,4 +22,10 @@ public class PortfolioResource extends ResourceSupport {
   public void setName(String name) {
     this.name = name;
   }
+
+  @JsonIgnore
+  public Collection<String> getDrugLinks() {
+    return (Collection<String>)getLinks().get("drugs");
+  }
+
 }

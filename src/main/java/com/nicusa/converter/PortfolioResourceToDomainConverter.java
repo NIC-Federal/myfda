@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 @Component
 public class PortfolioResourceToDomainConverter extends ResourceToDomainConverter<PortfolioResource, Portfolio> {
@@ -26,19 +27,16 @@ public class PortfolioResourceToDomainConverter extends ResourceToDomainConverte
   @Override
   public Portfolio convert(PortfolioResource portfolioResource) {
     Portfolio portfolio;
-    if (portfolioResource.getLink("self") != null) {
-      portfolio = entityManager.find(Portfolio.class, extractIdFromLink(PortfolioController.class, portfolioResource,
-        "getPortfolio", Long.class));
+    if (portfolioResource.getId() != null) {
+      portfolio = entityManager.find(Portfolio.class, portfolioResource.getId());
     } else {
       portfolio = new Portfolio();
     }
     Collection<Drug> drugs = new ArrayList<>();
-    for (Link link : portfolioResource.getLinks()) {
-      if (link.getRel().equals("drugs")) {
-        DrugResource drugResource = new DrugResource();
-        drugResource.add(new Link(link.getHref(), "self"));
-        drugs.add(drugResourceToDomainConverter.convert(drugResource));
-      }
+    for(String drugHref : (Collection<String>)portfolioResource.getLinks().get("drugs")) {
+      DrugResource drugResource = new DrugResource();
+      drugResource.getLinks().put("self", drugHref);
+      drugs.add(drugResourceToDomainConverter.convert(drugResource));
     }
     return portfolio;
 

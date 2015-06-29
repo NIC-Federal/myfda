@@ -11,7 +11,7 @@ export default Ember.Component.extend({
         $.ajax({
           type: 'GET',
           dataType:'json',
-          url: '/autocomplete?name=' + $('.drug-search').val(),
+          url: 'autocomplete?name=' + $('.drug-search').val(),
           data: request.value,
           error: function (xhr) {
             console.log('Error: ' + xhr.responseText);

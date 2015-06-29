@@ -4,15 +4,8 @@ export default Ember.Route.extend({
 
   model: function(params) {
     return Ember.RSVP.hash({
-      /////////////////////////
-      // Effects
-      ////////////////////////
-      effects: $.getJSON("/event?unii=" + params.drug_id),
-
-      /////////////////////////
-      // Recalls
-      ////////////////////////
-      recalls: $.getJSON("/drug/enforcements?unii=" + params.drug_id)
+      effects: $.getJSON("event?unii=" + params.drug_id),
+      recalls: $.getJSON("drug/enforcements?unii=" + params.drug_id)
     });
   },
   setupController: function(controller, model){
@@ -28,6 +21,7 @@ export default Ember.Route.extend({
 
 		$('.collapse').on('show.bs.collapse', function(){
 			$(this).parent().find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+			$(".panel-body").velocity("fadeIn", {duration: duration});
 		}).on('hide.bs.collapse', function(){
 			$(this).parent().find(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down");
 		});

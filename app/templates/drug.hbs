@@ -1,12 +1,10 @@
 <section id="drug-details" class="section">
 	<div class="container">
 		<div class="page-header"><h2>{{drugName}}</h2></div>
-
 		{{#if model.recalls.results}}
 			{{partial "drug/has-recalls"}}
 		{{else}}
 			{{partial "drug/has-no-recalls"}}
 		{{/if}}
-
 	</div>
 </section>

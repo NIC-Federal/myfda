@@ -126,11 +126,11 @@ export default Ember.Route.extend({
 
                 });
 
-                result.Outcome1.pct = Math.round((result.Outcome1.count / total)*100);
-                result.Outcome2.pct = Math.round((result.Outcome2.count / total)*100);
-                result.Outcome3.pct = Math.round((result.Outcome3.count / total)*100);
-                result.Outcome4.pct = Math.round((result.Outcome4.count / total)*100);
-                result.Outcome5.pct = Math.round((result.Outcome5.count / total)*100);
+                result.Outcome1.pct = (result.Outcome1.count / total)*100;
+                result.Outcome2.pct = (result.Outcome2.count / total)*100;
+                result.Outcome3.pct = (result.Outcome3.count / total)*100;
+                result.Outcome4.pct = (result.Outcome4.count / total)*100;
+                result.Outcome5.pct = (result.Outcome5.count / total)*100;
 
                 return result;
               })

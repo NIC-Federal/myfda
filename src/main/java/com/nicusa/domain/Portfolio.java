@@ -11,6 +11,7 @@ public class Portfolio {
 
   private Long id;
   private String name = "My Meds";
+  private UserProfile userProfile;
   private Collection<Drug> drugs = new ArrayList<>();
 
   @Id
@@ -38,6 +39,14 @@ public class Portfolio {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public UserProfile getUserProfile() {
+    return userProfile;
+  }
+
+  public void setUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
   }
 
   @Override

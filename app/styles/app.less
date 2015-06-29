@@ -255,6 +255,11 @@ body {
 		font-size: 40px;
 		line-height: 40px;
 		margin: 20px 0;
+		@media only screen and (max-width:767px) {
+			font-size: 24px;
+			line-height: 30px;
+			margin-top: 0;
+		}
 	}
 }
 
@@ -266,10 +271,9 @@ body {
 			text-align: center;
 			margin-right: 0;
 		}
-	}
-	.effect-header {
-		padding-left: 15px;
-		float: left;
+		.label {
+			transform: translateY(-7px);
+		}
 	}
 	.panel-body {
 		h4 {
@@ -350,8 +354,7 @@ small {
 	margin-top: 0;
 	.label {
 		font-size: 62%;
-		position: relative;
-		top: -5px;
+		transform: translateY(-5px);
 	}
 }
 
@@ -483,13 +486,6 @@ h4.count {
 	}
 }
 
-.percentage {
-	position: relative;
-	color: #fff;
-	content: none;
-	float: left;
-}
-
 .progress {
 	height: 30px;
 	.progress-bar {
@@ -505,11 +501,35 @@ h4.count {
 	}
 }
 
+.wrapper-header {
+	position: relative;
+	display: block;
+	.percentage {
+		position: absolute;
+		top: 10px;
+		left: 15px;
+		color: #fff;
+		content: none;
+		float: left;
+	}
+	.toggle-icon {
+		position: absolute;
+		top: 10px;
+		right: 15px;
+	}
+	.effect-header {
+		padding-left: 45px;
+		padding-right: 45px;
+	}
+}
+
 .panel-heading {
 	background: #eee;
 	padding: 0 0 0 0;
+	position: relative;
 	.panel-title {
 		font-weight: 700;
+		position: relative;
 		a {
 			padding: 10px 15px;
 			color: @link-color;

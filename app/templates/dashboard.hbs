@@ -2,7 +2,11 @@
 <section id="hero" class="section">
     <div class="container">
         <div class="jumbotron text-center">
-            <p class="lead">Your Source for Helpful Information About FDA-Regulated Drugs</p>
+        {{#if UserData.anonymous}}
+            <h1>Helpful Information About FDA-Regulated Drugs</h1>
+        {{else}}
+        <h3>Welcome, {{UserData.name}}</h3>
+        {{/if}}
             {{autocomplete-search large=true action="performSearch"}}
         </div>
     </div>

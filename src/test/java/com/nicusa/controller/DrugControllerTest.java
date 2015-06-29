@@ -3,11 +3,12 @@ package com.nicusa.controller;
 import com.nicusa.converter.DrugResourceToDomainConverter;
 import com.nicusa.resource.UserProfileResource;
 import com.nicusa.util.ApiKey;
+import com.nicusa.util.HttpRestClient;
 import com.nicusa.util.HttpSlurper;
-
 import com.nicusa.assembler.DrugAssembler;
 import com.nicusa.domain.Drug;
 import com.nicusa.resource.DrugResource;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,7 @@ import java.net.URI;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashSet;
+
 import javax.persistence.EntityManager;
 
 import static org.hamcrest.Matchers.is;
@@ -110,7 +112,7 @@ public class DrugControllerTest {
   @Test
   public void testShortAutocomplete() throws IOException {
     DrugController drug = new DrugController();
-    drug.rest = mock(RestTemplate.class);
+    drug.rest = mock(HttpRestClient.class);
     String res = drug.autocomplete("a");
     verify(drug.rest, never()).getForObject(anyString(), (Class<?>) any(Class.class));
   }
@@ -119,7 +121,7 @@ public class DrugControllerTest {
   public void testRegularAutocomplete() throws IOException {
     DrugController drug = new DrugController();
     final String response = "[{\"value\":\"the result\"}]";
-    drug.rest = mock(RestTemplate.class);
+    drug.rest = mock(HttpRestClient.class);
     when(drug.rest.getForObject(any(String.class), any(Class.class))).thenReturn(response);
     assertThat(drug.autocomplete("blah"), is("[\"the result\"]"));
   }
@@ -129,7 +131,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     drug.fdaDrugLabelUrl = "http://localhost:8080";
     final String response = "[{\"term\":\"abcdefg\"}]";
-    drug.rest = mock( RestTemplate.class );
+    drug.rest = mock(HttpRestClient.class);
     drug.apiKey = new ApiKey();
     when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn(response);
     Set<String> uniis = drug.getUniisByName( "blah" );
@@ -142,7 +144,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     drug.fdaDrugLabelUrl = "http://localhost:8080";
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"ADVIL PM\",\"count\":2}]}";
-    drug.rest = mock( RestTemplate.class );
+    drug.rest = mock(HttpRestClient.class);
     drug.apiKey = new ApiKey();
     when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn(response);
     Set<String> uniis = new HashSet<String>();
@@ -158,7 +160,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     drug.fdaDrugLabelUrl = "http://localhost:8080";
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"ADVIL PM\",\"count\":2}]}";
-    drug.rest = mock( RestTemplate.class );
+    drug.rest = mock(HttpRestClient.class);
     drug.apiKey = new ApiKey();
     when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn( response );
     Set<String> result = drug.getBrandNamesByNameAndUnii( "blah", "8GTS82S83M" );
@@ -171,7 +173,7 @@ public class DrugControllerTest {
     DrugController drug = new DrugController();
     final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"DIPHENHYDRAMINE HYDROCHLORIDE\",\"count\":245}]}";
     drug.apiKey = new ApiKey();
-    drug.rest = mock( RestTemplate.class );
+    drug.rest = mock(HttpRestClient.class);
     when( drug.rest.getForObject(any(String.class),any(Class.class)) ).thenReturn( response );
     String result = drug.getGenericNameByUnii( "blah" );
     assertNotNull( result );
@@ -215,7 +217,7 @@ public class DrugControllerTest {
     +"suppress\":\"N\",\"umlscui\":\"C0012522\"},{\"rxcui\":\"5640\",\"name\":\"Ibuprofen\",\"synonym\":\"\",\"tty\":\"IN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0020740\"}]},{\"tty\":\"PIN\",\"conceptProperties\":[{\"rxcui\":\"1362\",\"name\":\"Diphenhydramine Hydrochloride\""
     +",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0004963\"},{\"rxcui\":\"82004\",\"name\":\"Diphenhydramine Citrate\",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0282144\"}]}]}}";
     drug.slurp = mock( HttpSlurper.class );
-    drug.rest = mock( RestTemplate.class );
+    drug.rest = mock(HttpRestClient.class);
     drug.apiKey = new ApiKey();
 
     when( drug.slurp.getData(anyString()) ).thenReturn(slurpResponse2,slurpResponse3);

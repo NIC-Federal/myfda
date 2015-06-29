@@ -1,13 +1,5 @@
 package com.nicusa.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.nicusa.service.AdverseEffectService;
-import com.nicusa.util.AdverseEffect;
-import com.nicusa.util.ApiKey;
-
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +16,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.nicusa.service.AdverseEffectService;
+import com.nicusa.util.AdverseEffect;
+import com.nicusa.util.ApiKey;
+import com.nicusa.util.HttpRestClient;
 
 @RestController
 public class EventController {
@@ -40,7 +40,7 @@ public class EventController {
   @Autowired
   AdverseEffectService adverseEffectService;
 
-  RestTemplate rest = new RestTemplate();
+  HttpRestClient rest = new HttpRestClient();
 
   public Map<String,Long> getEventTerms ( String unii ) throws IOException {
       apiKey = new ApiKey();
@@ -104,7 +104,7 @@ public class EventController {
         if ( count == limit + skip ) {
           break;
         }
-        array.add( mapper.valueToTree( ef ));
+        array.add((JsonNode) mapper.valueToTree( ef ));
       }
       count++;
     }

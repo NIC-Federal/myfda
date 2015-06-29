@@ -31,11 +31,14 @@ export default Ember.Route.extend({
     });
   },
   actions: {
-      saveDrugToPortfolio: function(drugId) {
+      saveDrugToPortfolio: function(drugId, drugName) {
+
+          alert(drugName);
+
           $.ajax({
            type: "POST",
            url: "/api/drug",
-           data: JSON.stringify({ unni: drugId }),
+           data: { unni: drugId },
            success: function(response) {
                console.log(response);
            },

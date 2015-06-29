@@ -36,7 +36,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class DrugController {
   private static final Logger log = LoggerFactory.getLogger(DrugController.class);
 
-  RestTemplate rest = new RestTemplate();
+  HttpRestClient rest = new HttpRestClient();
   HttpSlurper slurp = new HttpSlurper();
   FdaSearchTermUtil fixTerm = new FdaSearchTermUtil();
 

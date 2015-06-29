@@ -22,15 +22,16 @@
             </div>
             <div class="col-sm-4 col-md-3 text-center">
                 <h4>Recall Distribution:</h4>
-                {{us-maps distribution_pattern=recall.distribution_pattern}}
-
+				<ul class="list-inline">
                 {{#if recall.distribution_pattern}}
                     {{#each recall.distribution_pattern as |state|}}
-                        <span class="single-state">{{state}}</span>
+                        <l1>{{state}}</l1>
                     {{/each}}
                 {{else}}
-                    <span class="usa">USA</span>
+                    <l1>USA</l1>
                 {{/if}}
+                </ul>
+                {{us-maps distribution_pattern=recall.distribution_pattern}}
             </div>
         </div>
         <hr />

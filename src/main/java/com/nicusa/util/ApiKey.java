@@ -24,7 +24,7 @@ public class ApiKey {
 
   @Autowired
   @Value("${api.fda.limiterEnabled:false}")
-  Boolean fdaLimiterEnabled;
+  boolean fdaLimiterEnabled;
 
   public boolean hasKeys() {
     return (fdaApiKeys != null && fdaApiKeys.length > 0 && fdaApiKeys[0] != null && fdaApiKeys[0]

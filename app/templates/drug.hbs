@@ -7,13 +7,6 @@
 			</div>
 		</div>
 
-		{{#each model.interactions.interactions as |interaction|}}
-			{{interaction.interaction}}<br />
-			{{interaction.fromDrug}}<br />
-			{{interaction.toDrug}}<br />
-			{{interaction.link}}<hr />
-		{{/each}}
-
 		{{#if model.recalls.results}}
 			{{partial "drug/has-recalls"}}
 		{{else}}

@@ -18,7 +18,8 @@ export default Ember.Route.extend({
                 rxnormId: data.userInput.rxcui,
                 interactions: []
             };
-
+            
+if(data.interactionTypeGroup){
             $.each(data.interactionTypeGroup, function (key, value) {
                 $.each(value.interactionType, function (key, value) {
                     $.each(value.interactionPair, function (key, value) {
@@ -32,7 +33,7 @@ export default Ember.Route.extend({
                     });
                 });
             });
-
+}
             return result;
 
         })

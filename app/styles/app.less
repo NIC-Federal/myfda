@@ -5,6 +5,7 @@
 // BOOTSTRAP OVERRIDES
 @font-family-sans-serif:	"Roboto", Helvetica, Arial, sans-serif;
 @brand-primary:				#3366cc;
+@brand-secondary:			#999;
 @brand-success:				#339933;
 @fb-blue:					#3b579d;
 @link-color:				@brand-primary;
@@ -279,21 +280,23 @@ body {
 	padding: 30px 0;
 }
 
-.jumbotron {
-	padding: 30px 0 10px 0;
-	background: none;
-	@media only screen and (max-width:767px) {
-		padding-bottom: 0;
-	}
-	h1 {
-		font-weight: 700;
-		font-size: 40px;
-		line-height: 40px;
-		margin: 20px 0;
+.container {
+	.jumbotron {
+		padding: 30px 0 10px 0;
+		background: none;
 		@media only screen and (max-width:767px) {
-			font-size: 24px;
-			line-height: 30px;
-			margin-top: 10px;
+			padding-bottom: 0;
+		}
+		h1 {
+			font-weight: 700;
+			font-size: 40px;
+			line-height: 40px;
+			margin: 20px 0;
+			@media only screen and (max-width:767px) {
+				font-size: 24px;
+				line-height: 30px;
+				margin-top: 10px;
+			}
 		}
 	}
 }
@@ -321,6 +324,87 @@ body {
 	padding: 30px 0;
 	.form-group {
 		margin-bottom: 0;
+	}
+}
+
+.well {
+	&.well-arrow {
+		border: 0px none;
+		background: url("images/arrow.png") no-repeat right center #f5f5f5;
+		background-size: 60px auto;
+		box-shadow: none;
+		padding-right: 45px;
+		padding-left: 30px;
+		height: 100%;
+		@media only screen and (max-width:991px) {
+			background: url("images/arrow-down.png") no-repeat center bottom #f5f5f5;
+			background-size: 100% 15px;
+			padding: 5px 15px 35px 15px;
+			text-align: center;
+			border-radius: 0 0 0 0 !important;
+			margin-bottom: 0;
+		}
+		&.active {
+			background: url("images/arrow-active.png") no-repeat right center @brand-primary;
+			background-size: 60px auto;
+			color: #fff;
+			@media only screen and (max-width:991px) {
+				background: url("images/arrow-active-down.png") no-repeat center bottom @brand-primary;
+				background-size: 100% 15px;
+				color: #fff;
+				border-radius: 4px 4px 4px 4px !important;
+			}
+		}
+		&.first {
+			border-radius: 4px 0 0 4px;
+			@media only screen and (max-width:991px) {
+				padding: 15px 15px 35px 15px;
+				border-radius: 4px 4px 0 0 !important;
+			}
+		}
+		&.last {
+			background: #f5f5f5;
+			background-image: none;
+			border-radius: 0 4px 4px 0;
+			@media only screen and (max-width:991px) {
+				background: #f5f5f5;
+				background-image: none;
+				background-size: 100% 15px;
+				padding: 5px 15px 20px 15px;
+				border-radius: 0 0 4px 4px !important;
+			}
+		}
+		p {
+			margin-bottom: 0;
+		}
+	}
+	.lead {
+		font-size: 16px;
+	}
+	&.well-square {
+		border-radius: 0 0 0 0;
+	}
+}
+
+.no-padding-left {
+	padding-left: 0;
+	@media only screen and (max-width:991px) {
+		padding: 0 15px;
+	}
+}
+
+.no-padding-right {
+	padding-right: 0;
+	@media only screen and (max-width:991px) {
+		padding: 0 15px;
+	}
+}
+
+.no-padding {
+	padding-right: 0;
+	padding-left: 0;
+	@media only screen and (max-width:991px) {
+		padding: 0 15px;
 	}
 }
 
@@ -361,8 +445,7 @@ p {
 			font-weight: 900;
 			i {
 				color: @brand-info;
-				float: left;
-				margin: 2px 5px 40px 0;
+				margin: 2px 0 -2px 0;
 				font-size: 1.1em;
 			}
 		}
@@ -596,6 +679,35 @@ h4.count {
 	}
 }
 
+.panel-step {
+	.panel-heading {
+		padding: 15px;
+		.panel-title {
+			font-size: 24px;
+			line-height: 30px;
+			font-weight: 300;
+			.step {
+				text-transform: uppercase;
+				font-weight: 900;
+			}
+		}
+	}
+	.panel-body {
+		p {
+			font-size: 18px;
+			line-height: 24px;
+		}
+	}
+}
+
+#search-lg {
+	.input-group-addon {
+		font-weight: 900;
+		font-size: 24px;
+		text-transform: uppercase;
+	}
+}
+
 hr {
 	margin: 30px 0;
 }
@@ -606,6 +718,10 @@ hr {
 
 .female {
 	color: lighten(@brand-danger,10%);
+}
+
+.popover-navigation {
+	padding: 0 14px 9px 14px !important;
 }
 
 // LINE CHARTS

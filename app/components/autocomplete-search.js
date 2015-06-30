@@ -37,6 +37,7 @@ export default Ember.Component.extend({
   },
   actions: {
     sendSearch: function() {
+      $('.drug-search').autocomplete("close");
       var keyword = $('.drug-search').val().replace(/ /g,"+");
       console.log("sending search. keyword=" + keyword);
       this.sendAction('action', keyword);

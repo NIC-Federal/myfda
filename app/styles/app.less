@@ -157,7 +157,7 @@ body {
 				position: relative;
 			}
 			> a {
-				
+
 			}
 			&.active,
 			&.open {
@@ -764,5 +764,21 @@ hr {
 		bottom: 0;
 		z-index: 2000;
 		opacity: 1;
+	}
+	&.success {
+		background: @brand-success;
+	}
+	&.delete {
+		background: @brand-danger;
+	}
+}
+
+// Text button-variant
+button {
+	&.text-btn {
+		background: none;
+		color: @brand-primary;
+		outline: none;
+		border: none;
 	}
 }

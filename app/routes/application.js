@@ -20,14 +20,12 @@ export default Ember.Route.extend({
             this.transitionTo('drug', drugId);
         },
         saveDrugToPortfolio: function(drugId, drugName, portfolioLink) {
-
-            console.log(portfolioLink);
             // Save Drug
             $.ajax({
                  type: "POST",
                  url: "/api/drug",
                  data: JSON.stringify({ unii: drugId, name: drugName }),
-
+                 contentType: "application/json",
                  // Get The Portfolio
                  success: function() {
                     $.ajax({
@@ -45,6 +43,9 @@ export default Ember.Route.extend({
                                    var successIcon = "<i class='fa fa-check-circle'></i>";
                                    var notificationBox = $("#notification-box");
 
+                                   notificationBox.removeClass("delete");
+                                   notificationBox.addClass("success");
+
                                    // Show Success Box
                                    notificationBox
                                         .addClass("show")
@@ -58,9 +59,34 @@ export default Ember.Route.extend({
                             });
                         }
                     });
-                 },
-                 contentType: "application/json"
+                 }
             });
+        },
+        deleteDrug: function(drugId, drugName) {
+            $.ajax({
+                 type: "DELETE",
+                 url: "/drug/" + drugId,
+                 contentType: "application/json",
+                 // Get The Portfolio
+                 success: function() {
+                     var successIcon = "<i class='fa fa-check-circle'></i>";
+                     var notificationBox = $("#notification-box");
+
+                     // add delete class for Red color
+                     notificationBox.addClass("success");
+                     notificationBox.addClass("delete");
+
+                     // Show Successful delete Box
+                     notificationBox
+                          .addClass("show")
+                          .html(successIcon + " Succesfully Deleted " + drugName + " from My Meds");
+                     // Hide Success Box
+                     setTimeout(function(){
+                       notificationBox
+                          .removeClass("show");
+                     }, 3000);
+                 }
+             });
         },
         error: function() {
             this.transitionTo('index');

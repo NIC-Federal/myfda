@@ -21,9 +21,12 @@
 							<div class="btn btn-default" {{action 'setCurrentDrug' result.brandName result.unii}}>
 								<i class="fa fa-info-circle"></i> Learn More
 							</div>
-							 <div class="btn btn-default" {{action 'saveDrugToPortfolio' result.unii result.brandName UserData.links.portfolio}}>
-								<i class="fa fa-bookmark"></i> Add to My Meds
-							</div>
+							{{#unless UserData.anonymous}}
+							<!-- If user is signed in, present Save to My Meds Button -->
+								<div class="btn btn-default" data-drug-name={{result.brandName}} {{action 'saveDrugToPortfolio' result.unii result.brandName UserData.links.portfolio}}>
+									<i class="fa fa-bookmark"></i> Add to My Meds
+								</div>
+							{{/unless}}
 						</p>
 						<hr />
 					</div>

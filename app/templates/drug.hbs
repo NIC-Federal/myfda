@@ -2,17 +2,16 @@
 	<div class="container">
 		<div class="page-header clearfix">
 			<h2 class="pull-left">{{drugName}}</h2>
-			<div class="btn btn-default pull-right" {{action "saveDrugToPortfolio" model.effects.UNII drugName UserData.links.portfolio}}>
-				<i class="fa fa-bookmark"></i> Add to My Meds
-			</div>
+			{{#if UserData.anonymous}}
+				<h5 class="pull-right">
+					Log In to add drugs to My Meds
+				</h5>
+			{{else}}
+				<div class="btn btn-default pull-right" {{action "saveDrugToPortfolio" model.effects.UNII drugName UserData.links.portfolio}}>
+					<i class="fa fa-bookmark"></i> Add to My Meds
+				</div>
+			{{/if}}
 		</div>
-
-		{{#each model.interactions.interactions as |interaction|}}
-			{{interaction.interaction}}<br />
-			{{interaction.fromDrug}}<br />
-			{{interaction.toDrug}}<br />
-			{{interaction.link}}<hr />
-		{{/each}}
 
 		{{#if model.recalls.results}}
 			{{partial "drug/has-recalls"}}

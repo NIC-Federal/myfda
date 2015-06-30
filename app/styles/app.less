@@ -157,7 +157,7 @@ body {
 				position: relative;
 			}
 			> a {
-				
+
 			}
 			&.active,
 			&.open {
@@ -749,12 +749,27 @@ hr {
 	padding: 10px 20px;
 	border-radius: 5px;
 	top: 0px; right: 50%;
-	background: @brand-success;
 	color: #fff;
 	z-index: 2000;
 	transform: translateY(-100px) translateX(50%);
 	transition: 0.75s;
 	&.show {
 		transform: translateY(10px) translateX(50%);
+	}
+	&.success {
+		background: @brand-success;
+	}
+	&.delete {
+		background: @brand-danger;
+	}
+}
+
+// Text button-variant
+button {
+	&.text-btn {
+		background: none;
+		color: @brand-primary;
+		outline: none;
+		border: none;
 	}
 }

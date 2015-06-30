@@ -5,6 +5,7 @@ import com.nicusa.controller.PortfolioController;
 import com.nicusa.domain.Drug;
 import com.nicusa.domain.Portfolio;
 import com.nicusa.resource.PortfolioResource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Component
 public class PortfolioAssembler {
+
+  @Autowired
+  public DrugAssembler drugAssembler;
 
   public PortfolioResource toResource(Portfolio portfolio) {
     PortfolioResource portfolioResource = new PortfolioResource();
@@ -24,7 +28,7 @@ public class PortfolioAssembler {
     portfolioResource.setId(portfolio.getId());
 
     for (Drug drug : portfolio.getDrugs()) {
-      portfolioResource.getDrugLinks().add(linkTo(methodOn(DrugController.class).get(drug.getId())).withRel("drugs").getHref());
+      portfolioResource.getDrugResources().add(drugAssembler.toResource(drug));
     }
     return portfolioResource;
   }

@@ -591,3 +591,19 @@ hr {
 	}
 }
 
+
+// Notification Box
+#notification-box {
+	position: fixed;
+	padding: 10px 20px;
+	border-radius: 5px;
+	top: 0px; right: 50%;
+	background: @brand-success;
+	color: #fff;
+	z-index: 2000;
+	transform: translateY(-100px) translateX(50%);
+	transition: 0.75s;
+	&.show {
+		transform: translateY(10px) translateX(50%);
+	}
+}

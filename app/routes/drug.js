@@ -30,37 +30,5 @@ export default Ember.Route.extend({
 
     });
   },
-  actions: {
-      saveDrugToPortfolio: function(drugId, drugName, portfolioLink) {
-          // Save Drug
-          $.ajax({
-           type: "POST",
-           url: "/api/drug",
-           data: JSON.stringify({ unii: drugId, name: drugName }),
-           success: function(data, textStatus, request) {
-              var location = request.getResponseHeader("Location");
-              // Get Portfolio
-              $.ajax({
-                  type: "GET",
-                  url: portfolioLink,
-                  success: function(data) {
-                      data.links.drugs.push(location);
-                      console.log(data);
-                      // Update Portfolio
-                      $.ajax({
-                         type: "PUT",
-                         url: portfolioLink,
-                         data: JSON.stringify(data),
-                         contentType: "application/json",
-                         success: function(data) {
-                             console.log(data);
-                         }
-                      });
-                  }
-              });
-           },
-           contentType: "application/json"
-          });
-      }
-  }
+
 });

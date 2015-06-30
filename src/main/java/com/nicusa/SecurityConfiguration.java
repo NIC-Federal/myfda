@@ -63,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) {
     web
       .ignoring()
-      .antMatchers("/**/*.css", "/**/*.png", "/**/*.gif", "/**/*.jpg", "/**/*.js");
+      .antMatchers("/**/*.css", "/**/*.png", "/**/*.gif", "/**/*.jpg", "/**/*.js","/**/*.map");
 
   }
 
@@ -76,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .loginProcessingUrl("/signin/authenticate")
       .failureUrl("/signin?param.error=bad_credentials")
       .and()
-      .logout()
+      .logout().permitAll()
       .logoutUrl("/signout")
       .deleteCookies("JSESSIONID")
       .and()

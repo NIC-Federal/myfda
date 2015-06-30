@@ -40,7 +40,7 @@ public class SecurityController {
 
   @RequestMapping(value = "/signin", method = RequestMethod.GET)
   public String signin() {
-    return "signin";
+    return "redirect:/";
   }
 
   @RequestMapping(value="/signup", method= RequestMethod.GET)

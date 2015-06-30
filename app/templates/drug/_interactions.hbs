@@ -1,0 +1,10 @@
+<h3 class="h2">Drug Interactions</h3>
+{{#if model.interactions.interactions}}
+	{{#each model.interactions.interactions as |interaction|}}
+		<hr />
+		<h4>{{interaction.fromDrug}} <i class="fa fa-random text-danger"></i> {{interaction.toDrug}}</h4>
+		<p class="lead">{{interaction.interaction}} <a href="{{interaction.link}}" target="_blank" class="btn btn-link"><i class="fa fa-external-link"></i> More Info</a></p>
+	{{/each}}
+{{else}}
+	<p class="lead">No interactions have been reported for this drug.</p>
+{{/if}}

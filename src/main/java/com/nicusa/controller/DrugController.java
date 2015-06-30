@@ -276,9 +276,7 @@ public class DrugController {
     String result = "[{\"value\":\"" + name + "\"}]";
     if (name.length() >= 2) {
       ObjectMapper mapper = new ObjectMapper();
-      String query = String.format(
-          this.nlmDailymedAutocompleteUrl + "?key=search&returntype=json&term=%s",
-          URLEncoder.encode(name, StandardCharsets.UTF_8.name()));
+      String query = this.nlmDailymedAutocompleteUrl + "?key=search&returntype=json&term="+name;
       JsonNode node = mapper.readTree(
           rest.getForObject(query, String.class));
       AutocompleteFilter myFilter = new AutocompleteFilter();

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -42,8 +45,9 @@ public class UserProfileController {
   @ResponseBody
   @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
   public ResponseEntity<UserProfileResource> getUserProfile(@PathVariable("id") Long id) {
+    UserProfileResource userProfileResourceMap = new UserProfileResource();
     if(id == UserProfileResource.ANONYMOUS_USER_PROFILE_ID) {
-      return new ResponseEntity<UserProfileResource>(UserProfileResource.ANONYMOUS_USER_PROFILE, HttpStatus.OK);
+      return new ResponseEntity<>(UserProfileResource.ANONYMOUS_USER_PROFILE, HttpStatus.OK);
     } else {
       Long loggedInUserProfileId = securityController.getAuthenticatedUserProfileId();
       if (loggedInUserProfileId != null && loggedInUserProfileId.equals(id)) {
@@ -51,7 +55,7 @@ public class UserProfileController {
         if (userProfile == null) {
           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-          return new ResponseEntity<UserProfileResource>(userProfileAssembler.toResource(userProfile), HttpStatus.OK);
+          return new ResponseEntity<>(userProfileAssembler.toResource(userProfile), HttpStatus.OK);
         }
       } else {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

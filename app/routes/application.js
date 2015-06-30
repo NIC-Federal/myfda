@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+    model: function() {
+        return $.getJSON('/user');
+    },
     actions: {
         performSearch: function(keyword) {
             var controller = this.get("controller");
@@ -23,6 +26,8 @@ export default Ember.Route.extend({
 
     setupController: function(controller, model){
        this._super(controller, model);
+       controller.set('content', model);
+       // Set anonymous
        Ember.run.schedule('afterRender', this, function () {
          let duration = 1500;
          // Animations

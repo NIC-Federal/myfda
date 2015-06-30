@@ -745,16 +745,19 @@ hr {
 
 // Notification Box
 #notification-box {
+	padding: 15px 30px;
 	position: fixed;
-	padding: 10px 20px;
-	border-radius: 5px;
-	top: 0px; right: 50%;
+	bottom: -50px;
+	width: 100%;
+	display: block;
 	background: @brand-success;
 	color: #fff;
-	z-index: 2000;
-	transform: translateY(-100px) translateX(50%);
+	z-index: -2000;
+	opacity: 0;
 	transition: 0.75s;
 	&.show {
-		transform: translateY(10px) translateX(50%);
+		bottom: 0;
+		z-index: 2000;
+		opacity: 1;
 	}
 }

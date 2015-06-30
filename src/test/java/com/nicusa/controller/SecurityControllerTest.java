@@ -86,7 +86,7 @@ public class SecurityControllerTest {
 
   @Test
   public void testSignupNoArgs() throws Exception {
-    assertThat(securityController.signin(), is("signin"));
+    assertThat(securityController.signin(), is("redirect:/"));
   }
 
   @Test

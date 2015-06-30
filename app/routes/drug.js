@@ -30,20 +30,5 @@ export default Ember.Route.extend({
 
     });
   },
-  actions: {
-      saveDrugToPortfolio: function(drugId, drugName) {
 
-          alert(drugName);
-
-          $.ajax({
-           type: "POST",
-           url: "/api/drug",
-           data: { unni: drugId },
-           success: function(response) {
-               console.log(response);
-           },
-           contentType: "application/json"
-          });
-      }
-  }
 });

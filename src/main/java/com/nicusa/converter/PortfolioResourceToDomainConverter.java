@@ -33,11 +33,10 @@ public class PortfolioResourceToDomainConverter extends ResourceToDomainConverte
       portfolio = new Portfolio();
     }
     Collection<Drug> drugs = new ArrayList<>();
-    for(String drugHref : (Collection<String>)portfolioResource.getLinks().get("drugs")) {
-      DrugResource drugResource = new DrugResource();
-      drugResource.getLinks().put("self", drugHref);
+    for(DrugResource drugResource : portfolioResource.getDrugResources()) {
       drugs.add(drugResourceToDomainConverter.convert(drugResource));
     }
+    portfolio.setDrugs(drugs);
     return portfolio;
 
   }

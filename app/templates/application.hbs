@@ -1,18 +1,25 @@
+<!-- Notification Box -->
+<div id="notification-box">
+</div>
+
+<!-- Main Nav -->
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
+			<!-- Main Logo -->
 			{{#link-to 'dashboard' class="navbar-brand text-hide"}}
 				MyFDA
 			{{/link-to}}
 
-            <!-- Navigation Search Bar -->
-          {{#unless hideNavSearch}}
-            {{autocomplete-search action="performSearch"}}
-          {{/unless}}
+            {{#unless hideNavSearch}}
+			  <!-- Navigation Search Bar -->
+              {{autocomplete-search action="performSearch"}}
+            {{/unless}}
         </div>
+
         <div id="nav-collapse-main" class="navbar-collapse">
           {{#if model.anonymous}}
-              <!-- Login -->
+		  <!-- Login -->
               <form name="fb_signin" id="fb_signin" action="/signin/facebook" method="POST">
                   <button href="/signin" class="btn btn-fb navbar-btn navbar-right"><i
                           class="fa fa-facebook-square"/> Log In with Facebook
@@ -27,8 +34,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="/signout"><i class="fa fa-sign-out"></i> Log Out</a></li>
 						</ul>
-					</li>
-                  
+					</li>      
               </ul>
           {{/if}}
         </div>

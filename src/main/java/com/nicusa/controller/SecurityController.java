@@ -54,6 +54,7 @@ public class SecurityController {
     userProfile.setEmailAddress(socialUserProfile.getEmail());
     entityManager.persist(userProfile);
     Portfolio portfolio = new Portfolio();
+    portfolio.setUserProfile(userProfile);
     entityManager.persist(new Portfolio());
     userProfile.setPortfolio(portfolio);
     entityManager.merge(userProfile);

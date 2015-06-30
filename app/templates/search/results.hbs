@@ -21,9 +21,9 @@
 							<div class="btn btn-default" {{action 'setCurrentDrug' result.brandName result.unii}}>
 								<i class="fa fa-info-circle"></i> Learn More
 							</div>
-							 <a href="#" class="btn btn-default">
+							 <div class="btn btn-default" {{action 'saveDrugToPortfolio' result.unii result.brandName UserData.links.portfolio}}>
 								<i class="fa fa-bookmark"></i> Add to My Meds
-							 </a>
+							</div>
 						</p>
 						<hr />
 					</div>

@@ -3,11 +3,13 @@ import Ember from 'ember';
 export default Ember.Route.extend({
     model: function() {
         return $.getJSON('/user').then(function(user) {
-            return $.getJSON(user.links.portfolio).then(function(portfolio) {
-                return $.each(portfolio.drugResources, function(index, drug) {
-                    return drug;
+            if (user.links.portfolio) {
+                return $.getJSON(user.links.portfolio).then(function(portfolio) {
+                    return $.each(portfolio.drugResources, function(index, drug) {
+                        return drug;
+                    });
                 });
-            });
+            }
         });
     },
     setupController: function(controller, model){

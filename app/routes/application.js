@@ -35,9 +35,7 @@ export default Ember.Route.extend({
                         url: portfolioLink,
                         // Update Portfolio
                         success: function(data) {
-                            console.log(data);
                             data.drugResources.push({name: drugName, unii: drugId});
-                            console.log(data);
                             $.ajax({
                                type: "PUT",
                                url: portfolioLink,

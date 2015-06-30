@@ -8,8 +8,8 @@
 				<tbody>
 					<tr>
 						<td><a {{action 'setCurrentDrug' drug.name drug.unii}}>{{drug.name}}</a></td>
-						<td><a {{action 'setCurrentDrug' drug.name drug.unii}} class="btn btn-xs"><i class="fa fa-eye"></i> View</a></td>
-						<td class="text-right"><a href="#" class="btn btn-xs"><i class="fa fa-remove"></i> Remove</a></td>
+						<td class="text-right"><a {{action 'setCurrentDrug' drug.name drug.unii}} class="btn btn-xs"><i class="fa fa-eye"></i> View</a></td>
+						<td class="text-right"><a {{action 'deleteDrug' drug.id drug.name}} class="btn btn-xs"><i class="fa fa-remove"></i> Remove</a></td>
 					</tr>
 				</tbody>
 			{{/each}}

@@ -1,6 +1,7 @@
 package com.nicusa.resource;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nicusa.domain.Drug;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.util.ArrayList;
@@ -9,10 +10,10 @@ import java.util.Collection;
 public class PortfolioResource extends AbstractResource {
 
   private String name;
+  private Collection<DrugResource> drugResources = new ArrayList<DrugResource>();
 
   public PortfolioResource() {
     super();
-    getLinks().put("drugs", new ArrayList<String>());
   }
 
   public String getName() {
@@ -23,9 +24,12 @@ public class PortfolioResource extends AbstractResource {
     this.name = name;
   }
 
-  @JsonIgnore
-  public Collection<String> getDrugLinks() {
-    return (Collection<String>)getLinks().get("drugs");
+  public Collection<DrugResource> getDrugResources() {
+    return drugResources;
+  }
+
+  public void setDrugResources(Collection<DrugResource> drugResources) {
+    this.drugResources = drugResources;
   }
 
 }

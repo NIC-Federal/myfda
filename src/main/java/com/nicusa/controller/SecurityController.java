@@ -40,7 +40,7 @@ public class SecurityController {
 
   @RequestMapping(value = "/signin", method = RequestMethod.GET)
   public String signin() {
-    return "signin";
+    return "redirect:/";
   }
 
   @RequestMapping(value="/signup", method= RequestMethod.GET)
@@ -54,6 +54,7 @@ public class SecurityController {
     userProfile.setEmailAddress(socialUserProfile.getEmail());
     entityManager.persist(userProfile);
     Portfolio portfolio = new Portfolio();
+    portfolio.setUserProfile(userProfile);
     entityManager.persist(new Portfolio());
     userProfile.setPortfolio(portfolio);
     entityManager.merge(userProfile);

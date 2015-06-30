@@ -19,6 +19,19 @@ Router.map(function() {
     this.route('notifications');
   });
 
+  this.route('style-guide');
+});
+
+Router.reopen({
+  notifyGoogleAnalytics: function() {
+    if (window._gaq === undefined) {
+      return;
+    }
+    Ember.run.next(function () {
+      window._gaq.push(['_trackPageview', window.location.hash.substr(1)]);
+    });
+
+  }.on('didTransition')
 });
 
 export default Router;

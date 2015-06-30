@@ -2,15 +2,19 @@
 <section id="hero" class="section">
     <div class="container">
         <div class="jumbotron text-center">
-            <p class="lead">Your Source for Helpful Information About FDA-Regulated Drugs</p>
+        {{#if UserData.anonymous}}
+            <h1>Search for Information About FDA-Regulated Drugs</h1>
+        {{else}}
+            <h1>Find drugs to add to My Meds</h1>
+        {{/if}}
             {{autocomplete-search large=true action="performSearch"}}
         </div>
     </div>
 </section>
 
 <!-- Dashboards -->
-{{#if userIsAuthenticated}}
-    {{partial "dashboards/authenticated"}}
-{{else}}
+{{#if UserData.anonymous}}
     {{partial "dashboards/unauthenticated"}}
+{{else}}
+    {{partial "dashboards/authenticated"}}
 {{/if}}

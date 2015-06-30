@@ -36,7 +36,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class DrugController {
   private static final Logger log = LoggerFactory.getLogger(DrugController.class);
 
-  RestTemplate rest = new RestTemplate();
+  HttpRestClient rest = new HttpRestClient();
   HttpSlurper slurp = new HttpSlurper();
   FdaSearchTermUtil fixTerm = new FdaSearchTermUtil();
 
@@ -276,9 +276,7 @@ public class DrugController {
     String result = "[{\"value\":\"" + name + "\"}]";
     if (name.length() >= 2) {
       ObjectMapper mapper = new ObjectMapper();
-      String query = String.format(
-          this.nlmDailymedAutocompleteUrl + "?key=search&returntype=json&term=%s",
-          URLEncoder.encode(name, StandardCharsets.UTF_8.name()));
+      String query = this.nlmDailymedAutocompleteUrl + "?key=search&returntype=json&term="+name;
       JsonNode node = mapper.readTree(
           rest.getForObject(query, String.class));
       AutocompleteFilter myFilter = new AutocompleteFilter();

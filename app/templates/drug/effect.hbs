@@ -1,31 +1,30 @@
 <div class="panel-body text-center">
-  <p class="lead">{{description}}</p>
   <div class="row">
     <div class="col-xs-12 col-sm-12">
       <h4>Reported Severity</h4>
       <div class="progress">
         <div class="progress-bar progress-bar-info" style={{progress-bar-percentage model.outcomeCount.Outcome1.pct}}>
-          {{model.outcomeCount.Outcome1.count}}
+          <span class="sr-only">{{model.outcomeCount.Outcome1.count}}</span>
         </div>
         <div class="progress-bar progress-bar" style={{progress-bar-percentage model.outcomeCount.Outcome2.pct}}>
-          {{model.outcomeCount.Outcome2.count}}
+          <span class="sr-only">{{model.outcomeCount.Outcome2.count}}</span>
         </div>
         <div class="progress-bar progress-bar-success" style={{progress-bar-percentage model.outcomeCount.Outcome3.pct}}>
-          {{model.outcomeCount.Outcome3.count}}
+          <span class="sr-only">{{model.outcomeCount.Outcome3.count}}</span>
         </div>
         <div class="progress-bar progress-bar-warning" style={{progress-bar-percentage model.outcomeCount.Outcome4.pct}}>
-          {{model.outcomeCount.Outcome4.count}}
+          <span class="sr-only">{{model.outcomeCount.Outcome4.count}}</span>
         </div>
         <div class="progress-bar progress-bar-danger" style={{progress-bar-percentage model.outcomeCount.Outcome5.pct}}>
-          {{model.outcomeCount.Outcome5.count}}
+          <span class="sr-only">{{model.outcomeCount.Outcome5.count}}</span>
         </div>
       </div>
       <p>
-        <span class="label-severity text-info"><i class="fa fa-square"></i> Fully Recovered</span>
-        <span class="label-severity text-primary"><i class="fa fa-square"></i> Improving</span>
-        <span class="label-severity text-success"><i class="fa fa-square"></i> Persisting Condition</span>
-        <span class="label-severity text-warning"><i class="fa fa-square"></i> Recovered with Consequences</span>
-        <span class="label-severity text-danger"><i class="fa fa-square"></i> Death</span>
+        <span class="label-severity text-info"><i class="fa fa-square"></i> <strong>{{model.outcomeCount.Outcome1.count}}</strong> Fully Recovered</span>
+        <span class="label-severity text-primary"><i class="fa fa-square"></i> <strong>{{model.outcomeCount.Outcome2.count}}</strong> Improving</span>
+        <span class="label-severity text-success"><i class="fa fa-square"></i> <strong>{{model.outcomeCount.Outcome3.count}}</strong> Persisting Condition</span>
+        <span class="label-severity text-warning"><i class="fa fa-square"></i> <strong>{{model.outcomeCount.Outcome4.count}}</strong> Recovered with Consequences</span>
+        <span class="label-severity text-danger"><i class="fa fa-square"></i> <strong>{{model.outcomeCount.Outcome5.count}}</strong> Death</span>
       </p>
     </div>
   </div>

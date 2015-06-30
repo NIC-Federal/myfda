@@ -5,7 +5,37 @@ export default Ember.Route.extend({
   model: function(params) {
     return Ember.RSVP.hash({
       effects: $.getJSON("event?unii=" + params.drug_id),
-      recalls: $.getJSON("drug/enforcements?unii=" + params.drug_id)
+      recalls: $.getJSON("drug/enforcements?unii=" + params.drug_id),
+      interactions: $.getJSON('https://rxnav.nlm.nih.gov/REST/rxcui?idtype=UNII_CODE&id=' + params.drug_id).then(function (data) {
+
+            var rxnormId = data.idGroup.rxnormId[0];
+
+            return $.getJSON('https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=' + rxnormId);
+
+        }).then(function (data) {
+
+            var result = {
+                rxnormId: data.userInput.rxcui,
+                interactions: []
+            };
+
+            $.each(data.interactionTypeGroup, function (key, value) {
+                $.each(value.interactionType, function (key, value) {
+                    $.each(value.interactionPair, function (key, value) {
+                        result.interactions.push({
+                            fromDrug: value.interactionConcept[0].sourceConceptItem.name,
+                            toDrug: value.interactionConcept[1].sourceConceptItem.name,
+                            interaction: value.description,
+                            link: value.interactionConcept[0].sourceConceptItem.url
+                        });
+
+                    });
+                });
+            });
+
+            return result;
+
+        })
     });
   },
   setupController: function(controller, model){
@@ -29,5 +59,6 @@ export default Ember.Route.extend({
 		$('[data-toggle="tooltip"]').tooltip();
 
     });
-  }
+  },
+
 });

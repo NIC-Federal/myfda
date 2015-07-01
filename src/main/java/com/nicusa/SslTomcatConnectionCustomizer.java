@@ -1,17 +1,17 @@
 package com.nicusa;
 
-import java.io.FileNotFoundException;
-
 import org.apache.catalina.connector.Connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.util.ResourceUtils;
 
+import java.io.FileNotFoundException;
+
 public class SslTomcatConnectionCustomizer implements TomcatConnectorCustomizer
 {
     private static final Logger log = LoggerFactory.getLogger(SslTomcatConnectionCustomizer.class);
-    
+
     private String keystoreFile;
     private String keystorePassword;
     private String keystoreType;
@@ -33,11 +33,11 @@ public class SslTomcatConnectionCustomizer implements TomcatConnectorCustomizer
             String absoluteKeystoreFile = null;
             try {
                 absoluteKeystoreFile = ResourceUtils.getFile(keystoreFile).getAbsolutePath();
-    
+
                 connector.setPort(8443);
                 connector.setSecure(true);
                 connector.setScheme("https");
-    
+
                 connector.setAttribute("SSLEnabled", true);
                 connector.setAttribute("sslProtocol", "TLS");
                 connector.setAttribute("protocol", "org.apache.coyote.http11.Http11Protocol");
@@ -51,12 +51,12 @@ public class SslTomcatConnectionCustomizer implements TomcatConnectorCustomizer
             {
                 log.error("Could not find keystoreFile:  "+keystoreFile+".");
             }
-            
+
             if(absoluteKeystoreFile == null)
             {
                 log.warn("Starting server with SSL encryption turned off");
             }
-        }   
+        }
     }
 
 }

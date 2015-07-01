@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -21,7 +23,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)
 @WebAppConfiguration
-@ActiveProfiles("local")
+@ActiveProfiles("hsqldb")
 @IntegrationTest("server.port:0")
 public class UiApplicationTest {
 
@@ -40,5 +42,8 @@ public class UiApplicationTest {
             + port + "/", String.class);
     assertEquals(HttpStatus.OK, response.getStatusCode());
   }
+
+
+
 
 }

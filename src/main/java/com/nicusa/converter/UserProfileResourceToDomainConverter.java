@@ -1,6 +1,5 @@
 package com.nicusa.converter;
 
-import com.nicusa.controller.UserProfileController;
 import com.nicusa.domain.NotificationSetting;
 import com.nicusa.domain.NotificationSubject;
 import com.nicusa.domain.NotificationType;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 

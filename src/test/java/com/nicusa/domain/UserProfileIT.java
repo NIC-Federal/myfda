@@ -1,6 +1,7 @@
 package com.nicusa.domain;
 
-import com.nicusa.PersistenceConfiguration;
+import com.nicusa.UiApplication;
+import com.nicusa.resource.UserProfileResource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,12 @@ import org.springframework.transaction.support.TransactionTemplate;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
-@ActiveProfiles("local")
+@SpringApplicationConfiguration(classes = UiApplication.class)
+@ActiveProfiles("hsqldb")
 public class UserProfileIT {
 
     @PersistenceContext
@@ -41,6 +40,7 @@ public class UserProfileIT {
                 assertThat(userProfile.getId(), is(nullValue()));
                 entityManager.persist(userProfile);
                 assertThat(userProfile.getId(), is(not(nullValue())));
+                assertThat(userProfile.getId(), is(greaterThan(UserProfile.ANONYMOUS_USER_PROFILE_ID)));
                 return userProfile;
             }
         });

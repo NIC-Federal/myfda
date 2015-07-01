@@ -1,22 +1,5 @@
 package com.nicusa.controller;
 
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -25,6 +8,18 @@ import com.nicusa.service.AdverseEffectService;
 import com.nicusa.util.AdverseEffect;
 import com.nicusa.util.ApiKey;
 import com.nicusa.util.HttpRestClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 @RestController
 public class EventController {
@@ -32,7 +27,7 @@ public class EventController {
 
   @Autowired
   ApiKey apiKey;
-  
+
   @Autowired
   @Value("${fda.drug.event.url:https://api.fda.gov/drug/event.json}")
   private String fdaDrugEventUrl;
@@ -64,7 +59,7 @@ public class EventController {
   }
 
 
-  
+
   @RequestMapping("/event")
   public String search(
       @RequestParam(value="unii", defaultValue="" ) String unii,

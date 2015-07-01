@@ -1,6 +1,5 @@
 package com.nicusa.util;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;

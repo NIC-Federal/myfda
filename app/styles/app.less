@@ -306,7 +306,6 @@ body {
 		margin-right: 10px;
 		@media only screen and (max-width:767px) {
 			display: block;
-			text-align: center;
 			margin-right: 0;
 		}
 		.label {
@@ -573,15 +572,64 @@ a {
 	}
 }
 
-.nav-tabs {
+.nav-tabs.nav-justified {
+	border-bottom: 1px solid #ddd;
+	@media only screen and (max-width:767px) {
+		border-bottom: 0px none;
+	}
 	> li {
 		> a {
 			text-transform: uppercase;
 			font-weight: 700;
+			background: #f8f8f8;
+			margin: 0 15px -1px 15px;
+			&:hover,
+			&:focus {
+				background: #f5f5f5;
+			}
 		}
 		&.active {
 			> a {
 				background-color: #ffffff;
+			}
+		}
+		&:first-child {
+			> a {
+				margin-left: 0;
+			}
+		}
+		&:last-child {
+			> a {
+				margin-right: 0;
+			}
+		}
+		@media only screen and (max-width:767px) {
+			display: block;
+			margin: 2.5px 0;
+			float: none;
+			> a {
+				display: block;
+				border: 1px solid #ddd;
+				border-radius: 4px 4px 4px 4px;
+				margin: 0 auto;
+				float: none;
+				text-align: center;
+				&:hover,
+				&:focus {
+					background: #f8f8f8;
+					border: 1px solid #eee;
+				}
+			}
+			&.active {
+				> a {
+					background-color: #ffffff;
+					border: 1px solid #ddd;
+					&:hover,
+					&:focus {
+						background: #f8f8f8;
+						border: 1px solid #eee;
+					}
+				}
 			}
 		}
 	}
@@ -647,12 +695,13 @@ h4.count {
 }
 
 .panel-heading {
-	background: #eee;
+	background: #f8f8f8;
 	padding: 0 0 0 0;
 	position: relative;
 	.panel-title {
 		font-weight: 700;
 		position: relative;
+		font-size: 18px;
 		a {
 			padding: 10px 15px;
 			color: @link-color;
@@ -678,6 +727,7 @@ h4.count {
 			}
 			small {
 				display: block;
+				font-size: 14px;
 				line-height: 1.5;
 			}
 		}

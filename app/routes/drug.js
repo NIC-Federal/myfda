@@ -18,22 +18,22 @@ export default Ember.Route.extend({
                 rxnormId: data.userInput.rxcui,
                 interactions: []
             };
-            
-if(data.interactionTypeGroup){
-            $.each(data.interactionTypeGroup, function (key, value) {
-                $.each(value.interactionType, function (key, value) {
-                    $.each(value.interactionPair, function (key, value) {
-                        result.interactions.push({
-                            fromDrug: value.interactionConcept[0].sourceConceptItem.name,
-                            toDrug: value.interactionConcept[1].sourceConceptItem.name,
-                            interaction: value.description,
-                            link: value.interactionConcept[0].sourceConceptItem.url
-                        });
 
-                    });
-                });
-            });
-}
+            if(data.interactionTypeGroup){
+                        $.each(data.interactionTypeGroup, function (key, value) {
+                            $.each(value.interactionType, function (key, value) {
+                                $.each(value.interactionPair, function (key, value) {
+                                    result.interactions.push({
+                                        fromDrug: value.interactionConcept[0].sourceConceptItem.name,
+                                        toDrug: value.interactionConcept[1].sourceConceptItem.name,
+                                        interaction: value.description,
+                                        link: value.interactionConcept[0].sourceConceptItem.url
+                                    });
+
+                                });
+                            });
+                        });
+            }
             return result;
 
         })
@@ -41,6 +41,8 @@ if(data.interactionTypeGroup){
   },
   setupController: function(controller, model){
     this._super(controller, model);
+
+    controller.set('model', model);
 
     Ember.run.schedule('afterRender', this, function () {
 
@@ -60,6 +62,6 @@ if(data.interactionTypeGroup){
 		$('[data-toggle="tooltip"]').tooltip();
 
     });
-  },
+  }
 
 });

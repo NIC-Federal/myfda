@@ -1,10 +1,40 @@
 <h3 class="h2">Drug Interactions</h3>
+	<div class="form-group">
+		<label class="sr-only">Search Recalls</label>
+		<label for="">Search for an active ingredient</label>
+		<div class="input-group">
+			{{input value=interactionSearchQuery type="text" class="form-control" placeholder="Search for possible drug interactions" }}
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+			</span>
+		</div>
+	</div>
+<br />
+
+<h4>Results {{#if interactionSearchQuery}}for: {{interactionSearchQuery}}{{/if}}</h4>
+<!-- Show Interactions -->
 {{#if model.interactions.interactions}}
-	{{#each model.interactions.interactions as |interaction|}}
-		<hr />
-		<h4>{{interaction.fromDrug}} <i class="fa fa-random text-danger"></i> {{interaction.toDrug}}</h4>
-		<p class="lead">{{interaction.interaction}} <a href="{{interaction.link}}" target="_blank" class="btn btn-link"><i class="fa fa-external-link"></i> More Info</a></p>
-	{{/each}}
+	<!-- If user is searching show the results -->
+	{{#if interactionSearchQuery}}
+		{{#if interactionSearchResults}}
+		    <!-- There is a match -->
+			{{#each interactionSearchResults as |searchResult|}}
+				<hr />
+				<h4>{{searchResult.fromDrug}} <i class="fa fa-random text-danger"></i> {{searchResult.toDrug}}</h4>
+				<p class="lead">{{searchResult.interaction}} <a href="{{interaction.link}}" target="_blank" class="btn btn-link"><i class="fa fa-external-link"></i> More Info</a></p>
+			{{/each}}
+		{{else}}
+		<!-- No results for interaction query -->
+			<h5>No interactions found for {{interactionSearchQuery}}</h5>
+		{{/if}}
+	{{else}}
+		<!-- Otherwise, show them all -->
+		{{#each model.interactions.interactions as |interaction|}}
+			<hr />
+			<h4>{{interaction.fromDrug}} <i class="fa fa-random text-danger"></i> {{interaction.toDrug}}</h4>
+			<p class="lead">{{interaction.interaction}} <a href="{{interaction.link}}" target="_blank" class="btn btn-link"><i class="fa fa-external-link"></i> More Info</a></p>
+		{{/each}}
+	{{/if}}
 {{else}}
 	<p class="lead">No interactions have been reported for this drug.</p>
 {{/if}}

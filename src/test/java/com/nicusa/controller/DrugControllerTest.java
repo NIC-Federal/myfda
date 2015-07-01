@@ -169,40 +169,26 @@ public class DrugControllerTest {
   }
 
   @Test
-  public void testGetGenericNameByUnii () throws IOException {
-    DrugController drug = new DrugController();
-    final String response = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"DIPHENHYDRAMINE HYDROCHLORIDE\",\"count\":245}]}";
-    drug.apiKey = new ApiKey();
-    drug.rest = mock(HttpRestClient.class);
-    when( drug.rest.getForObject(any(String.class),any(Class.class)) ).thenReturn( response );
-    String result = drug.getGenericNameByUnii( "blah" );
-    assertNotNull( result );
-    assertTrue( result.contains("HYDROCHLORIDE") );
-  }
-
-  @Test
-  public void testGetRxcuiByBrandName () throws IOException {
+  public void testGetRxcuiByUnii () throws IOException {
     DrugController drug = new DrugController();
     final String response = "{\"idGroup\":{\"name\":\"advil\",\"rxnormId\":[\"153010\"]}}";
-    drug.slurp = mock( HttpSlurper.class );
-    when( drug.slurp.getData(anyString()) ).thenReturn( response );
-    Long resultRxcuis = drug.getRxcuiByBrandName( "blah" );
+    drug.rest = mock(HttpRestClient.class);
+    drug.nlmRxnavUrl = "http://localhost:8080";
+    when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn( response );
+    Long resultRxcuis = drug.getRxcuiByUnii( "blah" );
     assertNotNull( resultRxcuis );
-    assertTrue( resultRxcuis == Long.parseLong( "153010" ) );
+    assertEquals( new Long( 153010L ), resultRxcuis );
   }
 
   @Test
-  public void testGetActiveIngredientsByRxcui () throws IOException {
+  public void testGetGenericNameByRxcui () throws IOException {
     DrugController drug = new DrugController();
-    final String response = "{\"relatedGroup\":{\"rxcui\":\"643061\",\"rela\":[\"tradename_of\",\"has_precise_ingredient\"],\"conceptGroup\":[{\"tty\":\"IN\",\"conceptProperties\":[{\"rxcui\":\"3498\",\"name\":\"Diphenhydramine\",\"synonym\":\"\",\"tty\":\"IN\",\"language\":\"ENG\",\""
-    +"suppress\":\"N\",\"umlscui\":\"C0012522\"},{\"rxcui\":\"5640\",\"name\":\"Ibuprofen\",\"synonym\":\"\",\"tty\":\"IN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0020740\"}]},{\"tty\":\"PIN\",\"conceptProperties\":[{\"rxcui\":\"1362\",\"name\":\"Diphenhydramine Hydrochloride\""
-    +",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0004963\"},{\"rxcui\":\"82004\",\"name\":\"Diphenhydramine Citrate\",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0282144\"}]}]}}";
-    drug.slurp = mock( HttpSlurper.class );
-    drug.apiKey = new ApiKey();
-    when( drug.slurp.getData(anyString()) ).thenReturn( response );
-    Set<String> result = drug.getActiveIngredientsByRxcui( new Long(643061) );
-    assertNotNull( result );
-    assertTrue( result.contains( "IBUPROFEN" ) );
+    final String response = "{\"propConceptGroup\":{\"propConcept\":[{\"propCategory\":\"NAMES\",\"propName\":\"RxNorm Name\",\"propValue\":\"Ibuprofen\"}]}}";
+    drug.rest = mock(HttpRestClient.class);
+    drug.nlmRxnavUrl = "http://localhost:8080";
+    when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn( response );
+    String name = drug.getGenericNameByRxcui( 5640L );
+    assertEquals( "IBUPROFEN", name );
   }
 
   @Test
@@ -213,15 +199,12 @@ public class DrugControllerTest {
     final String restResponse2 = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"DIPHENHYDRAMINE HYDROCHLORIDE\",\"count\":245}]}";
     final String slurpResponse1 = "{\"meta\":{\"disclaimer\":\"openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.\",\"license\":\"http://open.fda.gov/license\",\"last_updated\":\"2015-05-31\"},\"results\":[{\"term\":\"ADVIL PM\",\"count\":2}]}";
     final String slurpResponse2 = "{\"idGroup\":{\"name\":\"advil\",\"rxnormId\":[\"153010\"]}}";
-    final String slurpResponse3 = "{\"relatedGroup\":{\"rxcui\":\"643061\",\"rela\":[\"tradename_of\",\"has_precise_ingredient\"],\"conceptGroup\":[{\"tty\":\"IN\",\"conceptProperties\":[{\"rxcui\":\"3498\",\"name\":\"Diphenhydramine\",\"synonym\":\"\",\"tty\":\"IN\",\"language\":\"ENG\",\""
-    +"suppress\":\"N\",\"umlscui\":\"C0012522\"},{\"rxcui\":\"5640\",\"name\":\"Ibuprofen\",\"synonym\":\"\",\"tty\":\"IN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0020740\"}]},{\"tty\":\"PIN\",\"conceptProperties\":[{\"rxcui\":\"1362\",\"name\":\"Diphenhydramine Hydrochloride\""
-    +",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0004963\"},{\"rxcui\":\"82004\",\"name\":\"Diphenhydramine Citrate\",\"synonym\":\"\",\"tty\":\"PIN\",\"language\":\"ENG\",\"suppress\":\"N\",\"umlscui\":\"C0282144\"}]}]}}";
+    final String slurpResponse3 = "{\"propConceptGroup\":{\"propConcept\":[{\"propCategory\":\"NAMES\",\"propName\":\"RxNorm Name\",\"propValue\":\"Ibuprofen\"}]}}";
     drug.slurp = mock( HttpSlurper.class );
     drug.rest = mock(HttpRestClient.class);
     drug.apiKey = new ApiKey();
 
-    when( drug.slurp.getData(anyString()) ).thenReturn(slurpResponse2,slurpResponse3);
-    when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn(slurpResponse1 );
+    when( drug.rest.getForObject(any(URI.class),any(Class.class))).thenReturn(slurpResponse1,slurpResponse2,slurpResponse3 );
     when( drug.rest.getForObject(any(String.class),any(Class.class))).thenReturn(restResponse1,restResponse2);
     String result = drug.search( "blah", 10, 0 );
     assertNotNull( result );

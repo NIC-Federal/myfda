@@ -1,5 +1,6 @@
 package com.nicusa.util;
 
+import java.util.Collections;
 import java.util.Set;
 
 public class DrugSearchResult {
@@ -37,7 +38,11 @@ public class DrugSearchResult {
     this.rxcui = r;
   }
   public Set<String> getActiveIngredients () {
-    return this.activeIngredients;
+    if ( this.activeIngredients == null ) {
+      return Collections.emptySet();
+    } else {
+      return this.activeIngredients;
+    }
   }
   public void setActiveIngredients ( Set<String> a ) {
     this.activeIngredients = a;

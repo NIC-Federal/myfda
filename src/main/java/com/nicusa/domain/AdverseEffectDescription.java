@@ -1,25 +1,20 @@
 package com.nicusa.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
 public class AdverseEffectDescription
 {
     public static final String SEQUENCE_NAME = "ADVERSE_EVENT_DESC_SEQ";
-    
+
     private Long id;
     private String fdaName;
     private String description;
-    
+
     public AdverseEffectDescription()
     {
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = SEQUENCE_NAME, allocationSize = 1)
@@ -54,6 +49,6 @@ public class AdverseEffectDescription
     {
         this.description = description;
     }
-    
+
 
 }

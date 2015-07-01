@@ -3,8 +3,6 @@ package com.nicusa.controller;
 import com.nicusa.assembler.PortfolioAssembler;
 import com.nicusa.converter.PortfolioResourceToDomainConverter;
 import com.nicusa.domain.Portfolio;
-import com.nicusa.domain.UserProfile;
-import com.nicusa.resource.DrugResource;
 import com.nicusa.resource.PortfolioResource;
 import com.nicusa.resource.UserProfileResource;
 import org.springframework.beans.factory.annotation.Autowired;

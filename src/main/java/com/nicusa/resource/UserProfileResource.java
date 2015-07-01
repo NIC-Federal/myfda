@@ -1,7 +1,6 @@
 package com.nicusa.resource;
 
 import com.nicusa.controller.UserProfileController;
-import org.springframework.hateoas.ResourceSupport;
 
 import java.util.Collection;
 

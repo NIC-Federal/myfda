@@ -2,12 +2,12 @@ package com.nicusa.domain;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.UUID;
 
 @Entity
 public class UserProfile {
 
   public static final String SEQUENCE_NAME = "USER_PROFILE_SEQUENCE";
+  public static final Long ANONYMOUS_USER_PROFILE_ID = 0L;
 
   private Long id;
   private String userId;

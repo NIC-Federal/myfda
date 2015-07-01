@@ -17,7 +17,7 @@ public class UserProfile {
   private Collection<NotificationSetting> notificationSettings;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue
   @SequenceGenerator(name = SEQUENCE_NAME, allocationSize = 1, initialValue = 1)
   public Long getId() {
     return id;

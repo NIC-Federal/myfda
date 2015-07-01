@@ -1,6 +1,5 @@
 package com.nicusa;
 
-import com.nicusa.controller.SecurityController;
 import com.nicusa.security.UserProfileSignInAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,12 +9,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.social.config.annotation.SocialConfiguration;
+import org.springframework.social.config.annotation.SocialConfigurer;
+import org.springframework.social.config.annotation.SocialConfigurerAdapter;
+import org.springframework.social.connect.ConnectionFactory;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.connect.web.SignInAdapter;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -29,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private DataSource dataSource;
 
   @Inject
-  private SecurityController securityController;
+  private ConnectionFactoryLocator connectionFactoryLocator;
 
   @Autowired
   public void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -88,6 +98,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Bean
   public ProviderSignInUtils providerSignInUtils() {
     return new ProviderSignInUtils();
+  }
+
+  @Bean
+  public TextEncryptor textEncryptor() {
+    return Encryptors.noOpText();
+  }
+
+  @Bean
+  public SocialConfigurer socialConfigurer() {
+    return new SocialConfigurerAdapter() {
+      @Override
+      public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+        return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, textEncryptor());
+      }
+    };
   }
 
 }

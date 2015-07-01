@@ -1,6 +1,5 @@
 package com.nicusa.converter;
 
-import com.nicusa.controller.DrugController;
 import com.nicusa.domain.Drug;
 import com.nicusa.resource.DrugResource;
 import org.springframework.stereotype.Component;

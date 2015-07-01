@@ -1,7 +1,7 @@
 package com.nicusa.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.nicusa.TestConfig;
+import com.nicusa.UiApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
@@ -14,13 +14,8 @@ import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Created by aveerapaneni on 6/25/2015.
- */
-
-@ContextConfiguration(classes = TestConfig.class)
+@ContextConfiguration(classes = UiApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("local")
 public class DrugControllerIT extends MockMvcTestBase {
 
     @Test

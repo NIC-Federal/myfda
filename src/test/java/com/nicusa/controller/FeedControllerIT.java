@@ -1,38 +1,20 @@
 package com.nicusa.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.nicusa.TestConfig;
 import com.nicusa.UiApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.client.RestTemplate;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Created by aveerapaneni on 6/23/2015.
- */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfig.class)
-@WebAppConfiguration
-@ActiveProfiles("local")
-
+@ContextConfiguration(classes = UiApplication.class)
 public class FeedControllerIT extends MockMvcTestBase {
 
     @Test

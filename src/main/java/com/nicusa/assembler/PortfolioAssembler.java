@@ -1,12 +1,10 @@
 package com.nicusa.assembler;
 
-import com.nicusa.controller.DrugController;
 import com.nicusa.controller.PortfolioController;
 import com.nicusa.domain.Drug;
 import com.nicusa.domain.Portfolio;
 import com.nicusa.resource.PortfolioResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;

@@ -64,29 +64,53 @@ export default Ember.Route.extend({
         },
         deleteDrug: function(drugId, drugName) {
             $.ajax({
-                 type: "DELETE",
-                 url: "/drug/" + drugId,
-                 contentType: "application/json",
-                 // Get The Portfolio
-                 success: function() {
-                     var successIcon = "<i class='fa fa-check-circle'></i>";
-                     var notificationBox = $("#notification-box");
+              type: "GET",
+              url: "/user",
+              success: function(user) {
+                $.ajax({
+                  type: "GET",
+                  url: user.links.portfolio,
+                  success: function(portfolio) {
+                    portfolio.drugResources = portfolio.drugResources.filter(function (element) {
+                      return element.id !== drugId;
+                    });
+                    $.ajax({
+                      type: "PUT",
+                      url: user.links.portfolio,
+                      data: JSON.stringify(portfolio),
+                      contentType: "application/json",
+                      success: function () {
+                        $.ajax({
+                          type: "DELETE",
+                          url: "/drug/" + drugId,
+                          contentType: "application/json",
+                          // Get The Portfolio
+                          success: function() {
+                            var successIcon = "<i class='fa fa-check-circle'></i>";
+                            var notificationBox = $("#notification-box");
 
-                     // add delete class for Red color
-                     notificationBox.addClass("success");
-                     notificationBox.addClass("delete");
+                            // add delete class for Red color
+                            notificationBox.addClass("success");
+                            notificationBox.addClass("delete");
 
-                     // Show Successful delete Box
-                     notificationBox
-                          .addClass("show")
-                          .html(successIcon + " Succesfully Deleted " + drugName + " from My Meds");
-                     // Hide Success Box
-                     setTimeout(function(){
-                       notificationBox
-                          .removeClass("show");
-                     }, 3000);
-                 }
-             });
+                            // Show Successful delete Box
+                            notificationBox
+                              .addClass("show")
+                              .html(successIcon + " Succesfully Deleted " + drugName + " from My Meds");
+                            // Hide Success Box
+                            setTimeout(function(){
+                              notificationBox
+                                .removeClass("show");
+                              this.transitionTo('index');
+                            }, 3000);
+                          }
+                        });
+                      }
+                    });
+                  }
+                });
+              }
+            });
         },
         error: function() {
             this.transitionTo('index');

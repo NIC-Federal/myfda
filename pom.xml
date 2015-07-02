@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.nicusa</groupId>
-    <artifactId>unikitty</artifactId>
+    <artifactId>myfda</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -153,29 +153,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.2.11</version>
-                <configuration>
-                    <imageName>nicfederal/unikitty</imageName>
-                    <baseImage>java</baseImage>
-                    <!-- >entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint -->
-                    <dockerDirectory>docker</dockerDirectory>
-                    <!-- copy the service's jar file from target into the
-                        root directory of the image -->
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-					<serverId>docker-hub</serverId>
-					<registryUrl>https://index.docker.io/v1/</registryUrl>
-					<useGitCommitId>true</useGitCommitId>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.github.eirslett</groupId>

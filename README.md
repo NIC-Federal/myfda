@@ -1,4 +1,4 @@
-[![Build Status](http://ec2-54-165-115-111.compute-1.amazonaws.com/buildStatus/icon?job=unikitty)](https://ec2-54-165-115-111.compute-1.amazonaws.com/job/unikitty/)
+[![Build Status](http://ec2-54-165-115-111.compute-1.amazonaws.com/buildStatus/icon?job=myfda)](https://ec2-54-165-115-111.compute-1.amazonaws.com/job/myfda/)
 
 # Introduction
 The application is deployed to:
@@ -54,4 +54,4 @@ http://google.github.io/styleguide/htmlcssguide.xml
 
 # Copyright and license
 Code and documentation copyright 2015 NIC Technologies LLC. Code released under
-the [the Apache 2.0 license](https://github.com/NIC-Federal/unikitty/blob/master/LICENSE).
+the [the Apache 2.0 license](https://github.com/NIC-Federal/myfda/blob/master/LICENSE).

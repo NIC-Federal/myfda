@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'unikitty',
+    modulePrefix: 'myfda',
     environment: environment,
     baseURL: '/',
     locationType: 'hash',

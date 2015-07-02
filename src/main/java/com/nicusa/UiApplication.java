@@ -25,8 +25,8 @@ import java.io.FileNotFoundException;
 @SpringBootApplication
 @RestController
 @PropertySources({
-  @PropertySource(value = "file:${sys:user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true),
-  @PropertySource(value = "file:${user.home}/.nic/unikitty.properties", ignoreResourceNotFound = true) })
+  @PropertySource(value = "file:${sys:user.home}/.nic/myfda/application.properties", ignoreResourceNotFound = true),
+  @PropertySource(value = "file:${user.home}/.nic/myfda/application.properties", ignoreResourceNotFound = true) })
 public class UiApplication {
 
   private static final Logger log = LoggerFactory.getLogger(UiApplication.class);

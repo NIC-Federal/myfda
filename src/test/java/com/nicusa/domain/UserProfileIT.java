@@ -46,14 +46,14 @@ public class UserProfileIT {
         });
 
         final Long persistedUserProfileId = persistedUserProfile.getId();
-        persistedUserProfile.setName("Angry Unikitty");
+        persistedUserProfile.setName("Angry ikitty");
 
         final UserProfile mergedUserProfile = transactionTemplate.execute(new TransactionCallback<UserProfile>() {
             @Override
             public UserProfile doInTransaction(TransactionStatus transactionStatus) {
                 UserProfile userProfile = entityManager.merge(persistedUserProfile);
                 assertThat(userProfile.getId(), is(persistedUserProfileId));
-                assertThat(userProfile.getName(), is("Angry Unikitty"));
+                assertThat(userProfile.getName(), is("Angry ikitty"));
                 return userProfile;
             }
         });
@@ -63,7 +63,7 @@ public class UserProfileIT {
             protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
                 UserProfile userProfile = entityManager.find(UserProfile.class, persistedUserProfileId);
                 assertThat(userProfile.getId(), is(persistedUserProfileId));
-                assertThat(userProfile.getName(), is("Angry Unikitty"));
+                assertThat(userProfile.getName(), is("Angry ikitty"));
             }
         });
 
@@ -71,11 +71,11 @@ public class UserProfileIT {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
                 UserProfile userProfile = entityManager.find(UserProfile.class, persistedUserProfileId);
-                assertThat(userProfile.getName(), is("Angry Unikitty"));
-                userProfile.setName("Unikitty");
-                assertThat(userProfile.getName(), is("Unikitty"));
+                assertThat(userProfile.getName(), is("Angry ikitty"));
+                userProfile.setName("ikitty");
+                assertThat(userProfile.getName(), is("ikitty"));
                 entityManager.refresh(userProfile);
-                assertThat(userProfile.getName(), is("Angry Unikitty"));
+                assertThat(userProfile.getName(), is("Angry ikitty"));
             }
         });
 
@@ -99,7 +99,7 @@ public class UserProfileIT {
 
     private UserProfile testUserProfile() {
         UserProfile userProfile = new UserProfile();
-        userProfile.setName("Unikitty");
+        userProfile.setName("myfda");
         return userProfile;
     }
 }

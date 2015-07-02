@@ -139,7 +139,7 @@ public class PortfolioControllerTest {
     userProfile.setId(1L);
     Portfolio portfolio = new Portfolio();
     portfolio.setId(1L);
-    portfolio.setName("unikitty");
+    portfolio.setName("myfda");
     portfolio.setUserProfile(userProfile);
     portfolio.setDrugs(drugCollection);
     when(securityController.getAuthenticatedUserProfileId()).thenReturn(1L);

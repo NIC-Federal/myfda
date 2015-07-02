@@ -35,7 +35,7 @@ public class UserProfileAssemblerTest {
         UserProfileAssembler userProfileAssembler = new UserProfileAssembler();
         UserProfile userProfile = new UserProfile();
         userProfile.setId(1L);
-        userProfile.setName("unikitty");
+        userProfile.setName("myfda");
         Portfolio portfolio = new Portfolio();
         portfolio.setId(1L);
         userProfile.setPortfolio(portfolio);

@@ -23,11 +23,11 @@ import java.util.Map;
 @Configuration
 public class MySQLPersistenceConfiguration {
 
-  @Value("${mysql.username}") String username;
+    @Value("${mysql.username}") String username;
 
-  @Value("${mysql.password}") String password;
+    @Value("${mysql.password}") String password;
 
-  @Value("${mysql.jdbc.url}") String jdbcUrl;
+    @Value("${mysql.jdbc.url}") String jdbcUrl;
 
   @Bean
   public PlatformTransactionManager transactionManager() {

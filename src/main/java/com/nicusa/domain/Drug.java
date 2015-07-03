@@ -13,7 +13,7 @@ public class Drug {
   private Portfolio portfolio;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue
   @SequenceGenerator(name = SEQUENCE_NAME, allocationSize = 1)
   public Long getId() {
     return id;

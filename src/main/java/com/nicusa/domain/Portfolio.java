@@ -15,7 +15,7 @@ public class Portfolio {
   private Collection<Drug> drugs = new ArrayList<>();
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue
   @SequenceGenerator(name = SEQUENCE_NAME, allocationSize = 1)
   public Long getId() {
     return id;

@@ -1,4 +1,6 @@
-<h3 class="h2">Drug Recalls</h3>
+<h2>Drug Recalls</h2>
+<p class="lead">Recall details are shown for all drugs with the same active ingredient as the chosen drug. Please read the Product Description carefully and consult the distribution map to determine if the recall effects you.</p>
+<hr />
 <!-- <form role="search">
     <div class="form-group">
         <label class="sr-only">Search Recalls</label>
@@ -10,31 +12,35 @@
         </div>
     </div>
 </form> -->
-<hr />
-{{#each model.recalls.results as |recall|}}
-    <div class="recall">
-        <div class="row">
-            <div class="col-sm-8 col-md-9">
-                <h4 class="h3 title-recall"><span class="label label-success">{{recall.status}}</span> Recall Number: {{recall.recall_number}}</h4>
-                <p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
-                <p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
-                <p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
-                <p><strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
-            </div>
-            <div class="col-sm-4 col-md-3 text-center">
-                <h5 class="h4">Recall Distribution:</h5>
-				<ul class="list-inline">
-                {{#if recall.distribution_pattern}}
-                    {{#each recall.distribution_pattern as |state|}}
-                        <l1><span class="label label-info">{{state}}</span></l1>
-                    {{/each}}
-                {{else}}
-                    <l1><span class="label label-info">USA</span></l1>
-                {{/if}}
-                </ul>
-                {{us-maps distribution_pattern=recall.distribution_pattern}}
-            </div>
-        </div>
-        <hr />
-    </div>
-{{/each}}
+{{#if model.recalls.results}}
+  {{#each model.recalls.results as |recall|}}
+      <div class="recall">
+          <div class="row">
+              <div class="col-sm-8 col-md-9">
+                  <h4 class="h3 title-recall"><span class="label label-success">{{recall.status}}</span> {{drugName}}</h4>
+                  <p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
+                  <p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
+                  <p><strong class="prepend">Recall Number:</strong> {{recall.recall_number}}</p>
+                  <p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Report Date:</strong> {{format-date recall.report_date}}</p>
+                  <p><strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
+              </div>
+              <div class="col-sm-4 col-md-3 text-center">
+                  <h5 class="h4">Affected States:</h5>
+          				<ul class="list-inline">
+                  {{#if recall.distribution_pattern}}
+                      {{#each recall.distribution_pattern as |state|}}
+                          <l1><span class="label label-info">{{state}}</span></l1>
+                      {{/each}}
+                  {{else}}
+                      <l1><span class="label label-info">Nationwide</span></l1>
+                  {{/if}}
+                  </ul>
+                  {{us-maps distribution_pattern=recall.distribution_pattern}}
+              </div>
+          </div>
+          <hr />
+      </div>
+  {{/each}}
+{{else}}
+  <div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> No recalls have been reported for this drug.</div>
+{{/if}}

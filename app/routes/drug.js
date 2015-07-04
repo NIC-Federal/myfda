@@ -18,7 +18,7 @@ export default Ember.Route.extend({
                 rxnormId: data.userInput.rxcui,
                 interactions: []
             };
-            
+
 if(data.interactionTypeGroup){
             $.each(data.interactionTypeGroup, function (key, value) {
                 $.each(value.interactionType, function (key, value) {
@@ -47,8 +47,10 @@ if(data.interactionTypeGroup){
 		let duration = 1500;
 
 		$('a[data-toggle="tab"]').one('shown.bs.tab', function () {
-			$(".effect").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
+      $(".effect").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
+      $(".interaction").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
 		});
+    $(".recall").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
 
 		$('.collapse').on('show.bs.collapse', function(){
 			$(this).parent().find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up");

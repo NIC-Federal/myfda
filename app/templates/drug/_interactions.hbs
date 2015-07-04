@@ -1,10 +1,15 @@
-<h3 class="h2">Drug Interactions</h3>
+<h2>Drug Interactions</h2>
+<p class="lead">Drug interactions are tracked by active ingredient. The name to the left of the arrow is an ingredient contained in this drug. The name on the right indicates what drug this ingredient interacts with.</p>
+<hr />
 {{#if model.interactions.interactions}}
 	{{#each model.interactions.interactions as |interaction|}}
-		<hr />
-		<h4>{{interaction.fromDrug}} <i class="fa fa-random text-danger"></i> {{interaction.toDrug}}</h4>
-		<p class="lead">{{interaction.interaction}} <a href="{{interaction.link}}" target="_blank" class="btn btn-link"><i class="fa fa-external-link"></i> More Info</a></p>
+		<div class="interaction">
+			<h4 class="h3">{{interaction.fromDrug}} <i class="fa fa-random text-danger"></i> {{interaction.toDrug}}</h4>
+			<p class="lead">{{interaction.interaction}}</p>
+			<p><a href="{{interaction.link}}" target="_blank" class="btn btn-default"><i class="fa fa-external-link"></i> More Info</a></p>
+			<hr />
+		</div>
 	{{/each}}
 {{else}}
-	<p class="lead">No interactions have been reported for this drug.</p>
+	<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> No interactions have been reported for this drug.</div>
 {{/if}}

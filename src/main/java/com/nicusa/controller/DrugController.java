@@ -18,12 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -51,7 +49,7 @@ public class DrugController {
   private String nlmDailymedAutocompleteUrl;
   @Autowired
   @Value("${nlm.rxnav.url:http://rxnav.nlm.nih.gov/REST/rxcui}")
-  private String nlmRxnavUrl;
+  String nlmRxnavUrl;
   @PersistenceContext
   private EntityManager entityManager;
 
@@ -162,14 +160,15 @@ public class DrugController {
     }
   }
 
-  public String getGenericNameByUnii ( String unii ) throws IOException {
-    String query = this.fdaDrugLabelUrl +
-      "?search=openfda.unii:" +
-      URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ) +
-      "&count=openfda.generic_name.exact&limit=1" +
-      this.apiKey.getFdaApiKeyQuery();
-    String result = rest.getForObject( query, String.class );
-    FieldFinder finder = new FieldFinder( "term" );
+  public String getGenericNameByRxcui ( Long rxcui ) throws IOException {
+    if ( rxcui == null ) {
+      return "";
+    }
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+        this.nlmRxnavUrl + "/" + rxcui + "/allProperties.json" )
+      .queryParam( "prop", "names" );
+    String result = rest.getForObject( builder.build().toUri(), String.class );
+    FieldFinder finder = new FieldFinder( "propValue" );
     Set<String> generics = finder.find( result );
     if ( generics.isEmpty() ) {
       return "";
@@ -178,36 +177,24 @@ public class DrugController {
     }
   }
 
-  public Long getRxcuiByBrandName ( String brandName ) throws IOException {
-    String query = this.nlmRxnavUrl +
-      ".json?name=" +
-      URLEncoder.encode( brandName, StandardCharsets.UTF_8.name() );
-    String result = slurp.getData( query );
+  public Long getRxcuiByUnii ( String unii ) throws IOException {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+        this.nlmRxnavUrl + ".json" )
+      .queryParam( "idtype", "UNII_CODE" )
+      .queryParam( "id",
+          URLEncoder.encode( unii, StandardCharsets.UTF_8.name() ));
+    String result = rest.getForObject( builder.build().toUri(), String.class );
     FieldFinder finder = new FieldFinder( "rxnormId" );
-    Set<String> rxcuis = finder.find( result );
-    for ( String rxcui : rxcuis ) {
+    for ( String id : finder.find( result )) {
       try {
-        return Long.parseLong( rxcui );
-      } catch ( NumberFormatException e ) {
-        // ignore invalid rxcui, fallthrough to returning null if none work
-        log.warn( "Got invalid RXCUI from " + this.nlmRxnavUrl +
-            " with brandName " + brandName, e );
+        return Long.parseLong( id );
+      } catch ( NumberFormatException nfe ) {
+        // ignore invalid ids
+        log.warn( "Got invalid rxnormId from Rxnav query on unii" +
+            unii );
       }
     }
     return null;
-  }
-
-  public Set<String> getActiveIngredientsByRxcui ( Long rxcui ) throws IOException {
-    if ( rxcui == null ) {
-      return Collections.emptySet();
-    }
-    String query = this.nlmRxnavUrl +
-      "/" +
-      rxcui +
-      "/related.json?rela=tradename_of+has_precise_ingredient";
-    String result = slurp.getData( query );
-    FieldFinder finder = new FieldFinder( "name" );
-    return finder.find( result );
   }
 
   @RequestMapping("/drug")
@@ -247,18 +234,14 @@ public class DrugController {
 
     // fill in details for all the results we're returning
     for ( DrugSearchResult res : rv ) {
-      res.setGenericName( this.getGenericNameByUnii( res.getUnii() ));
-      res.setRxcui( this.getRxcuiByBrandName( res.getBrandName() ));
-      res.setActiveIngredients( this.getActiveIngredientsByRxcui(
-            res.getRxcui() ));
-      // workaround for beta rxcui source
+      res.setRxcui( this.getRxcuiByUnii( res.getUnii() ));
+      res.setGenericName( this.getGenericNameByRxcui( res.getRxcui() ));
       if ( res.getActiveIngredients().isEmpty() &&
           res.getGenericName() != null ) {
         res.setActiveIngredients(
             new TreeSet<String>( Arrays.asList(
                 res.getGenericName().split( ", " ))));
       }
-
     }
 
     ObjectMapper mapper = new ObjectMapper();

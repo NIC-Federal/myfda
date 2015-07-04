@@ -1,27 +1,39 @@
+{{#if model}}
+
 <!-- HAS SAVED MEDS -->
 <section id="dashboard-auth-empty-portfolio" class="section">
 	<div class="container">
 
-		<div class="page-header"><h1>My Meds</h1></div>
+		<div class="page-header text-center"><h1><span>My</span>Meds</h1></div>
 		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th colspan="3">Drugs</th>
+				</tr>
+			</thead>
+			<tbody>
 			{{#each model as |drug|}}
-				<tbody>
-					<tr>
-						<td><a {{action 'setCurrentDrug' drug.name drug.unii}}>{{drug.name}}</a></td>
-						<td><a {{action 'setCurrentDrug' drug.name drug.unii}} class="btn btn-xs"><i class="fa fa-eye"></i> View</a></td>
-						<td class="text-right"><a href="#" class="btn btn-xs"><i class="fa fa-remove"></i> Remove</a></td>
-					</tr>
-				</tbody>
-			{{/each}}
+				<tr>
+					<td><a {{action 'setCurrentDrug' drug.name drug.unii}}>{{drug.name}}</a></td>
+					<td class="text-right"><a {{action 'setCurrentDrug' drug.name drug.unii}} class="btn btn-xs"><i class="fa fa-eye"></i> View</a></td>
+					<td class="text-right"><a {{action 'deleteDrug' drug.id drug.name}} class="btn btn-xs"><i class="fa fa-remove"></i> Remove</a></td>
+				</tr>
 
+			{{/each}}
+			</tbody>
 		</table>
 
 	</div>
 </section>
 
+{{else}}
+
 <!-- NO SAVED MEDS -->
 <section id="dashboard-auth-with-portfolio" class="section">
 	<div class="container">
-
+		<div class="page-header text-center"><h1><span>My</span>Meds</h1></div>
+		<p class="lead text-center">There are no drugs saved to My Meds yet.</p>
 	</div>
 </section>
+
+{{/if}}

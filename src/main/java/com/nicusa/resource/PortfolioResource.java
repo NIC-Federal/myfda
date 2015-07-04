@@ -1,9 +1,5 @@
 package com.nicusa.resource;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nicusa.domain.Drug;
-import org.springframework.hateoas.ResourceSupport;
-
 import java.util.ArrayList;
 import java.util.Collection;
 

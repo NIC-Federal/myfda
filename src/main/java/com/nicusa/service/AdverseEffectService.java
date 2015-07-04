@@ -2,19 +2,6 @@ package com.nicusa.service;
 
 import com.nicusa.domain.AdverseEffectDescription;
 import com.nicusa.util.HttpSlurper;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.util.Collection;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TransactionRequiredException;
-import javax.xml.parsers.DocumentBuilder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,23 +13,33 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.xml.parsers.DocumentBuilder;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.util.Collection;
+
 @Service(AdverseEffectService.NAME)
 @Transactional
 public class AdverseEffectService
 {
     Logger log = LoggerFactory.getLogger(AdverseEffectService.class);
     public static final String NAME = "adverseEffectService";
-    
+
 
     @PersistenceContext
     EntityManager entityManager;
-    
+
     @Autowired
     DocumentBuilder documentBuilder;
-    
+
     @Autowired
     HttpSlurper slurper;
-    
+
     @Autowired
     @Value("${merriam.webster.key:}")
     String merriamWebsterKey;
@@ -50,11 +47,11 @@ public class AdverseEffectService
     @Autowired
     @Value("${meriam.webster.medical.url:http://www.dictionaryapi.com/api/v1/references/medical/xml/}")
     String meriamWebsterUrl;
-    
+
 
     public String findEffectDescription(String effectName) throws IOException {
         String retval = null;
-        
+
         AdverseEffectDescription desc = findEventDescriptionInCache(effectName);
         if(desc == null)
         {
@@ -62,7 +59,7 @@ public class AdverseEffectService
         }
         return desc.getDescription();
     }
-    
+
     @Transactional
     private AdverseEffectDescription retrieveDescriptionFromDictionary(String effectName) throws IOException
     {
@@ -75,22 +72,22 @@ public class AdverseEffectService
                 String eval = URLEncoder.encode(effectName, "UTF-8");
                 String s = slurper.getData(meriamWebsterUrl+eval+"?key="+merriamWebsterKey);
                 String definition = null;
-    
+
                 definition = parseDefinition(s);
                 if(definition != null)
                 {
                     desc.setDescription(definition.substring(0, definition.length() > 512 ? 512 : definition.length()));
                 }
-                
+
                 entityManager.persist(desc);
             }
         } catch (IOException | SAXException ioe)
         {
             log.warn("Unable to parse definition for "+effectName);
-        } 
+        }
         return desc;
     }
-    
+
     private AdverseEffectDescription findEventDescriptionInCache(String fdaEventName) {
         AdverseEffectDescription retval = null;
         Query q = entityManager.createQuery("SELECT a FROM AdverseEffectDescription a WHERE a.fdaName = :fdaName");
@@ -101,12 +98,12 @@ public class AdverseEffectService
         }
         return retval;
     }
-    
+
     private String parseDefinition(String xml) throws IOException, SAXException
     {
         String retval = null;
         InputStream is = new ByteArrayInputStream(xml.getBytes());
-        
+
         Document dom = documentBuilder.parse(is);
         Element root = dom.getDocumentElement();
         NodeList dts = root.getElementsByTagName("dt");
@@ -117,6 +114,6 @@ public class AdverseEffectService
         }
         return retval;
     }
-    
+
 
 }

@@ -5,16 +5,17 @@
 	{{#each model.interactions.interactions as |interaction|}}
 		<div class="interaction">
 			<h4 class="h3">{{interaction.fromDrug}} <i class="fa fa-random text-danger"></i> {{interaction.toDrug}}</h4>
-			<p class="lead">{{interaction.interaction}}</p>
-			<p><b>Brand Name Drugs Containing {{interaction.toDrug}}: </b>
+			<p>{{interaction.interaction}}</p>
+			<ul class="list-inline">
+				<li><strong>Brand Name Drugs Containing {{interaction.toDrug}}:</strong></li>
         {{#if interaction.toDrugNames.isPending}}
             Loading...
         {{else}}
           {{#each interaction.toDrugNames.content as |brandName|}}
-            {{brandName}} |
+            <li>{{brandName}}</li>
           {{/each}}
         {{/if}}
-      </p>
+			</ul>
 			<hr />
 		</div>
 	{{/each}}

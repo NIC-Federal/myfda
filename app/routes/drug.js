@@ -19,15 +19,36 @@ export default Ember.Route.extend({
                 interactions: []
             };
 
+          var toName;
+          var toId;
+          var PromiseMaker = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+
 if(data.interactionTypeGroup){
             $.each(data.interactionTypeGroup, function (key, value) {
                 $.each(value.interactionType, function (key, value) {
                     $.each(value.interactionPair, function (key, value) {
-                        result.interactions.push({
+                        result.interactions.push( {
                             fromDrug: value.interactionConcept[0].sourceConceptItem.name,
-                            toDrug: value.interactionConcept[1].sourceConceptItem.name,
+                            toDrug: toName = value.interactionConcept[1].sourceConceptItem.name,
                             interaction: value.description,
-                            link: value.interactionConcept[0].sourceConceptItem.url
+                            link: value.interactionConcept[0].sourceConceptItem.url,
+                            toDrugId: toId = value.interactionConcept[1].minConceptItem.rxcui,
+                            toDrugNames: PromiseMaker.create({
+                               promise: $.getJSON('https://rxnav.nlm.nih.gov/REST/brands.json?ingredientids=' + toId).then(function (data) {
+                                  var brandNames = [];
+                                  if(data.brandGroup.conceptProperties)
+                                  {
+                                   $.each(data.brandGroup.conceptProperties, function (key, value) {
+                                      brandNames.push(value.name);
+                                   });
+                                   }{
+                                    brandNames.push(toName);
+                                   }
+
+                                   return brandNames;
+                              })
+
+                            })
                         });
 
                     });

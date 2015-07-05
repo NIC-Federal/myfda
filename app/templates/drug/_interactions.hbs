@@ -6,7 +6,15 @@
 		<div class="interaction">
 			<h4 class="h3">{{interaction.fromDrug}} <i class="fa fa-random text-danger"></i> {{interaction.toDrug}}</h4>
 			<p class="lead">{{interaction.interaction}}</p>
-			<p><a href="{{interaction.link}}" target="_blank" class="btn btn-default"><i class="fa fa-external-link"></i> More Info</a></p>
+			<p><b>Brand Name Drugs Containing {{interaction.toDrug}}: </b>
+        {{#if interaction.toDrugNames.isPending}}
+            Loading...
+        {{else}}
+          {{#each interaction.toDrugNames.content as |brandName|}}
+            {{brandName}} |
+          {{/each}}
+        {{/if}}
+      </p>
 			<hr />
 		</div>
 	{{/each}}

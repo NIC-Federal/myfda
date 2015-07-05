@@ -16,7 +16,7 @@
   {{#each model.recalls.results as |recall|}}
       <div class="recall">
           <div class="row">
-              <div class="col-sm-8 col-md-9">
+              <div class="col-sm-8 col-md-9 recall-content">
                   <h4 class="title-recall"><span class="label label-success">{{recall.status}}</span> {{drugName}}</h4>
                   <p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
                   <p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
@@ -24,9 +24,9 @@
                   <p><strong class="prepend">Report Date:</strong> {{format-date recall.report_date}} &bull; <strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
                   <p></p>
               </div>
-              <div class="col-sm-4 col-md-3 text-center">
+              <div class="col-sm-4 col-md-3 text-center recall-map">
                   <h5 class="h4">Affected States:</h5>
-          				<ul class="list-inline">
+          				<ul class="list-inline clearfix">
                   {{#if recall.distribution_pattern}}
                       {{#each recall.distribution_pattern as |state|}}
                           <l1><span class="label label-info">{{state}}</span></l1>
@@ -35,7 +35,7 @@
                       <l1><span class="label label-info">Nationwide</span></l1>
                   {{/if}}
                   </ul>
-                  <div class="wrapper-map">{{us-maps distribution_pattern=recall.distribution_pattern}}</div>
+                  <div class="wrapper-map clearfix">{{us-maps distribution_pattern=recall.distribution_pattern}}</div>
               </div>
           </div>
           <hr />

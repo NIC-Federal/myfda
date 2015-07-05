@@ -45,7 +45,7 @@ public class UserProfileSignInAdapterTest {
 
   @Test
   public void testSignIn() {
-    String userId = "unikitty";
+    String userId = "myfda";
     Connection<?> mockConnection = mock(Connection.class);
     NativeWebRequest mockNativeWebRequest = mock(NativeWebRequest.class);
     HttpServletRequest httpServletRequest = mock(HttpServletRequest.class);
@@ -70,7 +70,7 @@ public class UserProfileSignInAdapterTest {
 
   @Test
   public void testSignInNoSavedRequest() {
-    String userId = "unikitty";
+    String userId = "myfda";
     Connection<?> mockConnection = mock(Connection.class);
     NativeWebRequest mockNativeWebRequest = mock(NativeWebRequest.class);
     HttpServletRequest httpServletRequest = mock(HttpServletRequest.class);

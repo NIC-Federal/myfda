@@ -12,7 +12,7 @@ public class NotificationSetting {
   private NotificationSubject notificationSubject;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue
   @SequenceGenerator(name = SEQUENCE_NAME, allocationSize = 1)
   public Long getId() {
     return id;

@@ -26,8 +26,8 @@ public class DrugSearchResultTest {
   @Test
   public void genericNameTest () {
     DrugSearchResult r = new DrugSearchResult();
-    r.setGenericName( "unikitty" );
-    assertEquals( "unikitty", r.getGenericName() );
+    r.setGenericName( "myfda" );
+    assertEquals( "myfda", r.getGenericName() );
   }
 
   @Test
@@ -46,7 +46,7 @@ public class DrugSearchResultTest {
     r.setActiveIngredients( in );
     assertEquals( 2, r.getActiveIngredients().size() );
     assertTrue( r.getActiveIngredients().contains( "silly" ));
-    assertFalse( r.getActiveIngredients().contains( "unikitty" ));
+    assertFalse( r.getActiveIngredients().contains( "myfda" ));
   }
     
 }

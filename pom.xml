@@ -118,6 +118,7 @@
     </properties>
 
     <build>
+	<finalName>${artifactId}</finalName>
         <resources>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>

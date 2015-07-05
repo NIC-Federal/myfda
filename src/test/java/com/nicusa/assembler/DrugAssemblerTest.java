@@ -21,7 +21,7 @@ public class DrugAssemblerTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
         Drug drug = new Drug();
         drug.setId(1L);
-        drug.setName("unikitty");
+        drug.setName("myfda");
         DrugAssembler drugAssembler = new DrugAssembler();
         DrugResource drugResource = drugAssembler.toResource(drug);
         assertThat(drugResource.getName(), is(drug.getName()));

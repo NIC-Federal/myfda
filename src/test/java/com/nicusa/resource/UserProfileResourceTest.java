@@ -30,15 +30,15 @@ public class UserProfileResourceTest {
   public void getUserIdShouldReturnValuePassedInSetUserId() {
 
     assertThat(userProfileResource.getUserId(), is(nullValue()));
-    userProfileResource.setUserId("unikitty");
-    assertThat(userProfileResource.getUserId(), is("unikitty"));
+    userProfileResource.setUserId("myfda");
+    assertThat(userProfileResource.getUserId(), is("myfda"));
   }
 
   @Test
   public void getNameShouldReturnValuePassedInSetName() {
     assertThat(userProfileResource.getName(), is(nullValue()));
-    userProfileResource.setName("unikitty");
-    assertThat(userProfileResource.getName(), is("unikitty"));
+    userProfileResource.setName("myfda");
+    assertThat(userProfileResource.getName(), is("myfda"));
   }
 
   @Test

@@ -15,7 +15,7 @@ public class DrugResourceTest {
     public void getNameShouldShouldReturnValuePassedInSetName() {
         DrugResource drugResource = new DrugResource();
         assertThat(drugResource.getName(), is(nullValue()));
-        drugResource.setName("unikitty");
-        assertThat(drugResource.getName(), is("unikitty"));
+        drugResource.setName("myfda");
+        assertThat(drugResource.getName(), is("myfda"));
     }
 }

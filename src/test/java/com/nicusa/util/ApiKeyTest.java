@@ -32,10 +32,10 @@ public class ApiKeyTest {
   @Test
   public void testApiKeyBuilder () {
     ApiKey key = new ApiKey();
-    key.fdaApiKeys = new String[] { "unikitty" };
+    key.fdaApiKeys = new String[] { "myfda" };
     UriComponentsBuilder builder = mock( UriComponentsBuilder.class );
     key.addToUriComponentsBuilder( builder );
-    verify(builder).queryParam( "api_key", "unikitty" );
+    verify(builder).queryParam( "api_key", "myfda" );
   }
 
   @Test

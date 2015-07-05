@@ -2,11 +2,13 @@ package pages
 
 import geb.Page
 
-class DashboardPage extends Page {
+class DashboardPage extends MyFDAPage {
     static url = System.properties['application.context.root']
 
     static at = {
-        waitFor { $('#dashboard-header').text().startsWith("Look up drug") }
+        waitFor(30) {
+            $('#hero > div > div > h1').text().startsWith("Search for Information")
+        }
     }
 
     static content = {

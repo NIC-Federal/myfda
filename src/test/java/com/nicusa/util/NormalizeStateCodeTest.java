@@ -25,7 +25,7 @@ public class NormalizeStateCodeTest {
 
   @Test
   public void junkStateTest () {
-    Set<NormalizeStateCode> res = NormalizeStateCode.parse( "Unikitty rules" );
+    Set<NormalizeStateCode> res = NormalizeStateCode.parse( "MyFDA rules" );
     assertEquals( 0, res.size() );
   }
 

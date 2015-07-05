@@ -36,7 +36,7 @@ public class DrugResourceToDomainConverterTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
         DrugResourceToDomainConverter drugResourceToDomainConverter = new DrugResourceToDomainConverter();
         DrugResource drugResource = new DrugResource();
-        drugResource.setName("unikitty");
+        drugResource.setName("myfda");
         drugResource.setUnii("6M3C89ZY6R");
         Drug drug = drugResourceToDomainConverter.convert(drugResource);
         assertThat(drugResource.getName(), is(drug.getName()));
@@ -51,7 +51,7 @@ public class DrugResourceToDomainConverterTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
         DrugResource drugResource = new DrugResource();
         drugResource.setId(1L);
-        drugResource.setName("unikitty");
+        drugResource.setName("myfda");
         drugResource.setUnii("6M3C89ZY6R");
         drugResource.getLinks().put("self", linkTo(methodOn(DrugController.class).get(1L)).withRel("self").getHref());
         Drug drug = drugResourceToDomainConverter.convert(drugResource);

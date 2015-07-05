@@ -29,9 +29,9 @@ public class DrugTest {
     @Test
     public void getNameShouldReturnTheValuePassedInSetName() throws Exception {
         assertThat(drug.getId(), is(nullValue()));
-        drug.setName("unikitty");
+        drug.setName("myfda");
         drug.setUnii("6M3C89ZY6R");
-        assertThat(drug.getName(), is("unikitty"));
+        assertThat(drug.getName(), is("myfda"));
         assertThat(drug.getUnii(), is("6M3C89ZY6R"));
     }
 }

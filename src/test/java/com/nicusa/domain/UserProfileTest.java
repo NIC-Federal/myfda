@@ -36,15 +36,15 @@ public class UserProfileTest {
     @Test
     public void testGetUserId() throws Exception {
         assertThat(userProfile.getUserId(), is(nullValue()));
-        userProfile.setUserId("unikitty");
-        assertThat(userProfile.getUserId(), is("unikitty"));
+        userProfile.setUserId("myfda");
+        assertThat(userProfile.getUserId(), is("myfda"));
     }
 
     @Test
     public void testGetName() throws Exception {
         assertThat(userProfile.getName(), is(nullValue()));
-        userProfile.setName("unikitty");
-        assertThat(userProfile.getName(), is("unikitty"));
+        userProfile.setName("myfda");
+        assertThat(userProfile.getName(), is("myfda"));
     }
 
     @Test

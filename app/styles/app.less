@@ -225,7 +225,7 @@ body {
 		}
 		&.active {
 			> a {
-				border-right: 5px solid @brand-primary;
+				border-right: 5px solid @link-hover-color;
 				@media only screen and (max-width:767px) {
 					border-right: 0px none;
 				}
@@ -472,7 +472,6 @@ p {
 
 .list-inline {
 	> li {
-		padding: 10px 0;
 	}
 }
 
@@ -507,11 +506,26 @@ small {
 
 
 // COMPONENTS
-.map {
-	width: 100%;
-	position: relative;
+.ember-view {
+	svg {
+		max-width: 100% !important;
+	}
+}
+.wrapper-map {
+	text-align: center;
 	.ember-view {
-		width: 100%;
+		text-align: center;
+		svg {
+			position: absolute !important;
+			left: 50% !important;
+			transform: translateX(-50%) !important;
+			-webkit-transform: translateX(-50%) !important;
+		  -ms-transform: translateX(-50%) !important;
+		}
+	}
+	.map {
+		text-align: center;
+		position: relative;
 	}
 }
 

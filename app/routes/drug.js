@@ -18,22 +18,14 @@ export default Ember.Route.extend({
           });
           return name;
         }),
-      drugType: $.getJSON('https://api.fda.gov/drug/label.json?search=openfda.unii:"' + params.drug_id + '"&count=openfda.product_type.exact')
+      isOtc: $.getJSON('https://api.fda.gov/drug/label.json?search=openfda.unii:"' + params.drug_id + '"&count=openfda.product_type.exact')
         .then(function (data) {
 
           var bOtc = false;
-          var bRx = false;
           $.each(data.results, function (key, value) {
             bOtc = bOtc || (value.term.toUpperCase().indexOf('OTC') > -1);
-            bRx = bRx || (value.term.toUpperCase().indexOf('PRESCRIPTION') > -1);
           });
-          if(bOtc && bRx){
-            return 'Both';
-          }else if(bOtc){
-            return 'OTC';
-          }else{
-            return 'Rx';
-          }
+          return bOtc;
         }),
       effects: $.getJSON("event?unii=" + params.drug_id),
       recalls: $.getJSON("drug/enforcements?unii=" + params.drug_id),

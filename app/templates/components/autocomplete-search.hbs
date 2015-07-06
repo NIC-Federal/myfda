@@ -3,7 +3,7 @@
 <!-- Large -->
 <form role="search" {{action "sendSearch"  on="submit"}} >
     <div class="form-group">
-        <label class="sr-only">Search MyFDA</label>
+        <label class="sr-only" for="large-search-text-box">Search MyFDA</label>
         <div id="dashboard-search" class="input-group">
             {{input id="large-search-text-box" type="text" name="name" class="form-control drug-search input-lg" placeholder="Search drugs by name..."}}
             <span class="input-group-btn">
@@ -18,11 +18,11 @@
 <!-- Small -->
 <form {{action "sendSearch"  on="submit"}} role="search" class="navbar-form navbar-left">
   <div class="form-group">
-    <label class="sr-only">Search MyFDA</label>
+    <label class="sr-only" for="small-search-text-box">Search MyFDA</label>
     <div class="input-group">
         {{input id="small-search-text-box" type="text" name="name" class="form-control drug-search" placeholder="Search..."}}
       <span class="input-group-btn">
-        <button id="small-search-button" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+        <button id="small-search-button" type="submit" class="btn btn-primary"><i class="fa fa-search"></i><span class="sr-only">Search</span></button>
       </span>
     </div>
   </div>

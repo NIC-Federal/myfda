@@ -4,6 +4,29 @@ export default Ember.Route.extend({
 
   model: function(params) {
     return Ember.RSVP.hash({
+      genericName: $.getJSON('https://api.fda.gov/drug/label.json?search=openfda.unii:"' + params.drug_id + '"&count=openfda.generic_name.exact')
+        .then(function (data) {
+
+          var max = 0;
+          var name = 'Unknown';
+          $.each(data.results, function (key, value) {
+            if(value.count > max)
+            {
+              max= value.count;
+              name = value.term;
+            }
+          });
+          return name;
+        }),
+        isOtc: $.getJSON('https://api.fda.gov/drug/label.json?search=openfda.unii:"' + params.drug_id + '"&count=openfda.product_type.exact')
+          .then(function (data) {
+
+            var bOtc = false;
+            $.each(data.results, function (key, value) {
+              bOtc = bOtc || (value.term.toUpperCase().indexOf('OTC') > -1);
+            });
+            return bOtc;
+          }),
       effects: $.getJSON("event?unii=" + params.drug_id),
       recalls: $.getJSON("drug/enforcements?unii=" + params.drug_id),
       interactions: $.getJSON('https://rxnav.nlm.nih.gov/REST/rxcui?idtype=UNII_CODE&id=' + params.drug_id).then(function (data) {

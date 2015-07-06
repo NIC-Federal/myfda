@@ -193,11 +193,14 @@ body {
 		padding-top: 90px;
 	}
 	h1 {
+		margin: 0 0 0 0;
 		small {
-			font-size: 40%;
-			display: inline-block;
-			float: right;
-			padding-top: 15px;
+			display: block;
+			line-height: 1.5;
+		}
+		img {
+			float: left;
+			margin-right: 10px;
 		}
 	}
 }
@@ -538,21 +541,34 @@ small {
 		max-width: 100% !important;
 	}
 }
-.wrapper-map {
-	text-align: center;
-	.ember-view {
-		text-align: center;
-		svg {
-			position: absolute !important;
-			left: 50% !important;
-			transform: translateX(-50%) !important;
-			-webkit-transform: translateX(-50%) !important;
-		  -ms-transform: translateX(-50%) !important;
+.recall {
+	.recall-map {
+		position: relative;
+		.wrapper-map {
+			position: relative;
+			text-align: center;
+			.ember-view {
+				text-align: center;
+				svg {
+					position: absolute !important;
+					left: 50% !important;
+					transform: translateX(-50%) !important;
+					-webkit-transform: translateX(-50%) !important;
+				  -ms-transform: translateX(-50%) !important;
+				}
+			}
+			.map {
+				text-align: center;
+				position: relative;
+			}
 		}
 	}
-	.map {
-		text-align: center;
-		position: relative;
+	.recall-info {
+		p {
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
 	}
 }
 

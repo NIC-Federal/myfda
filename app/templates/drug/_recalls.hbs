@@ -1,17 +1,6 @@
 <h2>Drug Recalls</h2>
 <p class="lead">Recall details are shown for all drugs with the same active ingredient as the chosen drug. Please read the Product Description carefully and consult the distribution map to determine if the recall effects you.</p>
 <hr />
-<!-- <form role="search">
-    <div class="form-group">
-        <label class="sr-only">Search Recalls</label>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search recalls..." />
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-            </span>
-        </div>
-    </div>
-</form> -->
 {{#if model.recalls.results}}
   {{#each model.recalls.results as |recall|}}
       <div class="recall">
@@ -25,9 +14,9 @@
                   <p><strong class="prepend">Report Date:</strong> {{format-date recall.report_date}} &bull; <strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>
                   <p></p>
               </div>
-              <div class="col-sm-4 col-md-3 text-center">
+              <div class="col-sm-4 col-md-3 text-center recall-map">
                   <h5 class="h4">Affected States:</h5>
-          				<ul class="list-inline">
+          				<ul class="list-inline clearfix">
                   {{#if recall.distribution_pattern}}
                       {{#each recall.distribution_pattern as |state|}}
                           <l1><span class="label label-info">{{state}}</span></l1>
@@ -36,7 +25,7 @@
                       <l1><span class="label label-info">Nationwide</span></l1>
                   {{/if}}
                   </ul>
-                  {{us-maps distribution_pattern=recall.distribution_pattern}}
+                  <div class="wrapper-map clearfix">{{us-maps distribution_pattern=recall.distribution_pattern}}</div>
               </div>
           </div>
           <hr />

@@ -2,7 +2,7 @@
 	<div class="container">
       <div class="row">
           <div class="col-xs-1">
-              <!-- values = OTC, Rx, or Both -->
+            <!-- values = OTC, Rx, or Both -->
             {{model.drugType}}
           </div>
           <div class="col-xs-11">
@@ -31,15 +31,18 @@
 					<li role="presentation"><a href="#drug-effects" aria-controls="drug-effects" role="tab" data-toggle="tab">Adverse Effects</a></li>
 					<li role="presentation"><a href="#drug-interactions" aria-controls="drug-interactions" role="tab" data-toggle="tab">Drug Interactions</a></li>
 				</ul>
-				{{#if UserData.anonymous}}
-					<p>
-						<i class="fa fa-exclamation-circle"></i> Log In to add drugs to MyMEDS
-					</p>
-				{{else}}
-					<div class="btn btn-default btn-block" {{action "saveDrugToPortfolio" model.effects.UNII drugName UserData.links.portfolio}}>
-						<i class="fa fa-bookmark"></i> Add to My Meds
-					</div>
-				{{/if}}
+					{{#if UserData.anonymous}}
+						<div class="well">
+							<h5>
+								<i class="fa fa-exclamation-circle"></i> Log In to add drugs to MyMEDS
+							</h5>
+							<p>MyMeds is a place where you can track your current medications for quick reference.</p>
+						</div>
+					{{else}}
+						<div class="btn btn-default btn-block" {{action "saveDrugToPortfolio" model.effects.UNII drugName UserData.links.portfolio}}>
+							<i class="fa fa-bookmark"></i> Add to My Meds
+						</div>
+					{{/if}}
 				<hr class="visible-xs" />
 			</div>
 			<div class="col-sm-8 col-md-9">

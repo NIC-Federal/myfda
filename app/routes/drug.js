@@ -54,7 +54,7 @@ export default Ember.Route.extend({
           var toId;
           var PromiseMaker = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
 
-if(data.interactionTypeGroup){
+          if(data.interactionTypeGroup){
             $.each(data.interactionTypeGroup, function (key, value) {
                 $.each(value.interactionType, function (key, value) {
                     $.each(value.interactionPair, function (key, value) {
@@ -81,11 +81,10 @@ if(data.interactionTypeGroup){
 
                             })
                         });
-
                     });
+                  });
                 });
-            });
-}
+              }
             return result;
 
         })
@@ -94,15 +93,17 @@ if(data.interactionTypeGroup){
   setupController: function(controller, model){
     this._super(controller, model);
 
+    controller.set('model', model);
+
     Ember.run.schedule('afterRender', this, function () {
 
 		let duration = 1500;
 
+    $(".recall").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
 		$('a[data-toggle="tab"]').one('shown.bs.tab', function () {
       $(".effect").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
       $(".interaction").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
 		});
-    $(".recall").velocity("transition.slideRightIn", {duration: duration / 2, stagger: 200});
 
 		$('.collapse').on('show.bs.collapse', function(){
 			$(this).parent().find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up");
@@ -114,6 +115,6 @@ if(data.interactionTypeGroup){
 		$('[data-toggle="tooltip"]').tooltip();
 
     });
-  },
+  }
 
 });

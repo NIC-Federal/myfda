@@ -22,7 +22,22 @@ export default Ember.Controller.extend({
 
         // Return the results
         return this.model.interactions.interactions.filter(function(interaction){
-            return interaction.toDrug.match(regex);
+            var bMatch = false;
+            if(interaction.toDrug.match(regex))
+            {
+                bMatch = true;
+            }
+            else{
+
+                $.each(interaction.toDrugNames.content, function (index, value) {
+                    if(value.match(regex))
+                    {
+                        bMatch = true;
+                        return false;
+                    }
+                });
+            }
+            return bMatch;
         });
     }.property('interactionSearchQuery'),
 

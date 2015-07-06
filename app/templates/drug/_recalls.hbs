@@ -17,8 +17,9 @@
       <div class="recall">
           <div class="row">
               <div class="col-sm-8 col-md-9">
-                  <h4 class="h3 title-recall"><span class="label label-success">{{recall.status}}</span> {{drugName}}</h4>
+                  <h4 class="h3 title-recall"><span class="label label-success">{{recall.status}}</span> {{recall.openfda.brand_name}}</h4>
                   <p><strong class="prepend">Product Description:</strong> {{recall.product_description}}</p>
+                  <p><strong class="prepend">Identifiers:</strong> {{recall.code_info}}</p>
                   <p><strong class="prepend">Recall Reason:</strong> {{recall.reason_for_recall}}</p>
                   <p><strong class="prepend">Initiation Date:</strong> {{format-date recall.recall_initiation_date}} &bull; <strong class="prepend">Recall Number:</strong> {{recall.recall_number}}</p>
                   <p><strong class="prepend">Report Date:</strong> {{format-date recall.report_date}} &bull; <strong class="prepend">Reporting Firm:</strong> {{recall.recalling_firm}}</p>

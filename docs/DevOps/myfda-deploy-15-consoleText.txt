@@ -1,0 +1,118 @@
+Started by upstream project "myfda-docker" build number 28
+originally caused by:
+ Started by upstream project "myfda" build number 26
+ originally caused by:
+  Started by user Mark Church
+Building in workspace /var/lib/jenkins/workspace/myfda-deploy
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url /home/ubuntu/src/myfda-aws # timeout=10
+Fetching upstream changes from /home/ubuntu/src/myfda-aws
+ > git --version # timeout=10
+ > git -c core.askpass=true fetch --tags --progress /home/ubuntu/src/myfda-aws +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision a8b340cc3290706add63d7e8f07f1f129bb1812e (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a8b340cc3290706add63d7e8f07f1f129bb1812e
+ > git rev-list a8b340cc3290706add63d7e8f07f1f129bb1812e # timeout=10
+SSH: Failed to get hostname [ip-10-0-2-44: ip-10-0-2-44: Name or service not known]
+SSH: Connecting with configuration [myfda-primary] ...
+SSH: EXEC: STDOUT/STDERR from command [chmod +x /home/ubuntu/docker-deploy.sh ; /home/ubuntu/docker-deploy.sh] ...
+myfda
+myfda
+latest: Pulling from nicfederal/myfda
+636264ff23b8: Pulling fs layer
+75f74a4700bc: Pulling fs layer
+2c0cf40ffac2: Pulling fs layer
+073971334ca2: Pulling fs layer
+073971334ca2: Pulling fs layer
+64e5325c0d9d: Already exists
+bf84c1d84a8f: Already exists
+87de57de6955: Already exists
+6a974bea7c0d: Already exists
+06c293acac6e: Already exists
+b8a058108e9e: Already exists
+9aa09af53eee: Already exists
+a0513c939a75: Already exists
+f509350ab0be: Already exists
+b0b7b9978dda: Already exists
+6a0b67c37920: Already exists
+1f80eb0f8128: Already exists
+47336458f14d: Already exists
+edb6b34e1a72: Already exists
+ca92eba242fa: Already exists
+3ed8e112426e: Already exists
+0b0b000144a1: Already exists
+073971334ca2: Layer already being pulled by another client. Waiting.
+75f74a4700bc: Verifying Checksum
+75f74a4700bc: Download complete
+2c0cf40ffac2: Verifying Checksum
+2c0cf40ffac2: Download complete
+073971334ca2: Verifying Checksum
+073971334ca2: Download complete
+073971334ca2: Download complete
+636264ff23b8: Verifying Checksum
+636264ff23b8: Download complete
+636264ff23b8: Pull complete
+75f74a4700bc: Pull complete
+2c0cf40ffac2: Pull complete
+073971334ca2: Pull complete
+073971334ca2: Already exists
+Digest: sha256:2a70ac662b81899949801994cad093c1a4241492579fc91f7e8323723ab45d3e
+Status: Downloaded newer image for nicfederal/myfda:latest
+951ab05eedc3e3828aa192d34593a7edfeb424965cd3d7e86a675901a657e97b
+SSH: EXEC: completed after 13,811 ms
+SSH: Disconnecting configuration [myfda-primary] ...
+SSH: Transferred 3 file(s)
+SSH: Failed to get hostname [ip-10-0-2-44: ip-10-0-2-44: Name or service not known]
+SSH: Connecting with configuration [myfda-failover] ...
+SSH: EXEC: STDOUT/STDERR from command [chmod +x /home/ubuntu/docker-deploy.sh ; /home/ubuntu/docker-deploy.sh] ...
+myfda
+myfda
+latest: Pulling from nicfederal/myfda
+636264ff23b8: Pulling fs layer
+75f74a4700bc: Pulling fs layer
+2c0cf40ffac2: Pulling fs layer
+073971334ca2: Pulling fs layer
+073971334ca2: Pulling fs layer
+64e5325c0d9d: Already exists
+bf84c1d84a8f: Already exists
+87de57de6955: Already exists
+6a974bea7c0d: Already exists
+06c293acac6e: Already exists
+b8a058108e9e: Already exists
+9aa09af53eee: Already exists
+a0513c939a75: Already exists
+f509350ab0be: Already exists
+b0b7b9978dda: Already exists
+6a0b67c37920: Already exists
+1f80eb0f8128: Already exists
+47336458f14d: Already exists
+edb6b34e1a72: Already exists
+ca92eba242fa: Already exists
+3ed8e112426e: Already exists
+0b0b000144a1: Already exists
+073971334ca2: Layer already being pulled by another client. Waiting.
+2c0cf40ffac2: Verifying Checksum
+2c0cf40ffac2: Download complete
+073971334ca2: Verifying Checksum
+073971334ca2: Download complete
+073971334ca2: Download complete
+75f74a4700bc: Verifying Checksum
+75f74a4700bc: Download complete
+636264ff23b8: Verifying Checksum
+636264ff23b8: Download complete
+636264ff23b8: Pull complete
+75f74a4700bc: Pull complete
+2c0cf40ffac2: Pull complete
+073971334ca2: Pull complete
+073971334ca2: Already exists
+Digest: sha256:2a70ac662b81899949801994cad093c1a4241492579fc91f7e8323723ab45d3e
+Status: Downloaded newer image for nicfederal/myfda:latest
+553ada3fba5b25c3a9cb84135741f1c77c9077a7d4cd8934d6cb0d077ba2e8d4
+SSH: EXEC: completed after 13,011 ms
+SSH: Disconnecting configuration [myfda-failover] ...
+SSH: Transferred 3 file(s)
+Build step 'Send files or execute commands over SSH' changed build result to SUCCESS
+Finished: SUCCESS

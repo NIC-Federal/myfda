@@ -1,0 +1,99 @@
+Started by upstream project "myfda" build number 26
+originally caused by:
+ Started by user Mark Church
+Building in workspace /var/lib/jenkins/workspace/myfda-docker
+Copied 4 artifacts from "myfda" build number 26
+Copied 0 artifacts from "myfda » basic" build number 26
+[myfda-docker] $ /bin/sh -xe /tmp/hudson395692576459806094.sh
++ chmod +x docker-build.sh
++ ./docker-build.sh
+Sending build context to Docker daemon 557.1 kBSending build context to Docker daemon 1.114 MBSending build context to Docker daemon 1.671 MBSending build context to Docker daemon 2.228 MBSending build context to Docker daemon 2.785 MBSending build context to Docker daemon 3.342 MBSending build context to Docker daemon 3.899 MBSending build context to Docker daemon 4.456 MBSending build context to Docker daemon 5.014 MBSending build context to Docker daemon 5.571 MBSending build context to Docker daemon 6.128 MBSending build context to Docker daemon 6.685 MBSending build context to Docker daemon 7.242 MBSending build context to Docker daemon 7.799 MBSending build context to Docker daemon 8.356 MBSending build context to Docker daemon 8.913 MBSending build context to Docker daemon  9.47 MBSending build context to Docker daemon 10.03 MBSending build context to Docker daemon 10.58 MBSending build context to Docker daemon 11.14 MBSending build context to Docker daemon  11.7 MBSending build context to Docker daemon 12.26 MBSending build context to Docker daemon 12.81 MBSending build context to Docker daemon 13.37 MBSending build context to Docker daemon 13.93 MBSending build context to Docker daemon 14.48 MBSending build context to Docker daemon 15.04 MBSending build context to Docker daemon  15.6 MBSending build context to Docker daemon 16.15 MBSending build context to Docker daemon 16.71 MBSending build context to Docker daemon 17.27 MBSending build context to Docker daemon 17.83 MBSending build context to Docker daemon 18.38 MBSending build context to Docker daemon 18.94 MBSending build context to Docker daemon  19.5 MBSending build context to Docker daemon 20.05 MBSending build context to Docker daemon 20.61 MBSending build context to Docker daemon 21.17 MBSending build context to Docker daemon 21.73 MBSending build context to Docker daemon 22.28 MBSending build context to Docker daemon 22.84 MBSending build context to Docker daemon  23.4 MBSending build context to Docker daemon 23.95 MBSending build context to Docker daemon 24.51 MBSending build context to Docker daemon 25.07 MBSending build context to Docker daemon 25.62 MBSending build context to Docker daemon 26.18 MBSending build context to Docker daemon 26.74 MBSending build context to Docker daemon  27.3 MBSending build context to Docker daemon 27.85 MBSending build context to Docker daemon 28.41 MBSending build context to Docker daemon 28.97 MBSending build context to Docker daemon 29.52 MBSending build context to Docker daemon 30.08 MBSending build context to Docker daemon 30.64 MBSending build context to Docker daemon  31.2 MBSending build context to Docker daemon 31.75 MBSending build context to Docker daemon 32.31 MBSending build context to Docker daemon 32.87 MBSending build context to Docker daemon 33.42 MBSending build context to Docker daemon 33.98 MBSending build context to Docker daemon 34.54 MBSending build context to Docker daemon 35.09 MBSending build context to Docker daemon 35.65 MBSending build context to Docker daemon 36.21 MBSending build context to Docker daemon 36.77 MBSending build context to Docker daemon 37.32 MBSending build context to Docker daemon 37.88 MBSending build context to Docker daemon 38.44 MBSending build context to Docker daemon 38.99 MBSending build context to Docker daemon 39.55 MBSending build context to Docker daemon 40.11 MBSending build context to Docker daemon 40.67 MBSending build context to Docker daemon 41.22 MBSending build context to Docker daemon 41.78 MBSending build context to Docker daemon 42.34 MBSending build context to Docker daemon 42.89 MBSending build context to Docker daemon 43.45 MBSending build context to Docker daemon 44.01 MBSending build context to Docker daemon 44.56 MBSending build context to Docker daemon 45.12 MBSending build context to Docker daemon 45.68 MBSending build context to Docker daemon 46.24 MBSending build context to Docker daemon 46.79 MBSending build context to Docker daemon 47.35 MBSending build context to Docker daemon 47.91 MBSending build context to Docker daemon 48.46 MBSending build context to Docker daemon 49.02 MBSending build context to Docker daemon 49.58 MBSending build context to Docker daemon 50.14 MBSending build context to Docker daemon 50.69 MBSending build context to Docker daemon 51.25 MBSending build context to Docker daemon 51.81 MBSending build context to Docker daemon 52.36 MBSending build context to Docker daemon 52.92 MBSending build context to Docker daemon 53.48 MBSending build context to Docker daemon 54.03 MBSending build context to Docker daemon 54.59 MBSending build context to Docker daemon 55.15 MBSending build context to Docker daemon 55.71 MBSending build context to Docker daemon 56.26 MBSending build context to Docker daemon 56.82 MBSending build context to Docker daemon 57.38 MBSending build context to Docker daemon 57.93 MBSending build context to Docker daemon 58.49 MBSending build context to Docker daemon 59.05 MBSending build context to Docker daemon  59.6 MBSending build context to Docker daemon 60.16 MBSending build context to Docker daemon 60.72 MBSending build context to Docker daemon 61.28 MBSending build context to Docker daemon 61.83 MBSending build context to Docker daemon 62.39 MBSending build context to Docker daemon 62.95 MBSending build context to Docker daemon  63.5 MBSending build context to Docker daemon 64.06 MBSending build context to Docker daemon 64.62 MBSending build context to Docker daemon 65.18 MBSending build context to Docker daemon 65.73 MBSending build context to Docker daemon 66.29 MBSending build context to Docker daemon 66.85 MBSending build context to Docker daemon  67.4 MBSending build context to Docker daemon 67.96 MBSending build context to Docker daemon 68.52 MBSending build context to Docker daemon  68.9 MB
+Sending build context to Docker daemon 
+Step 0 : FROM maven
+ ---> 3ed8e112426e
+Step 1 : RUN apt-get update && apt-get install bzip2 sudo
+ ---> Using cache
+ ---> 0b0b000144a1
+Step 2 : ADD target/myfda.jar /opt/myfda/myfda.jar
+ ---> 636264ff23b8
+Removing intermediate container b9ce403f5c53
+Step 3 : WORKDIR /opt/myfda
+ ---> Running in 6148d3bfc975
+ ---> 75f74a4700bc
+Removing intermediate container 6148d3bfc975
+Step 4 : VOLUME /opt/config
+ ---> Running in ce409c845da6
+ ---> 2c0cf40ffac2
+Removing intermediate container ce409c845da6
+Step 5 : CMD java -jar /opt/myfda/myfda.jar --spring.config.location=file:/opt/config/application.properties
+ ---> Running in c9f61721861f
+ ---> 073971334ca2
+Removing intermediate container c9f61721861f
+Successfully built 073971334ca2
+The push refers to a repository [nicfederal/myfda] (len: 2)
+987f22739c94: Image already exists
+987f22739c94: Image already exists
+d437586078d5: Image already exists
+5fac5a44232b: Image already exists
+f66076c66377: Image already exists
+c91a266631e4: Image already exists
+fdac1960c12b: Image already exists
+8ea10d107db4: Image already exists
+63fba0268f0f: Image already exists
+c6999f6a7ff0: Image already exists
+283d46afbf23: Image already exists
+5c4754b9d0a7: Image already exists
+e791db9da5ca: Image already exists
+2dab74add27c: Image already exists
+4edaf3a5dc6e: Image already exists
+748f28601d2c: Image already exists
+68247dab8205: Image already exists
+b4a6e3523ce2: Image already exists
+0b0b000144a1: Image already exists
+3ed8e112426e: Image already exists
+ca92eba242fa: Image already exists
+edb6b34e1a72: Image already exists
+47336458f14d: Image already exists
+1f80eb0f8128: Image already exists
+6a0b67c37920: Image already exists
+b0b7b9978dda: Image already exists
+f509350ab0be: Image already exists
+a0513c939a75: Image already exists
+9aa09af53eee: Image already exists
+b8a058108e9e: Image already exists
+06c293acac6e: Image already exists
+6a974bea7c0d: Image already exists
+87de57de6955: Image already exists
+bf84c1d84a8f: Image already exists
+64e5325c0d9d: Image already exists
+Digest: sha256:c9ceb59bbee64ba3b7c6a522769c4f8aeee99fa484e2f9c5f0750b6714c94284
+073971334ca2: Buffering to Disk
+073971334ca2: Image successfully pushed
+073971334ca2: Image already exists
+2c0cf40ffac2: Buffering to Disk
+2c0cf40ffac2: Image successfully pushed
+75f74a4700bc: Buffering to Disk
+75f74a4700bc: Image successfully pushed
+636264ff23b8: Buffering to Disk
+636264ff23b8: Image successfully pushed
+0b0b000144a1: Image already exists
+3ed8e112426e: Image already exists
+ca92eba242fa: Image already exists
+edb6b34e1a72: Image already exists
+47336458f14d: Image already exists
+1f80eb0f8128: Image already exists
+6a0b67c37920: Image already exists
+b0b7b9978dda: Image already exists
+f509350ab0be: Image already exists
+a0513c939a75: Image already exists
+9aa09af53eee: Image already exists
+b8a058108e9e: Image already exists
+06c293acac6e: Image already exists
+6a974bea7c0d: Image already exists
+87de57de6955: Image already exists
+bf84c1d84a8f: Image already exists
+64e5325c0d9d: Image already exists
+Digest: sha256:2a70ac662b81899949801994cad093c1a4241492579fc91f7e8323723ab45d3e
+Warning: you have no plugins providing access control for builds, so falling back to legacy behavior of permitting any downstream builds to be triggered
+Triggering a new build of myfda-deploy
+Finished: SUCCESS

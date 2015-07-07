@@ -20,10 +20,25 @@ resources which were consulted when expertise was needed that did not already ex
 ![Some of the team members conducting a morning standup meeting with roles labelled.](Project%20Team/evidence_multidiscipline.jpg)
 *Image Caption: Some of the team members conducting a morning standup meeting with roles labelled.*
 
+In all, the team executed work for 12 of the 13 labor categories from Attachment A.
+
+* Product Manager
+* Technical Architect
+* Interaction Designer/User Researcher/Usability Tester
+* Writer/Content Designer/Content Strategist
+* Visual Designer
+* Frontend Web Developer
+* Backend Web Developer
+* DevOps Engineer
+* Security Engineer
+* Delivery Manager
+* Agile Coach
+* Business Analyst
+
 Product Manager
 ---------------
 
-NIC appointed Andy Ford as the product manager for the MyFDA prototype.  Andy was responsible for and held 
+NIC appointed an individual with 18 years of experience building digital services as the product manager for the MyFDA prototype.  This product manager was responsible for and held 
 accountable for the success of both the prototype design and development project but also for production of 
 project documentation.  The product manager worked alongside the agile team, participating in ceremonies, 
 providing guidance when needed, and ensuring that overall objectives were met by the project.

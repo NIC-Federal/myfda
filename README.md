@@ -1,6 +1,9 @@
 Project Name:  MyFDA
+
 Prototype URL: https://myfda.egov.com
+
 Install Instructions:  [Install Guide](https://github.com/NIC-Federal/myfda/blob/master/docs/Install%20Guide.md)
+
 License: [MyFDA Licensing Information](https://github.com/NIC-Federal/myfda/blob/master/docs/Licensing.md)
 
 Description
@@ -82,14 +85,14 @@ Registry](https://github.com/NIC-Federal/myfda/blob/master/docs/Technology%20Reg
 which enabled the team to develop a scalable framework to ensure that future capabilities could 
 easily be added to the prototype (Play 8).  Some of the notable technology aspects of the prototype include:
 
-•	The frontend UI was implemented as a single page Ember.js application
-•	The backend was implemented using Java and Spring
-•	MyFDA offers its own Level 5 REST API to the frontend components
-•	A style guide was created and evolved throughout the project
-•	Changes to the master branch in GitHub trigger a build and deploy using Jenkins
-•	The application is packaged as a runnable Docker image for ease of deployment and portability
-•	Deployed prototype to Amazon Web Services and used Amazon EC2 and Amazon ELB (Play 9)
-•	Established a DevOps process that supports both [continuous integration](https://github.com/NIC-Federal/myfda/blob/master/docs/DevOps.md#continuous-integration) and [continuous deployment](https://github.com/NIC-Federal/myfda/blob/master/docs/DevOps.md#continuous-delivery) (Play 10)
+* The frontend UI was implemented as a single page Ember.js application
+* The backend was implemented using Java and Spring
+* MyFDA offers its own Level 5 REST API to the frontend components
+* A style guide was created and evolved throughout the project
+* Changes to the master branch in GitHub trigger a build and deploy using Jenkins
+* The application is packaged as a runnable Docker image for ease of deployment and portability
+* Deployed prototype to Amazon Web Services and used Amazon EC2 and Amazon ELB (Play 9)
+* Established a DevOps process that supports both [continuous integration](https://github.com/NIC-Federal/myfda/blob/master/docs/DevOps.md#continuous-integration) and [continuous deployment](https://github.com/NIC-Federal/myfda/blob/master/docs/DevOps.md#continuous-delivery) (Play 10)
 
 NIC integrated a security engineer onto the agile team, and implemented a comprehensive security strategy 
 which included secure technologies, coding, deployment, DevOps tools, and security scanning.  
@@ -100,6 +103,9 @@ The continuous monitoring system was provisioned using OSSEC, Logstash, ElasticS
 At the conclusion of the allotted performance period, NIC delivered a tested and scalable open source 
 MyFDA prototype that provides rich functionality and an achievable roadmap of future features that will 
 extend user-driven functionality (Play 13).
+
+Project Documentation
+---------------------
 
 Detailed project documentation and artifacts can be found in the GitHub repository at:
 
@@ -112,8 +118,8 @@ Criteria
 | :------- | :----------- | :------------- |
 | a. | Assigned product manager as one, accountable leader. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Project%20Team.md), [2](https://raw.githubusercontent.com/NIC-Federal/myfda/master/docs/Project%20Team/leadership_evidence.jpg) |
 | b. | Multidisciplinary team with 12 of 13 labor categories | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Project%20Team.md), [2](https://raw.githubusercontent.com/NIC-Federal/myfda/master/docs/Project%20Team/evidence_multidiscipline.jpg) |
-| c. | Kept focused on the user throughout the entire project | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Research.md), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [4](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf), [5]((https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Survey%201.pdf) |
-| d. | Six human-centered design techniques:  User research, user personas, user surveying, usability interviews, heuristic reviews, accessibility testing. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Research.md), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/UserPersonas.pdf), [4](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Survey%201.pdf), [5](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [6](ttps://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf), [7](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Heuristic%20Review%20Summary.md), [8](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Section508_MyFDA_CynthiaSays_Results.pdf) |
+| c. | Kept focused on the user throughout the entire project | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Research.md), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [4](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf), [5](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Survey%201.pdf) |
+| d. | Six human-centered design techniques:  User research, user personas, user surveying, usability interviews, heuristic reviews, accessibility testing. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Research.md), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/UserPersonas.pdf), [4](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Survey%201.pdf), [5](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [6](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf), [7](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Heuristic%20Review%20Summary.md), [8](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Section508_MyFDA_CynthiaSays_Results.pdf) |
 | e. | Created style guide for project and used Bootstrap as responsive design pattern. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md#responsive-design), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/Style%20Guidelines.md), [3](https://myfda.egov.com/#/style-guide) |
 | f. | Ran usability testing multiple times during the project. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf) |
 | g. | Used Scrumban as the project management methodology. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Project%20Management.md), [2](https://raw.githubusercontent.com/NIC-Federal/myfda/master/docs/Project%20Management/velocity_chart.PNG) |

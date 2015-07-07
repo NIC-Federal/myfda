@@ -1,4 +1,5 @@
-Project Name:  MyFDA
+MyFDA Prototype
+===============
 
 Prototype URL: https://myfda.egov.com
 
@@ -97,7 +98,7 @@ easily be added to the prototype (Play 8).  Some of the notable technology aspec
 NIC integrated a security engineer onto the agile team, and implemented a comprehensive security strategy 
 which included secure technologies, coding, deployment, DevOps tools, and security scanning.  
 Additionally, a [continuous security monitoring](https://github.com/NIC-Federal/myfda/blob/master/docs/Security.md) program was developed to enhance our baseline security 
-posture and address emerging risk on a continuous basis and throughout the product’s lifecycle (Play 11).  
+posture and address emerging risk on a continuous basis and throughout the product’s lifecycle (Play 11). 
 The continuous monitoring system was provisioned using OSSEC, Logstash, ElasticSearch, and Kibana.
 
 At the conclusion of the allotted performance period, NIC delivered a tested and scalable open source 
@@ -117,8 +118,8 @@ Criteria
 | Criteria | NIC Approach | Evidence Links |
 | :------- | :----------- | :------------- |
 | a. | Assigned product manager as one, accountable leader. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Project%20Team.md), [2](https://raw.githubusercontent.com/NIC-Federal/myfda/master/docs/Project%20Team/leadership_evidence.jpg) |
-| b. | Multidisciplinary team with 12 of 13 labor categories | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Project%20Team.md), [2](https://raw.githubusercontent.com/NIC-Federal/myfda/master/docs/Project%20Team/evidence_multidiscipline.jpg) |
-| c. | Kept focused on the user throughout the entire project | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Research.md), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [4](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf), [5](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Survey%201.pdf) |
+| b. | Multidisciplinary team with 12 of 13 labor categories. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Project%20Team.md), [2](https://raw.githubusercontent.com/NIC-Federal/myfda/master/docs/Project%20Team/evidence_multidiscipline.jpg) |
+| c. | Kept focused on the user throughout the entire project. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Research.md), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [4](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf), [5](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Survey%201.pdf) |
 | d. | Six human-centered design techniques:  User research, user personas, user surveying, usability interviews, heuristic reviews, accessibility testing. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Research.md), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/UserPersonas.pdf), [4](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/User%20Survey%201.pdf), [5](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [6](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf), [7](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Heuristic%20Review%20Summary.md), [8](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Section508_MyFDA_CynthiaSays_Results.pdf) |
 | e. | Created style guide for project and used Bootstrap as responsive design pattern. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design.md#responsive-design), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/Style%20Guidelines.md), [3](https://myfda.egov.com/#/style-guide) |
 | f. | Ran usability testing multiple times during the project. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/MyFDA_UsabilityTestingResults.pdf) |
@@ -131,6 +132,6 @@ Criteria
 | m. | All configuration was controlled by the source control system. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/DevOps.md#configuration-management), [2](https://github.com/NIC-Federal/myfda/tree/master/jenkins/myfda), [3](https://github.com/NIC-Federal/myfda/blob/master/docker-build.sh), [4](https://github.com/NIC-Federal/myfda/tree/master/jenkins/myfda-deploy) |
 | n. | Implemented continuous availability and security monitoring. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Security.md#continuous-security-monitoring), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/DevOps/Cloud_Architecture_Diagram.png), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/DevOps.md#continuous-monitoring) |
 | o. | Selected Docker as virtualization container and registered with Docker Hub. | [1](https://registry.hub.docker.com/u/nicfederal/myfda/), [2](https://github.com/NIC-Federal/myfda/blob/master/docker-build.sh), [3](https://github.com/NIC-Federal/myfda/blob/master/Dockerfile), [4](https://github.com/NIC-Federal/myfda/blob/master/docs/Install%20Guide.md) |
-| p. | Included "install.md" and an Install Guide for developers | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Install%20Guide.md), [2](https://github.com/NIC-Federal/myfda/blob/master/INSTALL.md) |
+| p. | Included "install.md" and an Install Guide for developers. | [1](https://github.com/NIC-Federal/myfda/blob/master/docs/Install%20Guide.md), [2](https://github.com/NIC-Federal/myfda/blob/master/INSTALL.md) |
 | q. | Used technologies which are openly licensed and free of charge. | [1](https://github.com/NIC-Federal/myfda/blob/master/LICENSE), [2](https://github.com/NIC-Federal/myfda/blob/master/docs/Licensing.md), [3](https://github.com/NIC-Federal/myfda/blob/master/docs/Technology%20Registry.md) |
 

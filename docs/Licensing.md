@@ -11,6 +11,7 @@ Apache 2.0
 ----------
 
 Copyright 2015 NIC Federal, LLC (d/b/a NIC Technologies, LLC)
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -25,6 +26,7 @@ limitations under the License.
 
 Dependency Licensing
 --------------------
+
 Dependencies are licensed under a variety of open source licensing schemes.  These dependencies will be 
 retrieved during the build process and in retrieving them you are agreeing to the terms of those user 
 licenses.  Likewise, download and utilization of the Docker images created for the MyFDA requires you to 

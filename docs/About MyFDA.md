@@ -12,7 +12,7 @@ Background
 The GSA released an RFQ for Agile Delivery Services asking bidders to provide Agile design and 
 development services to the 18F group within the GSA.  As part of this RFQ, GSA has asked bidders 
 to use agile delivery to produce a functioning prototype application, which utilizes at a minimum,
-the openFDA API as a source of data.  As part of its proposal, NIC Federal, LLC (formerly named NIC 
+the openFDA API as a source of data.  As part of its proposal, NIC Federal, LLC (d/b/a NIC 
 Technologies, LLC) herein NIC, a leader in providing digital services to government developed the 
 MyFDA prototype to demonstrate the potential uses of this data.  This prototype was developed over 
 an eight day period with an agile team staffed with experienced technology and design resources.

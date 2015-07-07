@@ -16,7 +16,7 @@ can begin:
   * Windows : http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
   * Linux : http://openjdk.java.net/install/
 * Apache Maven 3.3.3 : https://maven.apache.org/download.cgi
-* Git 2.4.5 : https://git-scm.com/downloads
+* Git 2.4.5 : https://git-scm.com/downloads (git must be in your path for the project to build on Windows)
 
 The MyFDA development team uses Ubuntu and Mac OS X primarily but Windows is supported.  Below are 
 instructions for building, installing, and running the MyFDA prototype.

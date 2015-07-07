@@ -50,8 +50,8 @@ Scrumban, a proven [agile approach](docs/Project%20Management.md) currently leve
 using Scrumban, the team leveraged the prescriptive nature of Scrum to remain agile and the flow of Kanban 
 to quickly address user feedback and shifting priorities.
 
-Armed with the overall vision and persona stories, the team quickly set out to generate [epics and user 
-stories] to populate the backlog.  The team followed up with a product planning session, using story 
+Armed with the overall vision and persona stories, the team quickly set out to generate [epics and user stories](https://github.com/NIC-Federal/myfda/raw/master/docs/User-Centered%20Design/epics_stories.jpg) 
+to populate the backlog.  The team followed up with a product planning session, using story 
 points and business value to shape an MVP with the greatest ROI.  The design team quickly built a set of 
 [wireframes](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Final_Wireframes.pdf) 
 demonstrating the priority features and conducted [small group usability testing using those wireframes](https://github.com/NIC-Federal/myfda/blob/master/docs/User-Centered%20Design/Usability%20Testing%20Summary%201.md), 
